@@ -49,8 +49,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDMCCom\CdmCliComNs.csproj">
-      <Project>{e0d22a83-0353-4144-a5e6-6df33409d47e}</Project>
+    <ProjectReference Include="..\CDMservers\CdmCliComNs\CdmCliComNs.csproj">
+      <Project>{1777150a-db06-434f-9418-bc7d805b4b6c}</Project>
       <Name>CdmCliComNs</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">

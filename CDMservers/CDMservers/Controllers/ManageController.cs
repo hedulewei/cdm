@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Data.Entity.Validation;
+using System.Reflection;
+using System.Web.UI.WebControls;
+using CDMservers.Models;
 using Common;
 using DataService;
 using log4net;
@@ -8,12 +11,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace CDMservers.Controllers
 {
     public class ManageController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+     
         [Route("RetrieveCorporateInfo")]
         [HttpPost]
         public ResultModel RetrieveCorporateInfo([FromBody] BusinessModel param)

@@ -5,6 +5,67 @@ using System.Text;
 
 namespace Common
 {
+    public enum VoiceType {Fee,Reject}
+    public enum LedMsgType { Processing, Reject ,Done}
+    public enum CountyCode { HaiYang, FuShan,QiXia }
+   
+    public enum ClientType { Voice, Led }
+    public class CdmMessage
+    {
+        public CdmMessage()
+        {
+            CountyCode = string.Empty;
+            ClientType= ClientType.Led;
+        }
+        public string CountyCode { get; set; }
+        public ClientType ClientType { get; set; }
+        public VoiceType VoiceType { get; set; }
+        public LedMsgType LedMsgType { get; set; }
+        public string Content { get; set; }
+
+    }
+    public class CdmClient
+    {
+        public CdmClient()
+        {
+            ConnectId = string.Empty;
+        }
+        public string ConnectId { get; set; }
+        public string CountyCode { get; set; }
+        public ClientType ClientType { get; set; }
+    }
+
+    public enum UserRole { Audit, Accept, Pay, Certificate }
+    public enum UserTransactionType { Add, Update, GetUserList, Disable,ResetPass }
+    public enum AuthorityLevel { Ordinary, CountyMagistrate, Administrator }
+    public class UserTransaction
+    {
+        public UserTransactionType UserTransactionType { get; set; }
+       
+        public PoliceUser UserInfo { get; set; }
+    }
+    public class PoliceUser
+    {
+        public AuthorityLevel AuthorityLevel { get; set; }
+        public string RealName { get; set; }
+        public string UserName { get; set; }
+        public string PoliceCode { get; set; }
+        public string Password { get; set; }
+        public string CountyCode { get; set; }
+        public UserRole UserRole { get; set; }
+        public string Notation { get; set; }
+        public Dictionary<string,bool> Permission { get; set; }
+    }
+    public class SimpleResult
+    {
+        public SimpleResult()
+        {
+            Users = new List<PoliceUser>();
+        }
+        public string StatusCode { get; set; }
+        public string Content { get; set; }
+        public List<PoliceUser> Users { get; set; }
+    }
     public class OrdinalInput
     {
         public string countyCode { get; set; }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 using CDMservers.Models;
@@ -32,7 +33,6 @@ namespace CDMservers.Controllers
         {
             try
             {
-                //var param = JsonConvert.DeserializeObject<BusinessModel>(paramin);
                 InputLog(param);
                 var ret = new BUSSINESS();
                 using (var cd = new CityData())
@@ -74,7 +74,7 @@ namespace CDMservers.Controllers
 
         [Route("PostBusinessFormInfo")]
         [HttpPost]
-        public ResultModel PostBusinessFormInfo([FromBody] BusinessModel param)
+        public async Task<ResultModel> PostBusinessFormInfo([FromBody] BusinessModel param)
         {
             try
             {
@@ -96,13 +96,38 @@ namespace CDMservers.Controllers
                 Log.Info("file name=" + filename);
                 File.WriteAllBytes(filename, param.zipFile);
 
-                using (var cd=new CityData())
+                switch (param.countyCode)
                 {
-                    cd.BUSSINESS.Add(new BUSSINESS{ID=id,UNLOAD_TASK_NUM = param.unloadTaskNum,START_TIME =scurrentdate, STATUS = param.status,TYPE=param.type,NAME=param.name,ID_NUM=param.IDum,QUEUE_NUM=param.queueNum,ADDRESS=param.address,PHONE_NUM=param.phoneNum,ATTENTION=param.attention});
-                    cd.SaveChanges();
-                   
+                    case "haiyang":
+                        using (var cd = new Business())
+                        {
+                            cd.Haiyangbusiness.Add(new haiyangbusiness{ ID = id, COUNTYCODE = param.countyCode, UNLOAD_TASK_NUM = param.unloadTaskNum, START_TIME = scurrentdate, STATUS = param.status, TYPE = param.type, NAME = param.name, ID_NUM = param.IDum, QUEUE_NUM = param.queueNum, ADDRESS = param.address, PHONE_NUM = param.phoneNum, ATTENTION = param.attention });
+                            cd.SaveChanges();
+                        }
+                        break;
+                    case "fushan":
+                        using (var cd = new Business())
+                        {
+                            cd.Fushanbusiness.Add(new fushanbusiness { ID = id, COUNTYCODE = param.countyCode, UNLOAD_TASK_NUM = param.unloadTaskNum, START_TIME = scurrentdate, STATUS = param.status, TYPE = param.type, NAME = param.name, ID_NUM = param.IDum, QUEUE_NUM = param.queueNum, ADDRESS = param.address, PHONE_NUM = param.phoneNum, ATTENTION = param.attention });
+                            cd.SaveChanges();
+                        }
+                        break;
+                    default:
+                        using (var cd = new Business())
+                        {
+                            cd.Bussiness.Add(new BUSSINESS { ID = id, COUNTYCODE = param.countyCode, UNLOAD_TASK_NUM = param.unloadTaskNum, START_TIME = scurrentdate, STATUS = param.status, TYPE = param.type, NAME = param.name, ID_NUM = param.IDum, QUEUE_NUM = param.queueNum, ADDRESS = param.address, PHONE_NUM = param.phoneNum, ATTENTION = param.attention });
+                            cd.SaveChanges();
+                        }
+                        break;
                 }
-               // _citydb
+               
+                await MessagePush.PushVoiceMessage(new CdmMessage
+                {
+                    ClientType = ClientType.Voice,
+                    Content = param.queueNum,
+                    CountyCode = param.countyCode,
+                    VoiceType = VoiceType.Fee
+                });
                 return new ResultModel { statusCode =  "000000", bussinessModel = new BusinessModel ()};
             }
             catch (DbEntityValidationException e)
