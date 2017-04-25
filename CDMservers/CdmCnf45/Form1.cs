@@ -119,7 +119,7 @@ namespace CdmCnf45
                 Type type = Type.GetTypeFromProgID("SAPI.SpVoice");
 
                 dynamic spVoice = Activator.CreateInstance(type);
-                var voice = string.Empty;
+                string voice;
                 switch (mcc.VoiceType)
                 {
                     case VoiceType.Fee:
@@ -132,6 +132,8 @@ namespace CdmCnf45
 
                 spVoice.Speak(voice);
                 richTextBox1.AppendText(Environment.NewLine + voice);
+                Thread.Sleep(1000*60*2);
+                spVoice.Speak(voice);
             }
             catch (Exception ex)
             {

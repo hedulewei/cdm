@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Messaging;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -124,7 +125,7 @@ namespace CdmLedC
                 );
 
                 BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("signalr 查询: {0}", "HubProxy.On ok") });
-                connectSignalr();
+                ConnectSignalr();
                 Thread.Sleep(1000 * 60 * 1);
             } while (!IsSignalrConnected);
             do
@@ -134,7 +135,7 @@ namespace CdmLedC
                     if (Connection.State.Equals(Microsoft.AspNet.SignalR.Client.ConnectionState.Disconnected))
                     {
                         BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("CheckSignalr disconnected, reconnecting:{0}", textBoxserver.Text) });
-                        connectSignalr();
+                        ConnectSignalr();
                     }
                     else
                     {
@@ -151,7 +152,7 @@ namespace CdmLedC
             } while (true);
             // ReSharper disable once FunctionNeverReturns
         }
-        private async void connectSignalr()
+        private async void ConnectSignalr()
         {
             try
             {
@@ -230,6 +231,19 @@ namespace CdmLedC
         private async void buttondonetest_Click(object sender, EventArgs e)
         {
             await HubProxy.Invoke("LedMessage", new CdmMessage { CountyCode = textBoxcounty.Text, ClientType = ClientType.Led, Content = "30006", LedMsgType = LedMsgType.Done });
+        }
+
+        private void buttonsometest_Click(object sender, EventArgs e)
+        {
+//            using System.Security;
+//using System.Security.Cryptography;
+
+MD5 md5 = new MD5CryptoServiceProvider();
+byte[] palindata = Encoding.Default.GetBytes(textBoxpass.Text);//将要加密的字符串转换为字节数组
+byte[] encryptdata=md5.ComputeHash(palindata);//将字符串加密后也转换为字符数组
+var miText = Convert.ToBase64String(encryptdata);//将加密后的字节数组转换为加密字符串
+richTextBoxLog.AppendText(Environment.NewLine+"ciphertext:"+miText+miText.Length);
+            
         }
     }
 }

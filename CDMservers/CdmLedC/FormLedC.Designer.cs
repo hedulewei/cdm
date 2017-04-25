@@ -43,6 +43,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxserver = new System.Windows.Forms.TextBox();
             this.buttonlogin = new System.Windows.Forms.Button();
+            this.buttonsometest = new System.Windows.Forms.Button();
+            this.textBoxpass = new System.Windows.Forms.TextBox();
             this.groupBoxvoiceconfig.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +70,7 @@
             this.groupBoxvoiceconfig.Controls.Add(this.textBoxprocessing);
             this.groupBoxvoiceconfig.Location = new System.Drawing.Point(15, 51);
             this.groupBoxvoiceconfig.Name = "groupBoxvoiceconfig";
-            this.groupBoxvoiceconfig.Size = new System.Drawing.Size(813, 187);
+            this.groupBoxvoiceconfig.Size = new System.Drawing.Size(703, 187);
             this.groupBoxvoiceconfig.TabIndex = 8;
             this.groupBoxvoiceconfig.TabStop = false;
             this.groupBoxvoiceconfig.Text = "voice config";
@@ -188,18 +190,37 @@
             this.buttonlogin.UseVisualStyleBackColor = true;
             this.buttonlogin.Click += new System.EventHandler(this.buttonlogin_Click);
             // 
+            // buttonsometest
+            // 
+            this.buttonsometest.Location = new System.Drawing.Point(429, 244);
+            this.buttonsometest.Name = "buttonsometest";
+            this.buttonsometest.Size = new System.Drawing.Size(120, 23);
+            this.buttonsometest.TabIndex = 11;
+            this.buttonsometest.Text = "test";
+            this.buttonsometest.UseVisualStyleBackColor = true;
+            this.buttonsometest.Click += new System.EventHandler(this.buttonsometest_Click);
+            // 
+            // textBoxpass
+            // 
+            this.textBoxpass.Location = new System.Drawing.Point(103, 244);
+            this.textBoxpass.Name = "textBoxpass";
+            this.textBoxpass.Size = new System.Drawing.Size(238, 21);
+            this.textBoxpass.TabIndex = 11;
+            // 
             // FormLedC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(969, 473);
+            this.ClientSize = new System.Drawing.Size(731, 473);
+            this.Controls.Add(this.textBoxpass);
+            this.Controls.Add(this.buttonsometest);
             this.Controls.Add(this.groupBoxvoiceconfig);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxserver);
             this.Controls.Add(this.buttonlogin);
             this.Controls.Add(this.richTextBoxLog);
             this.Name = "FormLedC";
-            this.Text = "Form1";
+            this.Text = "Form Led Message";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBoxvoiceconfig.ResumeLayout(false);
             this.groupBoxvoiceconfig.PerformLayout();
@@ -225,6 +246,8 @@
         private System.Windows.Forms.Button buttonlogin;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxcounty;
+        private System.Windows.Forms.Button buttonsometest;
+        private System.Windows.Forms.TextBox textBoxpass;
     }
 }
 

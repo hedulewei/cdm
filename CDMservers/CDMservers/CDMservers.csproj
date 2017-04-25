@@ -259,6 +259,7 @@
     <Compile Include="Models\POPULATION.cs" />
     <Compile Include="Models\UserDbc.cs" />
     <Compile Include="Models\USERS.cs" />
+    <Compile Include="PermissionCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="startup.cs" />
   </ItemGroup>
