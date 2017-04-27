@@ -45,6 +45,11 @@
             this.textBoxtype = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxcountcode = new System.Windows.Forms.TextBox();
+            this.buttonstuff = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxdatavolume = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxordinal = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonstart
@@ -65,6 +70,7 @@
             this.buttonstop.TabIndex = 1;
             this.buttonstop.Text = "stop";
             this.buttonstop.UseVisualStyleBackColor = true;
+            this.buttonstop.Click += new System.EventHandler(this.buttonstop_Click);
             // 
             // comboBoxmethods
             // 
@@ -84,9 +90,9 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 228);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 282);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(652, 261);
+            this.richTextBox1.Size = new System.Drawing.Size(652, 207);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
@@ -193,11 +199,60 @@
             this.textBoxcountcode.TabIndex = 15;
             this.textBoxcountcode.Text = "haiyang";
             // 
+            // buttonstuff
+            // 
+            this.buttonstuff.Location = new System.Drawing.Point(496, 124);
+            this.buttonstuff.Name = "buttonstuff";
+            this.buttonstuff.Size = new System.Drawing.Size(136, 23);
+            this.buttonstuff.TabIndex = 17;
+            this.buttonstuff.Text = "stuff data";
+            this.buttonstuff.UseVisualStyleBackColor = true;
+            this.buttonstuff.Click += new System.EventHandler(this.buttonstuff_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 210);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(71, 12);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "data volume";
+            // 
+            // textBoxdatavolume
+            // 
+            this.textBoxdatavolume.Location = new System.Drawing.Point(172, 207);
+            this.textBoxdatavolume.Name = "textBoxdatavolume";
+            this.textBoxdatavolume.Size = new System.Drawing.Size(199, 21);
+            this.textBoxdatavolume.TabIndex = 18;
+            this.textBoxdatavolume.Text = "100000";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 237);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(83, 12);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "start ordinal";
+            // 
+            // textBoxordinal
+            // 
+            this.textBoxordinal.Location = new System.Drawing.Point(172, 234);
+            this.textBoxordinal.Name = "textBoxordinal";
+            this.textBoxordinal.Size = new System.Drawing.Size(199, 21);
+            this.textBoxordinal.TabIndex = 20;
+            this.textBoxordinal.Text = "45286";
+            // 
             // Formtest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(676, 501);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBoxordinal);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBoxdatavolume);
+            this.Controls.Add(this.buttonstuff);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxcountcode);
             this.Controls.Add(this.label6);
@@ -242,6 +297,11 @@
         private System.Windows.Forms.TextBox textBoxtype;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxcountcode;
+        private System.Windows.Forms.Button buttonstuff;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxdatavolume;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxordinal;
     }
 }
 

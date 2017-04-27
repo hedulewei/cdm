@@ -23,7 +23,17 @@ namespace Stress_and_Performance_Testing
         public Formtest()
         {
             InitializeComponent();
-            comboBoxmethods.Items.Add("PostBusinessFormInfo");
+            comboBoxmethods.Items.Add("PostBusinessFormInfo");// 
+            comboBoxmethods.Items.Add("GetBusinessInfoByOdc");
+            comboBoxmethods.Items.Add("dueAndChangeCertification");
+            comboBoxmethods.Items.Add("generalChangeCertification");
+            comboBoxmethods.Items.Add("RetrieveCorporateInfo");
+
+            comboBoxmethods.Items.Add("SendCorporateInfo");
+            comboBoxmethods.Items.Add("RetrieveCellPhoneNumber");
+            comboBoxmethods.Items.Add("SendIdentityCardInfo");
+            comboBoxmethods.Items.Add("GET_QUEUE_NUM");
+          //  comboBoxmethods.Items.Add("GET_VERSION");
             comboBoxmethods.SelectedIndex = 0;
         }
 
@@ -32,11 +42,13 @@ namespace Stress_and_Performance_Testing
             var threadcount = int.Parse(textBoxthreadcount.Text);
 
             richTextBox1.AppendText(Environment.NewLine + "test starting..." + threadcount);
+            var Volume = int.Parse(textBoxeachthreadvolume.Text);
+             var ordinal = int.Parse(textBoxordinal.Text);
             for (int i = 0; i < threadcount; i++)
             {
             //    Thread.Sleep(1000 * 60 * 1);
                 _ttt = new Thread(OneThread);
-                _ttt.Start(new Threadparam{Method = comboBoxmethods.Text,Volume=int.Parse(textBoxeachthreadvolume.Text),Ordinal = i,
+                _ttt.Start(new Threadparam{Method = comboBoxmethods.Text,Volume=int.Parse(textBoxeachthreadvolume.Text),Ordinal = i*Volume+ordinal,
                     UserName=textBoxusername.Text,
                     Type=int.Parse(textBoxtype.Text),
                     CountyCode=textBoxcountcode.Text,
@@ -83,15 +95,16 @@ namespace Stress_and_Performance_Testing
                     watch.Start();
                     switch (method)
                     {
-                        case "PostBusinessFormInfo":
+                        case "GetBusinessInfoByOdc":
                             param =
                                 JsonConvert.SerializeObject(new BusinessModel
                                 {
+                                    unloadTaskNum =( paramb.Ordinal+i).ToString(),
                                     businessCategory = "HE",
-                                    userName=paramb.UserName,
-                                    countyCode=paramb.CountyCode,
-                                    queueNum="50010",
-                                    type=paramb.Type,
+                                    userName = paramb.UserName,
+                                    countyCode = paramb.CountyCode,
+                                    queueNum = "50010",
+                                    type = paramb.Type,
                                     address = "wolong"
                                 });
                             var ret = aa.SendRestHttpClientRequest(homeurl, method, param);
@@ -103,6 +116,35 @@ namespace Stress_and_Performance_Testing
                                     method, paramb.Ordinal, 
                                    // ret, //url={4}
                                     JsonConvert.DeserializeObject<ResultModel>(ret).statusCode,
+                                    watch.ElapsedMilliseconds,homeurl)
+                            });
+                            //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
+                            //{
+                            //    string.Format("{0} transaction, elapsed time {3} milliseconds, input:{1},output:{2}",
+                            //        method, param, ret, watch.ElapsedMilliseconds)
+                            //});
+                            break;
+                        case "PostBusinessFormInfo":
+                            param =
+                                JsonConvert.SerializeObject(new BusinessModel
+                                {
+                                    businessCategory = "HE",
+                                    userName = paramb.UserName,
+                                    countyCode = paramb.CountyCode,
+                                    queueNum = "50010",
+                                    type = paramb.Type,
+                                    checkFile = paramb.Ordinal+i,
+                                    address = "wolong"
+                                });
+                            var bb = aa.SendRestHttpClientRequest(homeurl, method, param);
+                            //  richTextBox1.AppendText(Environment.NewLine + "输入：" + param + "     输出:" + aa.SendRestHttpClientRequest(homeurl, method, param));
+                            watch.Stop();
+                            BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
+                            {
+                                string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,",
+                                    method, paramb.Ordinal, 
+                                   // ret, //url={4}
+                                    JsonConvert.DeserializeObject<ResultModel>(bb).statusCode,
                                     watch.ElapsedMilliseconds,homeurl)
                             });
                             //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
@@ -145,7 +187,7 @@ namespace Stress_and_Performance_Testing
                             break;
                         default:
                             BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
-                                new object[] { string.Format("no this method" + comboBoxmethods.Text) });
+                                new object[] { string.Format("no this method, " + method) });
                             break;
                     }
                 }
@@ -160,6 +202,137 @@ namespace Stress_and_Performance_Testing
         private void Formtest_FormClosing(object sender, FormClosingEventArgs e)
         {
             Process.GetCurrentProcess().Kill();
+        }
+
+        private void buttonstuff_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var threadcount = int.Parse(textBoxthreadcount.Text);
+                var ordinal = int.Parse(textBoxordinal.Text);
+                var Volume = int.Parse(textBoxeachthreadvolume.Text);
+                richTextBox1.AppendText(Environment.NewLine + "test starting..." + threadcount);
+                for (int i = 0; i < threadcount; i++)
+                {
+                    _ttt = new Thread(StuffThread);
+                    _ttt.Start(new Threadparam
+                    {
+                        Method = comboBoxmethods.Text,
+                        Volume = Volume,
+                        Ordinal = i*Volume+ordinal,
+                        UserName = textBoxusername.Text,
+                        Type = int.Parse(textBoxtype.Text),
+                        CountyCode = textBoxcountcode.Text,
+                        Server = textBoxurl.Text
+                    });
+                }
+              
+            }
+            catch (Exception ex)
+            {
+                richTextBox1.AppendText(Environment.NewLine+ex);
+            }
+        }
+
+        private void StuffThread(object obj)
+        {
+            try
+            {
+                var input = (Threadparam)obj;
+                var stop = new Stopwatch();
+                stop.Start();
+              //  var volume = int.Parse(textBoxdatavolume.Text);
+                using (var db = new Model1())
+                {
+                    for (int i = 0; i < input.Volume; i++)
+                    {
+                        db.fushanbusiness.Add(new fushanbusiness
+                        {
+                            COUNTYCODE = "fushan",
+                            ID = i+input.Ordinal,
+                            TYPE = i + input.Ordinal,
+                            START_TIME = "2011-1-1",
+                            PROCESS_USER = input.UserName,
+                            UNLOAD_TASK_NUM = (i + input.Ordinal).ToString(),
+                            STATUS = 1,
+                            QUEUE_NUM = (i + input.Ordinal).ToString(),
+
+                        });
+                        db.SaveChangesAsync();
+                    }
+
+                }
+                stop.Stop();
+                BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
+                              new object[] { string.Format("{1} data inserted, elapsed time:{0}",stop.ElapsedMilliseconds,input.Volume) });
+            }
+            catch (Exception ex)
+            {
+                BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
+                              new object[] { string.Format("StuffThread, some error occurred,{0}", ex.Message) });
+            }
+        }
+
+        private void buttonstop_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var threadcount = int.Parse(textBoxthreadcount.Text);
+                var ordinal = int.Parse(textBoxordinal.Text);
+                var Volume = int.Parse(textBoxeachthreadvolume.Text);
+                richTextBox1.AppendText(Environment.NewLine + "test starting..." + threadcount);
+                for (int i = 0; i < threadcount; i++)
+                {
+                    _ttt = new Thread(StopThread);
+                    _ttt.Start(new Threadparam
+                    {
+                        Method = comboBoxmethods.Text,
+                        Volume = Volume,
+                        Ordinal = i * Volume + ordinal,
+                        UserName = textBoxusername.Text,
+                        Type = int.Parse(textBoxtype.Text),
+                        CountyCode = textBoxcountcode.Text,
+                        Server = textBoxurl.Text
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                richTextBox1.AppendText(Environment.NewLine + ex);
+            }
+        }
+
+        private void StopThread(object obj)
+        {
+            try
+            {
+                var input = (Threadparam)obj;
+                var stop = new Stopwatch();
+                stop.Start();
+                //  var volume = int.Parse(textBoxdatavolume.Text);
+                using (var db = new Model1())
+                {
+                    var datasets =
+                        db.fushanbusiness.Where(a => a.ID >= input.Ordinal && a.ID < input.Ordinal + input.Volume);
+                    foreach (fushanbusiness dataset in datasets)
+                    {
+                        dataset.UNLOAD_TASK_NUM = dataset.ID.ToString();
+
+                    }
+                  
+                        db.SaveChangesAsync();
+
+                }
+                stop.Stop();
+                BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
+                              new object[] { string.Format("{1} data update, elapsed time:{0}", stop.ElapsedMilliseconds, input.Volume) });
+            }
+            catch (Exception ex)
+            {
+                BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
+                              new object[] { string.Format("StuffThread, some error occurred,{0}", ex.Message) });
+            }
         }
     }
 }
