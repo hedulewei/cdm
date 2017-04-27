@@ -15,11 +15,6 @@ namespace CDMservers.Controllers
     public class ValuesController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        //private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().DeclaringType);
-        //public FilesController():base()            
-        //{
-
-        //}
         [Route("businessprocess/{param}")]
         [HttpGet]
         public ResultModel BusinessProcess(string param)
@@ -66,8 +61,6 @@ namespace CDMservers.Controllers
                 Log.Error("GetOrdinal", ex);
                 return new ResultModel { statusCode = "000003", result = ex.Message };
             }
-
         }
-
     }
 }

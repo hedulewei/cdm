@@ -52,5 +52,9 @@ namespace CDMservers.Models
         [Required]
         [StringLength(20)]
         public string COUNTYCODE { get; set; }
+
+        [Required]
+        [StringLength(2)]
+        public string AUTHORITYLEVEL { get; set; }
     }
 }

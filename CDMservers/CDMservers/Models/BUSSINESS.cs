@@ -9,28 +9,20 @@ namespace CDMservers.Models
     [Table("CITY.BUSSINESS")]
     public partial class BUSSINESS
     {
-        [Key]
-        [Column(Order = 0)]
         public decimal ID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         public decimal TYPE { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
+        [Required]
         [StringLength(10)]
         public string START_TIME { get; set; }
 
         [StringLength(10)]
         public string END_TIME { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
         public decimal STATUS { get; set; }
 
-        [Key]
-        [Column(Order = 4)]
+        [Required]
         [StringLength(10)]
         public string QUEUE_NUM { get; set; }
 
@@ -71,5 +63,9 @@ namespace CDMservers.Models
 
         [StringLength(20)]
         public string UNLOAD_TASK_NUM { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string COUNTYCODE { get; set; }
     }
 }

@@ -16,10 +16,14 @@ namespace CDMservers.Controllers
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         [System.Web.Http.Route("generalChangeCertification")]
         [System.Web.Http.HttpPost]
-        public ResultModel ccc([FromBody] BusinessModel param)
+        public ResultModel GeneralChangeCertification([FromBody] BusinessModel param)
         {
             try
             {
+                if (!PermissionCheck.Check(param))
+                {
+                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                }
                 InputLog(param);
                 var oo = new OracleOperation();
                 var ret = oo.dueAndChangeCertification(param);
@@ -34,10 +38,14 @@ namespace CDMservers.Controllers
         }
         [Route("dueAndChangeCertification")]
         [HttpPost]
-        public ResultModel dueAndChangeCertification([FromBody] BusinessModel param)
+        public ResultModel DueAndChangeCertification([FromBody] BusinessModel param)
         {
             try
             {
+                if (!PermissionCheck.Check(param))
+                {
+                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                }
                 InputLog(param);
                 var oo = new OracleOperation();
                 var ret = oo.dueAndChangeCertification(param);

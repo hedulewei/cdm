@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Data.Entity.Validation;
+using System.Reflection;
+using System.Web.UI.WebControls;
+using CDMservers.Models;
 using Common;
 using DataService;
 using log4net;
@@ -8,19 +11,24 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace CDMservers.Controllers
 {
     public class ManageController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+     
         [Route("RetrieveCorporateInfo")]
         [HttpPost]
         public ResultModel RetrieveCorporateInfo([FromBody] BusinessModel param)
         {
             try
             {
-                //   InputLog(param);
+                if (!PermissionCheck.Check(param))
+                {
+                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                }
                 var oo = new OracleOperation();
                 Log.Info("RetrieveCorporateInfo 111");
                 var a = oo.RetrieveCorporateInfo(param);
@@ -39,7 +47,10 @@ namespace CDMservers.Controllers
         {
             try
             {
-                //   InputLog(param);
+                if (!PermissionCheck.Check(param))
+                {
+                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                }
                 var oo = new OracleOperation();
                 Log.Info("SendCorporateInfo 111");
                 var a = oo.SendCorporateInfo(param);
@@ -58,7 +69,10 @@ namespace CDMservers.Controllers
         {
             try
             {
-                //   InputLog(param);
+                if (!PermissionCheck.Check(param))
+                {
+                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                }
                 var oo = new OracleOperation();
                 Log.Info("RetrieveCellPhoneNumber 111");
                 var a = oo.RetrieveCellPhoneNumber(param);
@@ -77,7 +91,10 @@ namespace CDMservers.Controllers
         {
             try
             {
-             //   InputLog(param);
+                if (!PermissionCheck.Check(param))
+                {
+                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                }
                 var oo = new OracleOperation();
                 Log.Info("SendIdentityCardInfo 111");
                 var a = oo.SendIdentityCardInfo(param);
@@ -96,6 +113,10 @@ namespace CDMservers.Controllers
         {
             try
             {
+                if (!PermissionCheck.Check(param))
+                {
+                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                }
                 InputLog(param);
                 var oo = new OracleOperation();
                 return new ResultModel { statusCode = "000000", bussinessModel = new BusinessModel { queueNum = oo.GetOrdinal(param).ToString() } };
@@ -118,6 +139,10 @@ namespace CDMservers.Controllers
         {
             try
             {
+                if (!PermissionCheck.Check(param))
+                {
+                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                }
                 Log.Info("GET_VERSION input param:" + param);
                 //   var input = JsonConvert.DeserializeObject<BusinessModel>(param);
                 //  var errDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(param);
@@ -134,7 +159,6 @@ namespace CDMservers.Controllers
                 Log.Error("GET_VERSION", ex);
                 return new ResultModel { statusCode = "000003", result = ex.Message };
             }
-
         }
     }
 }
