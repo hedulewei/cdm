@@ -50,6 +50,9 @@
             this.textBoxdatavolume = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxordinal = new System.Windows.Forms.TextBox();
+            this.buttonfiles = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxsourcefile = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonstart
@@ -90,9 +93,9 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 282);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 314);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(652, 207);
+            this.richTextBox1.Size = new System.Drawing.Size(652, 175);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
@@ -243,11 +246,42 @@
             this.textBoxordinal.TabIndex = 20;
             this.textBoxordinal.Text = "45286";
             // 
+            // buttonfiles
+            // 
+            this.buttonfiles.Location = new System.Drawing.Point(496, 156);
+            this.buttonfiles.Name = "buttonfiles";
+            this.buttonfiles.Size = new System.Drawing.Size(136, 23);
+            this.buttonfiles.TabIndex = 22;
+            this.buttonfiles.Text = "stuff files";
+            this.buttonfiles.UseVisualStyleBackColor = true;
+            this.buttonfiles.Click += new System.EventHandler(this.buttonfiles_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 264);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(71, 12);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "source file";
+            // 
+            // textBoxsourcefile
+            // 
+            this.textBoxsourcefile.Location = new System.Drawing.Point(172, 261);
+            this.textBoxsourcefile.Name = "textBoxsourcefile";
+            this.textBoxsourcefile.Size = new System.Drawing.Size(253, 21);
+            this.textBoxsourcefile.TabIndex = 23;
+            this.textBoxsourcefile.Text = "F:\\tools\\swift-pocket-reference.pdf";
+            this.textBoxsourcefile.TextChanged += new System.EventHandler(this.textBoxsourcefile_TextChanged);
+            // 
             // Formtest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(676, 501);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textBoxsourcefile);
+            this.Controls.Add(this.buttonfiles);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBoxordinal);
             this.Controls.Add(this.label8);
@@ -302,6 +336,9 @@
         private System.Windows.Forms.TextBox textBoxdatavolume;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxordinal;
+        private System.Windows.Forms.Button buttonfiles;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxsourcefile;
     }
 }
 

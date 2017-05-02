@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -112,11 +113,11 @@ namespace Stress_and_Performance_Testing
                             watch.Stop();
                             BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
                             {
-                                string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,",
+                                string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,{4}",
                                     method, paramb.Ordinal, 
                                    // ret, //url={4}
                                     JsonConvert.DeserializeObject<ResultModel>(ret).statusCode,
-                                    watch.ElapsedMilliseconds,homeurl)
+                                    watch.ElapsedMilliseconds,ret.Length)
                             });
                             //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
                             //{
@@ -131,21 +132,24 @@ namespace Stress_and_Performance_Testing
                                     businessCategory = "HE",
                                     userName = paramb.UserName,
                                     countyCode = paramb.CountyCode,
+                                    unloadTaskNum =( paramb.Ordinal + i).ToString(),
                                     queueNum = "50010",
                                     type = paramb.Type,
                                     checkFile = paramb.Ordinal+i,
+                                    zipFile = File.ReadAllBytes(@textBoxsourcefile.Text),
                                     address = "wolong"
                                 });
                             var bb = aa.SendRestHttpClientRequest(homeurl, method, param);
                             //  richTextBox1.AppendText(Environment.NewLine + "输入：" + param + "     输出:" + aa.SendRestHttpClientRequest(homeurl, method, param));
                             watch.Stop();
+                            var theret = JsonConvert.DeserializeObject<ResultModel>(bb);
                             BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
                             {
-                                string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,",
+                                string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,{4}",
                                     method, paramb.Ordinal, 
                                    // ret, //url={4}
-                                    JsonConvert.DeserializeObject<ResultModel>(bb).statusCode,
-                                    watch.ElapsedMilliseconds,homeurl)
+                                    theret.statusCode,
+                                    watch.ElapsedMilliseconds,theret.result)
                             });
                             //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
                             //{
@@ -260,7 +264,6 @@ namespace Stress_and_Performance_Testing
                         });
                         db.SaveChangesAsync();
                     }
-
                 }
                 stop.Stop();
                 BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
@@ -333,6 +336,34 @@ namespace Stress_and_Performance_Testing
                 BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
                               new object[] { string.Format("StuffThread, some error occurred,{0}", ex.Message) });
             }
+        }
+
+        private void buttonfiles_Click(object sender, EventArgs e)
+        {
+            var currentdate = DateTime.Now.Date;
+            var scurrentdate = string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day);
+
+            var filepath = string.Format("{2}{0}\\{1}", textBoxcountcode.Text, scurrentdate, @"d:\\");
+            //    Log.Info("path 11 =" + filepath);
+            if (!Directory.Exists(@filepath))
+            {
+                richTextBox1.AppendText(Environment.NewLine + "path=" + filepath);
+                Directory.CreateDirectory(@filepath);
+            }
+            var start = int.Parse(textBoxordinal.Text);
+            var volume = int.Parse(textBoxdatavolume.Text);
+            var zipFile = File.ReadAllBytes(@textBoxsourcefile.Text);
+            for (int i = start; i < volume; i++)
+            {
+                var filename = string.Format("{0}\\{1}", filepath, i);
+                richTextBox1.AppendText(Environment.NewLine + "file name=" + filename);
+                File.WriteAllBytes(filename, zipFile);
+            }
+        }
+
+        private void textBoxsourcefile_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

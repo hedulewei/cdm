@@ -13,6 +13,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Common;
+using Newtonsoft.Json;
 
 
 namespace CdmCliComNs
@@ -45,6 +47,10 @@ namespace CdmCliComNs
        
         public string SendRestHttpClientRequest(string host, string method, string param)
         {
+            if (param.Length > 1024 * 1024 * 4.2)
+            {
+                return JsonConvert.SerializeObject(new ResultModel { statusCode = "000001", result =string.Format( "压缩图片文件大小{0}不能超过3M ！" ,"")});
+            }
             var url = string.Format("http://{0}/{1}", host, method);
             var srcString = string.Empty;
             try
@@ -52,6 +58,7 @@ namespace CdmCliComNs
                 var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip };
                 using (var http = new HttpClient(handler))
                 {
+                   
                     var content = new StringContent(param);
                     content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
                     var response = http.PostAsync(url, content).Result;
@@ -62,7 +69,8 @@ namespace CdmCliComNs
             }
             catch (Exception ex)
             {
-                return "000001服务url错误," + ex.Message;
+                return JsonConvert.SerializeObject(new ResultModel { statusCode = "000001", result = ex.Message });
+            //    return "000001服务url错误," + ex.Message;
             }
         }
         public string RestHttpClientGet(string host, string method, string param)

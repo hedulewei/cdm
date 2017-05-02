@@ -116,10 +116,18 @@ namespace CDMservers.Controllers
                     statusCode = "000006",
                     result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
                 };
-            var fpath = (@FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-            Log.Info("fpath is:" + fpath);
-            var fcontent = File.ReadAllBytes(@fpath);
-            Log.Info("fcontent is:" + fcontent.Length);
+            var fcontent = new byte[1];
+            try
+            {
+                var fpath = (@FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+                Log.Info("fpath is:" + fpath);
+                 fcontent = File.ReadAllBytes(@fpath);
+                Log.Info("fcontent is:" + fcontent.Length);
+            }
+            catch (Exception ex)
+            {
+                
+            }
             return new ResultModel
             {
                 statusCode = "000000",
@@ -177,21 +185,22 @@ namespace CDMservers.Controllers
                 {
                     return new ResultModel { statusCode = "000007", result = "没有权限" };
                 }
-            //    Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
+              //  Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
 
-                var id = new OracleOperation().GetBusinessId();
+                var id = new OracleOperation().GetBusinessId();//+param.checkFile;//test only
+                Log.Info("path 11 =" + id);
                 var currentdate = DateTime.Now.Date;
                 var scurrentdate = string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day);
 
                 var filepath = string.Format("{2}{0}\\{1}", param.countyCode, scurrentdate, @FileRootPath);
-            //    Log.Info("path 11 =" + filepath);
+             
                 if (!Directory.Exists(@filepath))
                 {
                     Log.Info("path=" + filepath);
                     Directory.CreateDirectory(@filepath);
                 }
                 var filename = string.Format("{0}\\{1}", filepath, id);
-             //   Log.Info("file name=" + filename);
+                Log.Info("file name=" + filename);
                 File.WriteAllBytes(filename, param.zipFile);
 
                 switch (param.countyCode)
