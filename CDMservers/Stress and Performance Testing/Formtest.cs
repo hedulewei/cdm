@@ -363,7 +363,8 @@ namespace Stress_and_Performance_Testing
 
         private void textBoxsourcefile_TextChanged(object sender, EventArgs e)
         {
-
+           
+            richTextBox1.AppendText(Environment.NewLine + string.Format("{0},{1},{2},{3}", (int)'a', (int)'z', (int)'A', (int)'Z'));
         }
     }
 }
