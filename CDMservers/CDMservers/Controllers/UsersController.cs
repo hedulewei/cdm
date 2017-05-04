@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 using CDMservers.Models;
@@ -29,6 +30,37 @@ namespace CDMservers.Controllers
             try
             {
                 Log.Info("UserTransaction input:" + JsonConvert.SerializeObject(param));
+                if (param.UserTransactionType == UserTransactionType.Login)
+                {
+                    using (var userdb = new UserDbc())
+                    {
+                        var theuser =
+                            userdb.USERS.FirstOrDefault(a => a.USERNAME == param.UserName);
+                        if (theuser == null)
+                        {
+                            return new SimpleResult {StatusCode = "000005", Content = "无此用户:" + param.UserName};
+                        }
+                        if (theuser.PASSWORD != CdmEncrypt(param.Password))
+                        {
+                            return new SimpleResult {StatusCode = "000004", Content = "密码错误"};
+                        }
+                        return new SimpleResult
+                        {
+                            StatusCode = "000000",
+                            Content = "ok",
+                            Users =
+                            {
+                                new PoliceUser
+                                {
+                                    AuthorityLevel = (AuthorityLevel) int.Parse(theuser.AUTHORITYLEVEL),
+                                    RealName = theuser.REALNAME,
+                                    PoliceCode = theuser.POLICENUM
+                                }
+                            }
+                        };
+                    }
+                }
+
                 if (!PermissionCheck.Check(param))
                 {
                     return new SimpleResult { StatusCode = "000007", Content = "没有权限" };
@@ -45,11 +77,12 @@ namespace CDMservers.Controllers
                                 AUTHORITYLEVEL = ((int)param.UserInfo.AuthorityLevel).ToString(),
                                 COUNTYCODE = param.UserInfo.CountyCode,
                                 LIMIT = JsonConvert.SerializeObject(param.UserInfo.Permission),
-                                PASSWORD = CdmEncrypt(param.UserInfo.Password),
+                                PASSWORD = CdmEncrypt("888888"),
                                 POLICENUM = param.UserInfo.PoliceCode,
                                 ID = new Random().Next(),
                                 DEPARTMENT = " ff",
                                 POST=param.UserInfo.UserRole.ToString(),
+                                DISABLED = true,
                                USERNAME=param.UserInfo.UserName,
                                 REALNAME=param.UserInfo.RealName,
                             };
@@ -81,7 +114,21 @@ namespace CDMservers.Controllers
                                 return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserInfo.UserName };
                             }
                             theuser.REALNAME = param.UserInfo.RealName;
-                            theuser.LIMIT =JsonConvert.SerializeObject( param.UserInfo.Permission);
+                            theuser.COUNTYCODE = param.UserInfo.CountyCode;
+                            theuser.POST = ((int)param.UserInfo.UserRole).ToString();
+                            userdb.SaveChanges();
+                        }
+                        break;
+                    case UserTransactionType.PermissionUpdate:
+                        using (var userdb = new UserDbc())
+                        {
+                            var theuser =
+                                userdb.USERS.FirstOrDefault(a => a.USERNAME == param.UserInfo.UserName);
+                            if (theuser == null)
+                            {
+                                return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserInfo.UserName };
+                            }
+                            theuser.LIMIT = JsonConvert.SerializeObject(param.UserInfo.Permission);
                             userdb.SaveChanges();
                         }
                         break;
@@ -94,49 +141,67 @@ namespace CDMservers.Controllers
                             {
                                 return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserInfo.UserName };
                             }
-                            theuser.PASSWORD =CdmEncrypt( param.UserInfo.Password);
+                            theuser.PASSWORD = CdmEncrypt("888888");
                             userdb.SaveChanges();
                         }
                         break;
+                    //case UserTransactionType.GetUserList:
+                    //    using (var userdb = new UserDbc())
+                    //    {
+                    //        var theuser =
+                    //            userdb.USERS.Where(a => a.COUNTYCODE == param.UserInfo.CountyCode);
+                    //        userslist.AddRange(theuser.Select(users => new PoliceUser
+                    //        {
+                    //          //  AuthorityLevel = (AuthorityLevel) int.Parse(users.AUTHORITYLEVEL),
+                    //            CountyCode = users.COUNTYCODE,
+                    //            Notation = string.Empty,
+                    //         //   Permission = JsonConvert.DeserializeObject<Dictionary<string, bool>>(users.LIMIT),
+                    //            PoliceCode = users.POLICENUM,
+                    //            RealName = users.REALNAME, 
+                    //            UserName = users.USERNAME,
+                    //          //  UserRole = (UserRole) int.Parse(users.POST)
+                    //        }));
+                    //    }
+
+                    //    return new SimpleResult { StatusCode = "000000", Content = "", Users = userslist };
+                    //    break;
+                    //default:// for test
                     case UserTransactionType.GetUserList:
                         using (var userdb = new UserDbc())
                         {
                             var theuser =
                                 userdb.USERS.Where(a => a.COUNTYCODE == param.UserInfo.CountyCode);
-                            userslist.AddRange(theuser.Select(users => new PoliceUser
+                            foreach (USERS users in theuser)
                             {
-                                AuthorityLevel = (AuthorityLevel) int.Parse(users.AUTHORITYLEVEL),
-                                CountyCode = users.COUNTYCODE,
-                                Notation = string.Empty,
-                                Password = users.PASSWORD,
-                                Permission = JsonConvert.DeserializeObject<Dictionary<string, bool>>(users.LIMIT),
-                                PoliceCode = users.POLICENUM,
-                                RealName = users.REALNAME, 
-                                UserName = users.USERNAME,
-                                UserRole = (UserRole) int.Parse(users.POST)
-                            }));
+                                var pu = new PoliceUser();
+                                Log.InfoFormat("from db:{0}",users.LIMIT);
+                                pu.Permission = JsonConvert.DeserializeObject<Dictionary<string, bool>>(users.LIMIT);
+                                pu.CountyCode = users.COUNTYCODE;
+                                pu.Notation = string.Empty;
+                                pu.PoliceCode = users.POLICENUM;
+                                pu.RealName = users.REALNAME;
+                                pu.UserName = users.USERNAME;
+                                pu.AuthorityLevel = (AuthorityLevel) int.Parse(users.AUTHORITYLEVEL);
+                                userslist.Add(pu);
+                            }
+                            //userslist.AddRange(theuser.Select(users => new PoliceUser
+                            //{
+                            //    //  AuthorityLevel = (AuthorityLevel) int.Parse(users.AUTHORITYLEVEL),
+                            //    CountyCode = users.COUNTYCODE,
+                            //    Notation = string.Empty,
+                            //       Permission = JsonConvert.DeserializeObject<Dictionary<string, bool>>(users.LIMIT),
+                            //    PoliceCode = users.POLICENUM,
+                            //    RealName = users.REALNAME,
+                            //    UserName = users.USERNAME,
+                            //    //  UserRole = (UserRole) int.Parse(users.POST)
+                            //}));
                         }
 
                         return new SimpleResult { StatusCode = "000000", Content = "", Users = userslist };
                         break;
-                    default:
-                        using (var userdb = new UserDbc())
-                        {
-                            var theuser =
-                                userdb.USERS.FirstOrDefault(a => a.USERNAME == param.UserInfo.UserName);
-                            if (theuser == null)
-                            {
-                                return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserInfo.UserName };
-                            }
-                            if(theuser.PASSWORD != CdmEncrypt(param.UserInfo.Password))
-                            {
-                                return new SimpleResult { StatusCode = "000004", Content = "密码错误" };
-                            }
-                        }
-                        break;
                 }
                 Log.Info("before ok----------------");
-                return new SimpleResult { StatusCode = "000000", Content = "ok" };
+                return new SimpleResult { StatusCode = "000000", Content = "ok"};
             }
             catch (DbEntityValidationException e)
             {

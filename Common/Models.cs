@@ -36,7 +36,7 @@ namespace Common
     }
 
     public enum UserRole { Audit, Accept, Pay, Certificate }
-    public enum UserTransactionType { Add, Update, GetUserList, Disable,ResetPass ,Login}
+    public enum UserTransactionType { Add, Update, GetUserList, Disable,ResetPass ,Login,PermissionUpdate}
     public enum AuthorityLevel { Ordinary, CountyMagistrate, Administrator }
     public class UserTransaction
     {

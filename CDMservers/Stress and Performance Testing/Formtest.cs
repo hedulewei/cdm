@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -361,10 +362,10 @@ namespace Stress_and_Performance_Testing
             }
         }
 
+        
         private void textBoxsourcefile_TextChanged(object sender, EventArgs e)
-        {
-           
-            richTextBox1.AppendText(Environment.NewLine + string.Format("{0},{1},{2},{3}", (int)'a', (int)'z', (int)'A', (int)'Z'));
+        { 
+            richTextBox1.AppendText(Environment.NewLine + string.Format("{0},{1},{2},{3}", (int)'a', (int)'z', (int)'A',""));
         }
     }
 }
