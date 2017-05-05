@@ -14,7 +14,7 @@ using Common;
 using Microsoft.AspNet.SignalR.Client;
 using Newtonsoft.Json;
 using System.Speech.Synthesis;
-  
+
 
 namespace CdmCnf45
 {
@@ -25,6 +25,7 @@ namespace CdmCnf45
         private HubConnection Connection { get; set; }
         private bool IsSignalrConnected = false;
         private Thread _tCheckSignalr;
+        private Mutex _lockvoiceMutex = new Mutex();
         public FormVoice()
         {
             InitializeComponent();
@@ -36,10 +37,26 @@ namespace CdmCnf45
             textBoxreject.Text = ConfigurationManager.AppSettings["rejectVoice"];
             textBoxfeevoice.Text = ConfigurationManager.AppSettings["feeVoice"];
             textBoxcounty.Text = ConfigurationManager.AppSettings["countyCode"];
+            _tCheckSignalr = new Thread(new ThreadStart(CheckSignalr));
+            _tCheckSignalr.Start();
         }
         private void CheckSignalr()
         {
-           
+            //do
+            //{
+            var server = string.Format("http://{0}/", textBoxserver.Text);
+            Connection = new HubConnection(server);
+            HubProxy = Connection.CreateHubProxy("Cdmhub");
+            BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("signalr 查询: {0}", "CreateHubProxy ok") });
+            HubProxy.On<CdmMessage>("VoiceMessage", (mcc) =>
+                this.Invoke((Action)(() => VoiceMessageProcessing(mcc)
+                ))
+            );
+
+            BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("signalr 查询: {0}", "HubProxy.On ok") });
+            connectSignalr();
+            //    Thread.Sleep(1000 * 60 * 1);
+            //} while (!IsSignalrConnected);
             do
             {
                 try
@@ -52,7 +69,7 @@ namespace CdmCnf45
                     else
                     {
 
-                      //  BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("CheckSignalr detecting:{0}, connected", textBoxserver.Text) });
+                        //  BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("CheckSignalr detecting:{0}, connected", textBoxserver.Text) });
                     }
                 }
                 catch (Exception ex)
@@ -77,9 +94,9 @@ namespace CdmCnf45
                 try
                 {
                     await Connection.Start();
-                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] {string.Format("signalr 查询: {0}","start ok")});
+                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("signalr 查询: {0}", "start ok") });
                     await HubProxy.Invoke("Login", new CdmClient { CountyCode = textBoxcounty.Text, ClientType = ClientType.Voice });
-                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "signalr login ok"});
+                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "signalr login ok" });
                     IsSignalrConnected = true;
                 }
                 catch (Exception hex)
@@ -102,7 +119,7 @@ namespace CdmCnf45
             BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("voice message received:{0}", JsonConvert.SerializeObject(mcc)) });
             var t = new Thread(new ParameterizedThreadStart(VoiceBroadcast));
             t.Start(mcc);
-          
+
             return string.Empty;
         }
 
@@ -110,25 +127,31 @@ namespace CdmCnf45
         {
             try
             {
-                var mcc = (CdmMessage) p;
-                Type type = Type.GetTypeFromProgID("SAPI.SpVoice");
-
-                dynamic spVoice = Activator.CreateInstance(type);
-                string voice;
-                switch (mcc.VoiceType)
+                lock (_lockvoiceMutex)
                 {
-                    case VoiceType.Fee:
-                        voice = textBoxfeevoice.Text.Replace("queueNum", mcc.Content);
-                        break;
-                    default:
-                        voice = textBoxreject.Text.Replace("queueNum", mcc.Content);
-                        break;
-                }
+                    var mcc = (CdmMessage)p;
+                    Type type = Type.GetTypeFromProgID("SAPI.SpVoice");
 
-                spVoice.Speak(voice);
-                BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format(Environment.NewLine + voice) });
-                 Thread.Sleep(1000*60*1);
-                spVoice.Speak(voice);
+                    dynamic spVoice = Activator.CreateInstance(type);
+                    string voice;
+                    switch (mcc.VoiceType)
+                    {
+                        case VoiceType.Fee:
+                            voice = textBoxfeevoice.Text.Replace("queueNum", mcc.Content);
+                            break;
+                        default:
+                            voice = textBoxreject.Text.Replace("queueNum", mcc.Content);
+                            break;
+                    }
+                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "first voice begin" });
+                    spVoice.Speak(voice);
+                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "first voice end" });
+                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format(Environment.NewLine + voice) });
+                    Thread.Sleep(1000 * 2);
+                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "second voice begin" });
+                    spVoice.Speak(voice);
+                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "second voice end" });
+                }
             }
             catch (Exception ex)
             {
@@ -142,9 +165,9 @@ namespace CdmCnf45
             {
                 var a = new Dictionary<string, bool> { { "yw28", true }, { "aa", false } };
                 var b = JsonConvert.SerializeObject(a);
-                richTextBox1.AppendText(Environment.NewLine+b);
+                richTextBox1.AppendText(Environment.NewLine + b);
                 var c = new UserTransaction();
-                c.UserInfo=new PoliceUser();
+                c.UserInfo = new PoliceUser();
                 c.UserInfo.Permission = a;
                 var d = JsonConvert.SerializeObject(c);
                 richTextBox1.AppendText(Environment.NewLine + d);
@@ -156,25 +179,10 @@ namespace CdmCnf45
             }
             catch (Exception ex)
             {
-                richTextBox1.AppendText(Environment.NewLine+ex.Message);
+                richTextBox1.AppendText(Environment.NewLine + ex.Message);
             }
-            //do
-            //{
-                var server = string.Format("http://{0}/", textBoxserver.Text);
-                Connection = new HubConnection(server);
-                HubProxy = Connection.CreateHubProxy("Cdmhub");
-                BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("signalr 查询: {0}", "CreateHubProxy ok") });
-                HubProxy.On<CdmMessage>("VoiceMessage", (mcc) =>
-                    this.Invoke((Action)(() => VoiceMessageProcessing(mcc)
-                    ))
-                );
 
-                BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("signalr 查询: {0}", "HubProxy.On ok") });
-            //    connectSignalr();
-            //    Thread.Sleep(1000 * 60 * 1);
-            //} while (!IsSignalrConnected);
-            _tCheckSignalr = new Thread(new ThreadStart(CheckSignalr));
-            _tCheckSignalr.Start();
+
         }
 
         private void Setconfig(string p1, string p2)
@@ -205,20 +213,20 @@ namespace CdmCnf45
         private void FormVoice_FormClosing(object sender, FormClosingEventArgs e)
         {
             Process.GetCurrentProcess().Kill();
-         //   try { _tCheckSignalr.Abort(); }
-         //catch(Exception){}
+            //   try { _tCheckSignalr.Abort(); }
+            //catch(Exception){}
         }
 
         private async void buttonfeetest_Click(object sender, EventArgs e)
         {
-            await HubProxy.Invoke("VoiceMessage", new CdmMessage { CountyCode = textBoxcounty.Text,ClientType = ClientType.Voice, Content = "20003",VoiceType= VoiceType.Fee });
+            await HubProxy.Invoke("VoiceMessage", new CdmMessage { CountyCode = textBoxcounty.Text, ClientType = ClientType.Voice, Content = "20003", VoiceType = VoiceType.Fee });
         }
 
-        private  void buttonrejecttest_Click(object sender, EventArgs e)
+        private void buttonrejecttest_Click(object sender, EventArgs e)
         {
             var t = new Thread(new ThreadStart(haha));
             t.Start();
-          
+            
         }
 
         private async void haha()

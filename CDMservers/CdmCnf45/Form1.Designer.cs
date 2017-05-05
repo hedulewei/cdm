@@ -33,14 +33,14 @@
             this.textBoxserver = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxvoiceconfig = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxfeevoice = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxreject = new System.Windows.Forms.TextBox();
-            this.buttonfeetest = new System.Windows.Forms.Button();
-            this.buttonrejecttest = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxcounty = new System.Windows.Forms.TextBox();
+            this.buttonrejecttest = new System.Windows.Forms.Button();
+            this.buttonfeetest = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxreject = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxfeevoice = new System.Windows.Forms.TextBox();
             this.groupBoxvoiceconfig.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +58,7 @@
             this.buttonlogin.Name = "buttonlogin";
             this.buttonlogin.Size = new System.Drawing.Size(120, 23);
             this.buttonlogin.TabIndex = 1;
-            this.buttonlogin.Text = "login server";
+            this.buttonlogin.Text = "some";
             this.buttonlogin.UseVisualStyleBackColor = true;
             this.buttonlogin.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -96,22 +96,42 @@
             this.groupBoxvoiceconfig.TabStop = false;
             this.groupBoxvoiceconfig.Text = "voice config";
             // 
-            // label2
+            // label4
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(23, 12);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "fee";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(23, 86);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "county";
             // 
-            // textBoxfeevoice
+            // textBoxcounty
             // 
-            this.textBoxfeevoice.Location = new System.Drawing.Point(88, 29);
-            this.textBoxfeevoice.Name = "textBoxfeevoice";
-            this.textBoxfeevoice.Size = new System.Drawing.Size(591, 21);
-            this.textBoxfeevoice.TabIndex = 4;
-            this.textBoxfeevoice.TextChanged += new System.EventHandler(this.textBoxfeevoice_TextChanged);
+            this.textBoxcounty.Location = new System.Drawing.Point(88, 83);
+            this.textBoxcounty.Name = "textBoxcounty";
+            this.textBoxcounty.Size = new System.Drawing.Size(238, 21);
+            this.textBoxcounty.TabIndex = 9;
+            this.textBoxcounty.TextChanged += new System.EventHandler(this.textBoxcounty_TextChanged);
+            // 
+            // buttonrejecttest
+            // 
+            this.buttonrejecttest.Location = new System.Drawing.Point(559, 98);
+            this.buttonrejecttest.Name = "buttonrejecttest";
+            this.buttonrejecttest.Size = new System.Drawing.Size(120, 23);
+            this.buttonrejecttest.TabIndex = 8;
+            this.buttonrejecttest.Text = "reject test";
+            this.buttonrejecttest.UseVisualStyleBackColor = true;
+            this.buttonrejecttest.Click += new System.EventHandler(this.buttonrejecttest_Click);
+            // 
+            // buttonfeetest
+            // 
+            this.buttonfeetest.Location = new System.Drawing.Point(414, 98);
+            this.buttonfeetest.Name = "buttonfeetest";
+            this.buttonfeetest.Size = new System.Drawing.Size(120, 23);
+            this.buttonfeetest.TabIndex = 5;
+            this.buttonfeetest.Text = "fee test";
+            this.buttonfeetest.UseVisualStyleBackColor = true;
+            this.buttonfeetest.Click += new System.EventHandler(this.buttonfeetest_Click);
             // 
             // label3
             // 
@@ -130,42 +150,22 @@
             this.textBoxreject.TabIndex = 6;
             this.textBoxreject.TextChanged += new System.EventHandler(this.textBoxreject_TextChanged);
             // 
-            // buttonfeetest
+            // label2
             // 
-            this.buttonfeetest.Location = new System.Drawing.Point(414, 98);
-            this.buttonfeetest.Name = "buttonfeetest";
-            this.buttonfeetest.Size = new System.Drawing.Size(120, 23);
-            this.buttonfeetest.TabIndex = 5;
-            this.buttonfeetest.Text = "fee test";
-            this.buttonfeetest.UseVisualStyleBackColor = true;
-            this.buttonfeetest.Click += new System.EventHandler(this.buttonfeetest_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(23, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "fee";
             // 
-            // buttonrejecttest
+            // textBoxfeevoice
             // 
-            this.buttonrejecttest.Location = new System.Drawing.Point(559, 98);
-            this.buttonrejecttest.Name = "buttonrejecttest";
-            this.buttonrejecttest.Size = new System.Drawing.Size(120, 23);
-            this.buttonrejecttest.TabIndex = 8;
-            this.buttonrejecttest.Text = "reject test";
-            this.buttonrejecttest.UseVisualStyleBackColor = true;
-            this.buttonrejecttest.Click += new System.EventHandler(this.buttonrejecttest_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 86);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "county";
-            // 
-            // textBoxcounty
-            // 
-            this.textBoxcounty.Location = new System.Drawing.Point(88, 83);
-            this.textBoxcounty.Name = "textBoxcounty";
-            this.textBoxcounty.Size = new System.Drawing.Size(238, 21);
-            this.textBoxcounty.TabIndex = 9;
-            this.textBoxcounty.TextChanged += new System.EventHandler(this.textBoxcounty_TextChanged);
+            this.textBoxfeevoice.Location = new System.Drawing.Point(88, 29);
+            this.textBoxfeevoice.Name = "textBoxfeevoice";
+            this.textBoxfeevoice.Size = new System.Drawing.Size(591, 21);
+            this.textBoxfeevoice.TabIndex = 4;
+            this.textBoxfeevoice.TextChanged += new System.EventHandler(this.textBoxfeevoice_TextChanged);
             // 
             // FormVoice
             // 
