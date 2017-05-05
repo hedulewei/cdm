@@ -51,6 +51,7 @@ namespace CDMservers
                 if (message.CountyCode == cdmClient.CountyCode && message.ClientType == cdmClient.ClientType)
                 {
                     Clients.Client(cdmClient.ConnectId).VoiceMessage(message);
+                    Log.InfoFormat("VoiceMessage:{0} already send to client.", JsonConvert.SerializeObject(message));
                     return;
                 }
             }

@@ -27,7 +27,7 @@ namespace CDMservers.Controllers
         private Business db = new Business();
 
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
+      //  private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
         [Route("BusinessesPictureQuery")]
         [HttpPost]
         public ResultModel BusinessesPictureQuery([FromBody] BusinessModel param)
@@ -50,9 +50,9 @@ namespace CDMservers.Controllers
                                 Result = "没有找到相关业务 ！"
                             };
                         var busi = db.Haiyangbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
-                        
-                        var fpath = (@FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-                        Log.Info("fpath is:" + fpath);
+
+                        var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+                        Log.Info("Configuration fpath is:" + fpath);
                         var fcontent = File.ReadAllBytes(@fpath);
                         return new ResultModel
                         {

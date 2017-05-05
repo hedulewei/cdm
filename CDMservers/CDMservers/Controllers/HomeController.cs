@@ -20,11 +20,5 @@ namespace CDMservers.Controllers
 
             return View();
         }
-      
-        private void InputLog(BusinessModel input)
-        {
-            Log.Info(string.Format("userName={0},counterNum={1},countyCode={2}", input.userName, input.counterNum,
-                input.countyCode));
-        }
     }
 }
