@@ -27,18 +27,18 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 var oo = new OracleOperation();
                 Log.Info("RetrieveCorporateInfo 111");
                 var a = oo.RetrieveCorporateInfo(param);
                 Log.Info("RetrieveCorporateInfo 222");
-                return new ResultModel { statusCode = a.name == string.Empty ? "000000" : "000013", bussinessModel = a };
+                return new ResultModel { StatusCode = a.name == string.Empty ? "000000" : "000013", BussinessModel = a };
             }
             catch (Exception ex)
             {
                 Log.Error("RetrieveCorporateInfo", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
         [Route("SendCorporateInfo")]
@@ -49,18 +49,18 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 var oo = new OracleOperation();
                 Log.Info("SendCorporateInfo 111");
                 var a = oo.SendCorporateInfo(param);
                 Log.Info("SendCorporateInfo 222");
-                return new ResultModel { statusCode = a == 1 ? "000000" : "000012", bussinessModel = new BusinessModel() };
+                return new ResultModel { StatusCode = a == 1 ? "000000" : "000012", BussinessModel = new BusinessModel() };
             }
             catch (Exception ex)
             {
                 Log.Error("SendCorporateInfo", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
         [Route("RetrieveCellPhoneNumber")]
@@ -71,18 +71,18 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 var oo = new OracleOperation();
                 Log.Info("RetrieveCellPhoneNumber 111");
                 var a = oo.RetrieveCellPhoneNumber(param);
                 Log.Info("RetrieveCellPhoneNumber 222");
-                return new ResultModel { statusCode = a == string.Empty ? "000000" : "000011", bussinessModel = new BusinessModel{phoneNum=a} };
+                return new ResultModel { StatusCode = a == string.Empty ? "000000" : "000011", BussinessModel = new BusinessModel{phoneNum=a} };
             }
             catch (Exception ex)
             {
                 Log.Error("RetrieveCellPhoneNumber", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
         [Route("SendIdentityCardInfo")]
@@ -93,18 +93,18 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 var oo = new OracleOperation();
                 Log.Info("SendIdentityCardInfo 111");
                 var a = oo.SendIdentityCardInfo(param);
                 Log.Info("SendIdentityCardInfo 222");
-                return new ResultModel { statusCode = a==1?"000000":"000010", bussinessModel = new BusinessModel () };
+                return new ResultModel { StatusCode = a==1?"000000":"000010", BussinessModel = new BusinessModel () };
             }
             catch (Exception ex)
             {
                 Log.Error("SendIdentityCardInfo", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
         [Route("GET_QUEUE_NUM")]
@@ -115,16 +115,16 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 InputLog(param);
                 var oo = new OracleOperation();
-                return new ResultModel { statusCode = "000000", bussinessModel = new BusinessModel { queueNum = oo.GetOrdinal(param).ToString() } };
+                return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { queueNum = oo.GetOrdinal(param).ToString() } };
             }
             catch (Exception ex)
             {
                 Log.Error("GET_QUEUE_NUM", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
 
@@ -141,7 +141,7 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 Log.Info("GET_VERSION input param:" + param);
                 //   var input = JsonConvert.DeserializeObject<BusinessModel>(param);
@@ -152,12 +152,12 @@ namespace CDMservers.Controllers
                 //{
                 //    haha += a.Value+";";
                 //}
-                return new ResultModel { statusCode = "000000", result = "hehe",bussinessModel=param };
+                return new ResultModel { StatusCode = "000000", Result = "hehe",BussinessModel=param };
             }
             catch (Exception ex)
             {
                 Log.Error("GET_VERSION", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
     }

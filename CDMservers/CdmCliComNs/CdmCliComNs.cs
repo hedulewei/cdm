@@ -49,7 +49,7 @@ namespace CdmCliComNs
         {
             if (param.Length > 1024 * 1024 * 4.2)
             {
-                return JsonConvert.SerializeObject(new ResultModel { statusCode = "000001", result =string.Format( "压缩图片文件大小{0}不能超过3M ！" ,"")});
+                return JsonConvert.SerializeObject(new ResultModel { StatusCode = "000001", Result =string.Format( "压缩图片文件大小{0}不能超过3M ！" ,"")});
             }
             var url = string.Format("http://{0}/{1}", host, method);
             var srcString = string.Empty;
@@ -69,7 +69,7 @@ namespace CdmCliComNs
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new ResultModel { statusCode = "000001", result = ex.Message });
+                return JsonConvert.SerializeObject(new ResultModel { StatusCode = "000001", Result = ex.Message });
             //    return "000001服务url错误," + ex.Message;
             }
         }

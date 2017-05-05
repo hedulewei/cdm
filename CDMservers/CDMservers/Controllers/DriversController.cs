@@ -22,18 +22,18 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 InputLog(param);
                 var oo = new OracleOperation();
                 var ret = oo.dueAndChangeCertification(param);
 
-                return new ResultModel { statusCode = ret == 1 ? "000000" : "000004", bussinessModel = new BusinessModel { queueNum = oo.GetOrdinal(param).ToString() } };
+                return new ResultModel { StatusCode = ret == 1 ? "000000" : "000004", BussinessModel = new BusinessModel { queueNum = oo.GetOrdinal(param).ToString() } };
             }
             catch (Exception ex)
             {
                 Log.Error("ordinaryChangeCertification", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
         [Route("dueAndChangeCertification")]
@@ -44,18 +44,18 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 InputLog(param);
                 var oo = new OracleOperation();
                 var ret = oo.dueAndChangeCertification(param);
 
-                return new ResultModel { statusCode = ret==1?"000000":"000004", bussinessModel = new BusinessModel { queueNum = oo.GetOrdinal(param).ToString() } };
+                return new ResultModel { StatusCode = ret==1?"000000":"000004", BussinessModel = new BusinessModel { queueNum = oo.GetOrdinal(param).ToString() } };
             }
             catch (Exception ex)
             {
                 Log.Error("dueAndChangeCertification", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
         

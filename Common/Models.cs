@@ -124,7 +124,9 @@ namespace Common
         }
         public string countyCode { get; set; }//地区标识//input,out
         public string userName { get; set; }
+
         public string password { get; set; }
+        public string BusinessUser { get; set; }
         public string businessCategory { get; set; }//业务种类//input,out
         public string counterNum { get; set; }
         public int ID { get; set; }//每笔业务编号，唯一//out
@@ -164,10 +166,21 @@ namespace Common
 
         public ResultModel()
         {
-            bussinessModel = new BusinessModel();
+            BussinessModel = new BusinessModel();
         }
-        public string statusCode { get; set; }
-        public string result { get; set; }
-        public BusinessModel bussinessModel { get; set; }
+        public string StatusCode { get; set; }
+        public string Result { get; set; }
+        public BusinessModel BussinessModel { get; set; }
+    }
+    public class BusinessListResult
+    {
+
+        public BusinessListResult()
+        {
+            BussinessList = new List<BusinessModel>();
+        }
+        public string StatusCode { get; set; }
+        public string Result { get; set; }
+        public List<BusinessModel> BussinessList { get; set; }
     }
 }

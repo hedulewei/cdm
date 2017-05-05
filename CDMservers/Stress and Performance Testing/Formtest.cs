@@ -117,7 +117,7 @@ namespace Stress_and_Performance_Testing
                                 string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,{4}",
                                     method, paramb.Ordinal, 
                                    // ret, //url={4}
-                                    JsonConvert.DeserializeObject<ResultModel>(ret).statusCode,
+                                    JsonConvert.DeserializeObject<ResultModel>(ret).StatusCode,
                                     watch.ElapsedMilliseconds,ret.Length)
                             });
                             //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
@@ -149,8 +149,8 @@ namespace Stress_and_Performance_Testing
                                 string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,{4}",
                                     method, paramb.Ordinal, 
                                    // ret, //url={4}
-                                    theret.statusCode,
-                                    watch.ElapsedMilliseconds,theret.result)
+                                    theret.StatusCode,
+                                    watch.ElapsedMilliseconds,theret.Result)
                             });
                             //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
                             //{

@@ -35,7 +35,7 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 InputLog(param);
                 using (var cd = new Business())
@@ -68,12 +68,12 @@ namespace CDMservers.Controllers
             catch (EntityDataSourceValidationException ex)
             {
                 Log.Error("EntityDataSourceValidationException", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
             catch (Exception ex)
             {
                 Log.Error("GetBusinessInfoByOdc", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
         private ResultModel AllBusinessInfo(Business cd, BusinessModel param)
@@ -83,8 +83,8 @@ namespace CDMservers.Controllers
             if (busi == null)
                 return new ResultModel
                 {
-                    statusCode = "000006",
-                    result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
                 };
             var fpath = (@FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
             Log.Info("fpath is:" + fpath);
@@ -92,8 +92,8 @@ namespace CDMservers.Controllers
             Log.Info("fcontent is:" + fcontent.Length);
             return new ResultModel
             {
-                statusCode = "000000",
-                bussinessModel = new BusinessModel
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
                 {
                     type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = busi.NAME,
@@ -113,8 +113,8 @@ namespace CDMservers.Controllers
             if (busi == null)
                 return new ResultModel
                 {
-                    statusCode = "000006",
-                    result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
                 };
             var fcontent = new byte[1];
             try
@@ -130,8 +130,8 @@ namespace CDMservers.Controllers
             }
             return new ResultModel
             {
-                statusCode = "000000",
-                bussinessModel = new BusinessModel
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
                 {
                     type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = busi.NAME,
@@ -151,8 +151,8 @@ namespace CDMservers.Controllers
             if (busi == null)
                 return new ResultModel
                 {
-                    statusCode = "000006",
-                    result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
                 };
             var fpath = (@FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
             Log.Info("fpath is:" + fpath);
@@ -160,8 +160,8 @@ namespace CDMservers.Controllers
             Log.Info("fcontent is:" + fcontent.Length);
             return new ResultModel
             {
-                statusCode = "000000",
-                bussinessModel = new BusinessModel
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
                 {
                     type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = busi.NAME,
@@ -183,17 +183,17 @@ namespace CDMservers.Controllers
             {
                 if (!PermissionCheck.Check(param))
                 {
-                    return new ResultModel { statusCode = "000007", result = "没有权限" };
+                    return new ResultModel {StatusCode = "000007", Result = "没有权限"};
                 }
-              //  Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
+                //  Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
 
-                var id = new OracleOperation().GetBusinessId();//+param.checkFile;//test only
+                var id = new OracleOperation().GetBusinessId(); //+param.checkFile;//test only
                 Log.Info("path 11 =" + id);
                 var currentdate = DateTime.Now.Date;
                 var scurrentdate = string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day);
 
                 var filepath = string.Format("{2}{0}\\{1}", param.countyCode, scurrentdate, @FileRootPath);
-             
+
                 if (!Directory.Exists(@filepath))
                 {
                     Log.Info("path=" + filepath);
@@ -208,34 +208,80 @@ namespace CDMservers.Controllers
                     case "haiyang":
                         using (var cd = new Business())
                         {
-                            cd.Haiyangbusiness.Add(new haiyangbusiness { ID = id, COUNTYCODE = param.countyCode, UNLOAD_TASK_NUM = param.unloadTaskNum, START_TIME = scurrentdate, STATUS = param.status, TYPE = param.type, NAME = param.name, ID_NUM = param.IDum, QUEUE_NUM = param.queueNum, ADDRESS = param.address, PHONE_NUM = param.phoneNum, ATTENTION = param.attention });
+                            cd.Haiyangbusiness.Add(new haiyangbusiness
+                            {
+                                ID = id,
+                                COUNTYCODE = param.countyCode,
+                                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                                START_TIME = scurrentdate,
+                                STATUS = param.status,
+                                TYPE = param.type,
+                                NAME = param.name,
+                                ID_NUM = param.IDum,
+                                QUEUE_NUM = param.queueNum,
+                                ADDRESS = param.address,
+                                PHONE_NUM = param.phoneNum,
+                                ATTENTION = param.attention
+                            });
                             cd.SaveChanges();
                         }
                         break;
                     case "fushan":
                         using (var cd = new Business())
                         {
-                            cd.Fushanbusiness.Add(new fushanbusiness { ID = id, COUNTYCODE = param.countyCode, UNLOAD_TASK_NUM = param.unloadTaskNum, START_TIME = scurrentdate, STATUS = param.status, TYPE = param.type, NAME = param.name, ID_NUM = param.IDum, QUEUE_NUM = param.queueNum, ADDRESS = param.address, PHONE_NUM = param.phoneNum, ATTENTION = param.attention });
+                            cd.Fushanbusiness.Add(new fushanbusiness
+                            {
+                                ID = id,
+                                COUNTYCODE = param.countyCode,
+                                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                                START_TIME = scurrentdate,
+                                STATUS = param.status,
+                                TYPE = param.type,
+                                NAME = param.name,
+                                ID_NUM = param.IDum,
+                                QUEUE_NUM = param.queueNum,
+                                ADDRESS = param.address,
+                                PHONE_NUM = param.phoneNum,
+                                ATTENTION = param.attention
+                            });
                             cd.SaveChanges();
                         }
                         break;
                     default:
                         using (var cd = new Business())
                         {
-                            cd.Bussiness.Add(new BUSSINESS { ID = id, COUNTYCODE = param.countyCode, UNLOAD_TASK_NUM = param.unloadTaskNum, START_TIME = scurrentdate, STATUS = param.status, TYPE = param.type, NAME = param.name, ID_NUM = param.IDum, QUEUE_NUM = param.queueNum, ADDRESS = param.address, PHONE_NUM = param.phoneNum, ATTENTION = param.attention });
+                            cd.Bussiness.Add(new BUSSINESS
+                            {
+                                ID = id,
+                                COUNTYCODE = param.countyCode,
+                                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                                START_TIME = scurrentdate,
+                                STATUS = param.status,
+                                TYPE = param.type,
+                                NAME = param.name,
+                                ID_NUM = param.IDum,
+                                QUEUE_NUM = param.queueNum,
+                                ADDRESS = param.address,
+                                PHONE_NUM = param.phoneNum,
+                                ATTENTION = param.attention
+                            });
                             cd.SaveChanges();
                         }
                         break;
                 }
 
-                await MessagePush.PushVoiceMessage(new CdmMessage
+                await Task.Run(async () =>
                 {
-                    ClientType = ClientType.Voice,
-                    Content = param.queueNum,
-                    CountyCode = param.countyCode,
-                    VoiceType = VoiceType.Fee
+                    await MessagePush.PushVoiceMessage(new CdmMessage
+                    {
+                        ClientType = ClientType.Voice,
+                        Content = param.queueNum,
+                        CountyCode = param.countyCode,
+                        VoiceType = VoiceType.Fee
+                    });
                 });
-                return new ResultModel { statusCode = "000000", bussinessModel = new BusinessModel() };
+            ;
+                return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel() };
             }
             catch (DbEntityValidationException e)
             {
@@ -255,17 +301,17 @@ namespace CDMservers.Controllers
                         err += err2;
                     }
                 }
-                return new ResultModel { statusCode = "000003", result = "DbEntityValidationException:" + err };
+                return new ResultModel { StatusCode = "000003", Result = "DbEntityValidationException:" + err };
             }
             catch (EntityDataSourceValidationException ex)
             {
                 Log.Error("EntityDataSourceValidationException", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
             catch (Exception ex)
             {
                 Log.Error("PostBusinessFormInfo", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
 

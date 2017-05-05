@@ -20,7 +20,7 @@ namespace CDMservers.Controllers
         public ResultModel BusinessProcess(string param)
         {
             var input = JsonConvert.DeserializeObject<BusinessModel>(param);
-            return new ResultModel { statusCode = "000000", result = "ok" };
+            return new ResultModel { StatusCode = "000000", Result = "ok" };
         }
         [Route("getordinal/{param}")]
         [HttpGet]
@@ -35,12 +35,12 @@ namespace CDMservers.Controllers
                 Log.Info("bbb");
                 var ret = oo.GetOrdinal(input);
                 Log.Info("ccc");
-                return new ResultModel { statusCode = "000000", result = ret.ToString() };
+                return new ResultModel { StatusCode = "000000", Result = ret.ToString() };
             }
             catch (Exception ex)
             {
                 Log.Error("GetOrdinal", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
 
         }
@@ -54,12 +54,12 @@ namespace CDMservers.Controllers
                 //  var input = JsonConvert.DeserializeObject<OrdinalInput>(param);
                 var input = new BusinessModel { countyCode = code, businessCategory = category };
                 var oo = new OracleOperation();
-                return new ResultModel { statusCode = "000000", result = oo.GetOrdinal(input).ToString() };
+                return new ResultModel { StatusCode = "000000", Result = oo.GetOrdinal(input).ToString() };
             }
             catch (Exception ex)
             {
                 Log.Error("GetOrdinal", ex);
-                return new ResultModel { statusCode = "000003", result = ex.Message };
+                return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
     }
