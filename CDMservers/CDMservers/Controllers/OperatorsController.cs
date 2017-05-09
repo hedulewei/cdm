@@ -45,7 +45,7 @@ namespace CDMservers.Controllers
                     {
                         return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserName };
                     }
-                    if (theuser.PASSWORD != CdmEncrypt(param.Password))
+                    if (theuser.PASSWORD != CdmEncrypt.Encrypt(param.Password))
                     {
                         return new SimpleResult { StatusCode = "000004", Content = "密码错误" };
                     }
@@ -68,7 +68,7 @@ namespace CDMservers.Controllers
 
                 }
 
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.Check(param,_db))
                 {
                     return new SimpleResult { StatusCode = "000007", Content = "没有权限" };
                 }
@@ -82,7 +82,7 @@ namespace CDMservers.Controllers
                             AUTHORITYLEVEL = ((int)param.UserInfo.AuthorityLevel).ToString(),
                             COUNTYCODE = param.UserInfo.CountyCode,
                             LIMIT = JsonConvert.SerializeObject(param.UserInfo.Permission),
-                            PASSWORD = CdmEncrypt("888888"),
+                            PASSWORD = CdmEncrypt.Encrypt("888888"),
                             POLICENUM = param.UserInfo.PoliceCode,
                             ID = new Random().Next(),
                             DEPARTMENT = " ff",
@@ -119,6 +119,8 @@ namespace CDMservers.Controllers
                         userUpdate.REALNAME = param.UserInfo.RealName;
                         userUpdate.COUNTYCODE = param.UserInfo.CountyCode;
                         userUpdate.POST = ((int)param.UserInfo.UserRole).ToString();
+                        userUpdate.AUTHORITYLEVEL = ((int)param.UserInfo.AuthorityLevel).ToString();
+                        userUpdate.LIMIT = JsonConvert.SerializeObject(param.UserInfo.Permission);
                         _db.SaveChanges();
 
                         break;
@@ -142,7 +144,7 @@ namespace CDMservers.Controllers
                         {
                             return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserInfo.UserName };
                         }
-                        rpUser.PASSWORD = CdmEncrypt("888888");
+                        rpUser.PASSWORD = CdmEncrypt.Encrypt("888888");
                         _db.SaveChanges();
 
                         break;
@@ -181,6 +183,7 @@ namespace CDMservers.Controllers
                             pu.PoliceCode = users.POLICENUM;
                             pu.RealName = users.REALNAME;
                             pu.UserName = users.USERNAME;
+                            pu.Disabled = users.DISABLED;
                             pu.AuthorityLevel = (AuthorityLevel)int.Parse(users.AUTHORITYLEVEL);
                             userslist.Add(pu);
                         }
@@ -196,12 +199,12 @@ namespace CDMservers.Controllers
                         //    //  UserRole = (UserRole) int.Parse(users.POST)
                         //}));
                         // Task.Run( () => LogIntoDb.Log(_dbLog, param.UserName, DateTime.Now, param.UserTransactionType.ToString(), JsonConvert.SerializeObject(param)));
-                        LogIntoDb.Log(_dbLog, param.UserName, DateTime.Now, param.UserTransactionType.ToString(), JsonConvert.SerializeObject(param), HttpContext.Current.Request.UserHostAddress);
+                        LogIntoDb.Log(_dbLog, param.UserName,  param.UserTransactionType.ToString(), param);
                         return new SimpleResult { StatusCode = "000000", Content = "", Users = userslist };
                         break;
                 }
                 //  Log.Info("before ok----------------");
-                LogIntoDb.Log(_dbLog, param.UserName, DateTime.Now, param.UserTransactionType.ToString(), JsonConvert.SerializeObject(param), HttpContext.Current.Request.UserHostAddress);
+                LogIntoDb.Log(_dbLog, param.UserName,param.UserTransactionType.ToString(), param);
                 return new SimpleResult { StatusCode = "000000", Content = "ok" };
             }
             catch (DbEntityValidationException e)
@@ -246,13 +249,7 @@ namespace CDMservers.Controllers
             }
         }
 
-        private string CdmEncrypt(string password)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] palindata = Encoding.Default.GetBytes(password);//将要加密的字符串转换为字节数组
-            byte[] encryptdata = md5.ComputeHash(palindata);//将字符串加密后也转换为字符数组
-            return Convert.ToBase64String(encryptdata);//将加密后的字节数组转换为加密字符串
-        }
+      
         protected override void Dispose(bool disposing)
         {
             if (disposing)

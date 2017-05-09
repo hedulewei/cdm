@@ -123,10 +123,10 @@ namespace CDMservers
             }
             return false;
         }
-        public static bool Check(UserTransaction bm)
+        public static bool Check(UserTransaction bm, UserDbc cdmdb)
         {
-            using (var cdmdb = new UserDbc())
-            {
+            //using (var cdmdb = new UserDbc())
+            //{
                 var user = cdmdb.USERS.FirstOrDefault(c => c.USERNAME == bm.UserName);
                 if (user == null) return false;
                 if (user.DISABLED == false) return false;
@@ -157,8 +157,8 @@ namespace CDMservers
                         break;
                 }
                 //  var perm = JsonConvert.DeserializeObject<Dictionary<string, bool>>(user.LIMIT);
-                return true;
-            }
+                //return true;
+            
             return false;
         }
     }

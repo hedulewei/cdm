@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
+using CDMservers.Models;
 using Common;
 using DataService;
 using log4net;
@@ -14,13 +15,24 @@ namespace CDMservers.Controllers
     public class DriversController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly UserDbc _dbUserDbc = new UserDbc();
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _dbUserDbc.Dispose();
+                //  _dbLog.Dispose();
+            }
+            base.Dispose(disposing);
+        }
         [System.Web.Http.Route("generalChangeCertification")]
         [System.Web.Http.HttpPost]
         public ResultModel GeneralChangeCertification([FromBody] BusinessModel param)
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+              //  if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -42,7 +54,8 @@ namespace CDMservers.Controllers
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+               // if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }

@@ -25,15 +25,15 @@ namespace CDMservers.Controllers
     public class CarsController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
-
+     //   private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
+        private readonly UserDbc _dbUserDbc = new UserDbc();
         [Route("GetBusinessInfoByOdc")]
         [HttpPost]
         public ResultModel GetBusinessInfoByOdc([FromBody] BusinessModel param)
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -86,7 +86,7 @@ namespace CDMservers.Controllers
                     StatusCode = "000006",
                     Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
                 };
-            var fpath = (@FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
             Log.Info("fpath is:" + fpath);
             var fcontent = File.ReadAllBytes(@fpath);
             Log.Info("fcontent is:" + fcontent.Length);
@@ -119,7 +119,7 @@ namespace CDMservers.Controllers
             var fcontent = new byte[1];
             try
             {
-                var fpath = (@FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+                var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
                 Log.Info("fpath is:" + fpath);
                  fcontent = File.ReadAllBytes(@fpath);
                 Log.Info("fcontent is:" + fcontent.Length);
@@ -154,7 +154,7 @@ namespace CDMservers.Controllers
                     StatusCode = "000006",
                     Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
                 };
-            var fpath = (@FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
             Log.Info("fpath is:" + fpath);
             var fcontent = File.ReadAllBytes(@fpath);
             Log.Info("fcontent is:" + fcontent.Length);
@@ -181,7 +181,8 @@ namespace CDMservers.Controllers
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+              //  if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel {StatusCode = "000007", Result = "没有权限"};
                 }
@@ -192,7 +193,7 @@ namespace CDMservers.Controllers
                 var currentdate = DateTime.Now.Date;
                 var scurrentdate = string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day);
 
-                var filepath = string.Format("{2}{0}\\{1}", param.countyCode, scurrentdate, @FileRootPath);
+                var filepath = string.Format("{2}{0}\\{1}", param.countyCode, scurrentdate, CdmConfiguration.FileRootPath);
 
                 if (!Directory.Exists(@filepath))
                 {
@@ -315,7 +316,15 @@ namespace CDMservers.Controllers
             }
         }
 
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _dbUserDbc.Dispose();
+              //  _dbLog.Dispose();
+            }
+            base.Dispose(disposing);
+        }
         private void InputLog(BusinessModel input)
         {
             Log.Info("input json string:" + JsonConvert.SerializeObject(input));

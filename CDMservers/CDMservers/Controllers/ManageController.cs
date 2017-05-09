@@ -18,14 +18,24 @@ namespace CDMservers.Controllers
     public class ManageController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-     
+        private readonly UserDbc _dbUserDbc = new UserDbc();
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _dbUserDbc.Dispose();
+                //  _dbLog.Dispose();
+            }
+            base.Dispose(disposing);
+        }
         [Route("RetrieveCorporateInfo")]
         [HttpPost]
         public ResultModel RetrieveCorporateInfo([FromBody] BusinessModel param)
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+               // if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -47,7 +57,8 @@ namespace CDMservers.Controllers
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+               // if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -69,7 +80,8 @@ namespace CDMservers.Controllers
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+              //  if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -91,7 +103,8 @@ namespace CDMservers.Controllers
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+              //  if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -113,7 +126,8 @@ namespace CDMservers.Controllers
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+               // if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -139,7 +153,8 @@ namespace CDMservers.Controllers
         {
             try
             {
-                if (!PermissionCheck.Check(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+              //  if (!PermissionCheck.Check(param))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }

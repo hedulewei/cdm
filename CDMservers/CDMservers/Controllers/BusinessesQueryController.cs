@@ -25,9 +25,8 @@ namespace CDMservers.Controllers
     public class BusinessesQueryController : ApiController
     {
         private Business db = new Business();
-
+        private UserDbc _dbuUserDbc = new UserDbc();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-      //  private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
         [Route("BusinessesPictureQuery")]
         [HttpPost]
         public ResultModel BusinessesPictureQuery([FromBody] BusinessModel param)
@@ -35,7 +34,7 @@ namespace CDMservers.Controllers
             try
             {
                 Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
-                if (!PermissionCheck.CheckLevelPermission(param))
+                if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -103,7 +102,7 @@ namespace CDMservers.Controllers
             try
             {
                 Log.Info("BusinessesQuery input:" + JsonConvert.SerializeObject(param));
-                if (!PermissionCheck.CheckLevelPermission(param))
+                if (!PermissionCheck.CheckLevelPermission(param,_dbuUserDbc))
                 {
                     return new BusinessListResult { StatusCode = "000007", Result = "没有权限" };
                 }
@@ -200,6 +199,7 @@ namespace CDMservers.Controllers
             if (disposing)
             {
                 db.Dispose();
+                _dbuUserDbc.Dispose();
             }
             base.Dispose(disposing);
         }
