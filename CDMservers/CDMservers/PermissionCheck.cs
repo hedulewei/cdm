@@ -14,6 +14,51 @@ namespace CDMservers
     public static class PermissionCheck
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        public static bool CheckLevelPermission(BusinessModel bm,UserDbc cdmdb)
+        {
+         //   if (cdmdb == null) return false;
+                var user = cdmdb.USERS.FirstOrDefault(c => c.USERNAME == bm.userName);
+                if (user == null) return false;
+                if (user.DISABLED == false) return false;
+                switch ((AuthorityLevel)int.Parse(user.AUTHORITYLEVEL))
+                {
+                    case AuthorityLevel.Administrator:
+                        return true;
+                        break;
+                    case AuthorityLevel.CountyMagistrate:
+                        if (bm.countyCode == user.COUNTYCODE) return true;
+                        var permcm = JsonConvert.DeserializeObject<Dictionary<string, bool>>(user.LIMIT);
+                        if (permcm.Where(keyValuePair => bm.countyCode == keyValuePair.Key).Any(keyValuePair => keyValuePair.Value))
+                        {
+                            return true;
+                        }
+                        break;
+                    default:
+                        var perm = JsonConvert.DeserializeObject<Dictionary<string, bool>>(user.LIMIT);
+                        if (bm.countyCode == user.COUNTYCODE)
+                        {
+                            if (
+                                perm.Where(
+                                    keyValuePair => bm.type.ToString(CultureInfo.InvariantCulture) == keyValuePair.Key)
+                                    .Any(keyValuePair => keyValuePair.Value))
+                            {
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            if (perm.Where(keyValuePair => bm.countyCode == keyValuePair.Key).Any(keyValuePair => keyValuePair.Value) && perm.Where(
+                                    keyValuePair => bm.type.ToString(CultureInfo.InvariantCulture) == keyValuePair.Key)
+                                    .Any(keyValuePair => keyValuePair.Value))
+                            {
+                                return true;
+                            }
+                        }
+
+                        break;
+                }
+            return false;
+        }
         public static bool CheckLevelPermission(BusinessModel bm)
         {
             using (var cdmdb = new UserDbc())

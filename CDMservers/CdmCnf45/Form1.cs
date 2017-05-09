@@ -155,6 +155,7 @@ namespace CdmCnf45
             }
             catch (Exception ex)
             {
+               
                 BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format(Environment.NewLine + ex.Message) });
             }
         }
