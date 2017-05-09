@@ -24,9 +24,18 @@ namespace CDMservers.Controllers
 {
     public class BusinessesQueryController : ApiController
     {
-        private Business db = new Business();
-        private UserDbc _dbuUserDbc = new UserDbc();
+        private readonly Business _db = new Business();
+        private readonly UserDbc _dbuUserDbc = new UserDbc();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db.Dispose();
+                _dbuUserDbc.Dispose();
+            }
+            base.Dispose(disposing);
+        }
         [Route("BusinessesPictureQuery")]
         [HttpPost]
         public ResultModel BusinessesPictureQuery([FromBody] BusinessModel param)
@@ -42,33 +51,37 @@ namespace CDMservers.Controllers
                 {
                     case "haiyang":
                     default:
-                        if(db.Haiyangbusiness.Count(c=>c.SERIAL_NUM==param.serialNum)<1)
-                            return new ResultModel
-                            {
-                                StatusCode = "000009",
-                                Result = "没有找到相关业务 ！"
-                            };
-                        var busi = db.Haiyangbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
-
-                        var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-                        Log.Info("Configuration fpath is:" + fpath);
-                        var fcontent = File.ReadAllBytes(@fpath);
+                      //  if(db.Haiyangbusiness.Count(c=>c.SERIAL_NUM==param.serialNum)<1)
+                          
+                        var busi = _db.Haiyangbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        if (busi == null)
                         return new ResultModel
                         {
-                            StatusCode = "000000",
-                            BussinessModel = new BusinessModel
-                            {
-                                type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-                                ID =(int) busi.ID,
-                                name = busi.NAME,
-                                IDum = busi.ID_NUM,
-                                queueNum = busi.QUEUE_NUM,
-                                address = busi.ADDRESS,
-                                phoneNum = busi.PHONE_NUM,
-                                attention = busi.ATTENTION,
-                                zipFile = fcontent
-                            }
+                            StatusCode = "000009",
+                            Result = "没有找到相关业务 ！"
                         };
+
+
+                        var fpath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busi.START_TIME, busi.ID);
+                            Log.Info("Configuration fpath is:" + fpath);
+                            var fcontent = File.ReadAllBytes(@fpath);
+                            return new ResultModel
+                            {
+                                StatusCode = "000000",
+                                BussinessModel = new BusinessModel
+                                {
+                                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                                    ID =(int) busi.ID,
+                                    name = busi.NAME,
+                                    IDum = busi.ID_NUM,
+                                    queueNum = busi.QUEUE_NUM,
+                                    address = busi.ADDRESS,
+                                    phoneNum = busi.PHONE_NUM,
+                                    attention = busi.ATTENTION,
+                                    zipFile = fcontent
+                                }
+                            };
+                        
                         break;
                 }
                 //return new ResultModel
@@ -165,7 +178,7 @@ namespace CDMservers.Controllers
                 var aa = decimal.Parse(param.transferStatus);
                 busi = cd.Haiyangbusiness.Where(c => c.TRANSFER_STATUS == aa);
             }
-            busi = busi.Take(10);
+            busi = busi.Take(100);
 
             var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
             foreach (haiyangbusiness hy in busi)
@@ -194,14 +207,6 @@ namespace CDMservers.Controllers
             return ret;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-                _dbuUserDbc.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+     
     }
 }

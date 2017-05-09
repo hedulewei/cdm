@@ -28,27 +28,48 @@ namespace CDMservers.Controllers
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly UserDbc _db = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db.Dispose();
+                _dbLog.Dispose();
+            }
+            base.Dispose(disposing);
+        }
         [Route("UserTransaction")]
         [HttpPost]
         public SimpleResult UserTransaction([FromBody] UserTransaction param)
         {
             try
             {
-                Log.Info("UserTransaction input:" + JsonConvert.SerializeObject(param));
+                if (param == null)
+                {
+                    return new SimpleResult { StatusCode = "000003", Content = "请求错误，请检查输入参数！" };
+                }
+                if (string.IsNullOrEmpty(param.UserName))
+                {
+                    return new SimpleResult { StatusCode = "000003", Content = "请求错误，业务操作用户输入不合法！" };
+                }
+                LogIntoDb.Log(_dbLog, param.UserName, param.UserTransactionType.ToString(), param);
+                var theuser =
+                      _db.USERS.FirstOrDefault(a => a.USERNAME == param.UserName);
+                if (theuser == null)
+                {
+                    return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserName };
+                }
+                if (theuser.DISABLED != true)
+                {
+                    return new SimpleResult { StatusCode = "000014", Content = "用户已经停用" };
+                }
+                if (theuser.PASSWORD != CdmEncrypt.Encrypt(param.Password))
+                {
+                    return new SimpleResult { StatusCode = "000004", Content = "密码错误" };
+                }
+              
+             //   Log.Info("UserTransaction input:" + JsonConvert.SerializeObject(param));
                 if (param.UserTransactionType == UserTransactionType.Login)
                 {
-
-                    var theuser =
-                        _db.USERS.FirstOrDefault(a => a.USERNAME == param.UserName);
-                    if (theuser == null)
-                    {
-                        return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserName };
-                    }
-                    if (theuser.PASSWORD != CdmEncrypt.Encrypt(param.Password))
-                    {
-                        return new SimpleResult { StatusCode = "000004", Content = "密码错误" };
-                    }
                     return new SimpleResult
                     {
                         StatusCode = "000000",
@@ -67,8 +88,8 @@ namespace CDMservers.Controllers
                     };
 
                 }
-
-                if (!PermissionCheck.Check(param,_db))
+                if (!PermissionCheck.CheckLevelPermission(param, theuser))
+                //if (!PermissionCheck.CheckLevelPermission(param, _db))
                 {
                     return new SimpleResult { StatusCode = "000007", Content = "没有权限" };
                 }
@@ -124,7 +145,7 @@ namespace CDMservers.Controllers
                         _db.SaveChanges();
 
                         break;
-                    case UserTransactionType.PermissionUpdate:
+                    case UserTransactionType.ChangePass:
 
                         var userPu =
                             _db.USERS.FirstOrDefault(a => a.USERNAME == param.UserInfo.UserName);
@@ -132,7 +153,7 @@ namespace CDMservers.Controllers
                         {
                             return new SimpleResult { StatusCode = "000005", Content = "无此用户:" + param.UserInfo.UserName };
                         }
-                        userPu.LIMIT = JsonConvert.SerializeObject(param.UserInfo.Permission);
+                        userPu.PASSWORD = CdmEncrypt.Encrypt(param.UserInfo.Password);
                         _db.SaveChanges();
 
                         break;
@@ -171,12 +192,12 @@ namespace CDMservers.Controllers
                     //default:// for test
                     case UserTransactionType.GetUserList:
 
-                        var theuser =
+                        var getuser =
                             _db.USERS.Where(a => a.COUNTYCODE == param.UserInfo.CountyCode);
-                        foreach (USERS users in theuser)
+                        foreach (USERS users in getuser)
                         {
                             var pu = new PoliceUser();
-                            Log.InfoFormat("from db:{0}", users.LIMIT);
+                         //   Log.InfoFormat("from db:{0}", users.LIMIT);
                             pu.Permission = JsonConvert.DeserializeObject<Dictionary<string, bool>>(users.LIMIT);
                             pu.CountyCode = users.COUNTYCODE;
                             pu.Notation = string.Empty;
@@ -199,12 +220,12 @@ namespace CDMservers.Controllers
                         //    //  UserRole = (UserRole) int.Parse(users.POST)
                         //}));
                         // Task.Run( () => LogIntoDb.Log(_dbLog, param.UserName, DateTime.Now, param.UserTransactionType.ToString(), JsonConvert.SerializeObject(param)));
-                        LogIntoDb.Log(_dbLog, param.UserName,  param.UserTransactionType.ToString(), param);
+                      //  LogIntoDb.Log(_dbLog, param.UserName,  param.UserTransactionType.ToString(), param);
                         return new SimpleResult { StatusCode = "000000", Content = "", Users = userslist };
                         break;
                 }
                 //  Log.Info("before ok----------------");
-                LogIntoDb.Log(_dbLog, param.UserName,param.UserTransactionType.ToString(), param);
+              //  LogIntoDb.Log(_dbLog, param.UserName,param.UserTransactionType.ToString(), param);
                 return new SimpleResult { StatusCode = "000000", Content = "ok" };
             }
             catch (DbEntityValidationException e)
@@ -250,15 +271,7 @@ namespace CDMservers.Controllers
         }
 
       
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-                _dbLog.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
         public static string GetIP()
         {
             try

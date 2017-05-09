@@ -59,6 +59,98 @@ namespace CDMservers
                 }
             return false;
         }
+        public static bool CheckLevelPermission(UserTransaction bm, USERS user)
+        {
+            //   if (cdmdb == null) return false;
+         //   var user = cdmdb.USERS.FirstOrDefault(c => c.USERNAME == bm.UserName);
+         //   if (user == null) return false;
+          //  if (user.DISABLED == false) return false;
+            switch ((AuthorityLevel)int.Parse(user.AUTHORITYLEVEL))
+            {
+                case AuthorityLevel.Administrator:
+                    return true;
+                    break;
+                case AuthorityLevel.CountyMagistrate:
+                    if (bm.UserInfo.CountyCode == user.COUNTYCODE) return true;
+                    var permcm = JsonConvert.DeserializeObject<Dictionary<string, bool>>(user.LIMIT);
+                    if (permcm.Where(keyValuePair => bm.UserInfo.CountyCode == keyValuePair.Key).Any(keyValuePair => keyValuePair.Value))
+                    {
+                        return true;
+                    }
+                    break;
+                default:
+                    if (bm.UserTransactionType == UserTransactionType.ChangePass) return true;
+                    //var perm = JsonConvert.DeserializeObject<Dictionary<string, bool>>(user.LIMIT);
+                    //if (bm.UserInfo.CountyCode == user.COUNTYCODE)
+                    //{
+                    //    if (
+                    //        perm.Where(
+                    //            keyValuePair => bm..ToString(CultureInfo.InvariantCulture) == keyValuePair.Key)
+                    //            .Any(keyValuePair => keyValuePair.Value))
+                    //    {
+                    //        return true;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (perm.Where(keyValuePair => bm.countyCode == keyValuePair.Key).Any(keyValuePair => keyValuePair.Value) && perm.Where(
+                    //            keyValuePair => bm.type.ToString(CultureInfo.InvariantCulture) == keyValuePair.Key)
+                    //            .Any(keyValuePair => keyValuePair.Value))
+                    //    {
+                    //        return true;
+                    //    }
+                    //}
+
+                    break;
+            }
+            return false;
+        }
+        public static bool CheckLevelPermission(UserTransaction bm, UserDbc cdmdb)
+        {
+            //   if (cdmdb == null) return false;
+            var user = cdmdb.USERS.FirstOrDefault(c => c.USERNAME == bm.UserName);
+            if (user == null) return false;
+            if (user.DISABLED == false) return false;
+            switch ((AuthorityLevel)int.Parse(user.AUTHORITYLEVEL))
+            {
+                case AuthorityLevel.Administrator:
+                    return true;
+                    break;
+                case AuthorityLevel.CountyMagistrate:
+                    if (bm.UserInfo.CountyCode == user.COUNTYCODE) return true;
+                    var permcm = JsonConvert.DeserializeObject<Dictionary<string, bool>>(user.LIMIT);
+                    if (permcm.Where(keyValuePair => bm.UserInfo.CountyCode == keyValuePair.Key).Any(keyValuePair => keyValuePair.Value))
+                    {
+                        return true;
+                    }
+                    break;
+                default:
+                    if (bm.UserTransactionType == UserTransactionType.ChangePass) return true;
+                    //var perm = JsonConvert.DeserializeObject<Dictionary<string, bool>>(user.LIMIT);
+                    //if (bm.UserInfo.CountyCode == user.COUNTYCODE)
+                    //{
+                    //    if (
+                    //        perm.Where(
+                    //            keyValuePair => bm..ToString(CultureInfo.InvariantCulture) == keyValuePair.Key)
+                    //            .Any(keyValuePair => keyValuePair.Value))
+                    //    {
+                    //        return true;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (perm.Where(keyValuePair => bm.countyCode == keyValuePair.Key).Any(keyValuePair => keyValuePair.Value) && perm.Where(
+                    //            keyValuePair => bm.type.ToString(CultureInfo.InvariantCulture) == keyValuePair.Key)
+                    //            .Any(keyValuePair => keyValuePair.Value))
+                    //    {
+                    //        return true;
+                    //    }
+                    //}
+
+                    break;
+            }
+            return false;
+        }
         public static bool CheckLevelPermission(BusinessModel bm)
         {
             using (var cdmdb = new UserDbc())
@@ -128,8 +220,16 @@ namespace CDMservers
             //using (var cdmdb = new UserDbc())
             //{
                 var user = cdmdb.USERS.FirstOrDefault(c => c.USERNAME == bm.UserName);
-                if (user == null) return false;
-                if (user.DISABLED == false) return false;
+            if (user == null)
+            {
+                Log.InfoFormat("无此用户{0}.",bm.UserName);
+                return false;
+            }
+            if (user.DISABLED == false)
+            {
+                Log.InfoFormat("用户已经停用{0}.", bm.UserName);
+                return false;
+            }
                 //  Log.InfoFormat("permissioionCheck-{0}-,-{1}-", int.Parse(user.AUTHORITYLEVEL), (int)AuthorityLevel.Administrator);
                 switch ((AuthorityLevel)int.Parse(user.AUTHORITYLEVEL))
                 {

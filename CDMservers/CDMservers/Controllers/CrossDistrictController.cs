@@ -24,6 +24,14 @@ namespace CDMservers.Controllers
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private UserDbc db = new UserDbc();
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
         [Route("CrossDistrictAuthorization")]
         [HttpPost]
         public  SimpleResult CrossDistrictAuthorization([FromBody] UserTransaction param)
@@ -203,14 +211,7 @@ namespace CDMservers.Controllers
             return Ok(uSERS);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+     
 
         private bool USERSExists(string id)
         {

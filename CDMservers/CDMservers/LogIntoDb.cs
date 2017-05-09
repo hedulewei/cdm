@@ -12,11 +12,11 @@ namespace CDMservers
     {
         public static void Log(NewDblog db, string username, string keyword, UserTransaction operation)
         {
-            operation.Password = CdmEncrypt.Encrypt(operation.Password);
             db.VITALLOG.Add(new Models.VITALLOG
             {
                 KEYWORD = keyword,
                 USERNAME = username,
+               // OPERATION =operation.ToString(),
                 OPERATION = JsonConvert.SerializeObject(operation),
                 IP = HttpContext.Current.Request.UserHostAddress,
                 TIME = DateTime.Now

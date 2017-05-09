@@ -27,6 +27,15 @@ namespace CDMservers.Controllers
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
      //   private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
         private readonly UserDbc _dbUserDbc = new UserDbc();
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _dbUserDbc.Dispose();
+                //  _dbLog.Dispose();
+            }
+            base.Dispose(disposing);
+        }
         [Route("GetBusinessInfoByOdc")]
         [HttpPost]
         public ResultModel GetBusinessInfoByOdc([FromBody] BusinessModel param)
@@ -316,15 +325,7 @@ namespace CDMservers.Controllers
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _dbUserDbc.Dispose();
-              //  _dbLog.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+     
         private void InputLog(BusinessModel input)
         {
             Log.Info("input json string:" + JsonConvert.SerializeObject(input));
