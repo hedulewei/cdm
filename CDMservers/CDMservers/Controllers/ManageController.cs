@@ -126,11 +126,11 @@ namespace CDMservers.Controllers
         {
             try
             {
-                if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
-               // if (!PermissionCheck.Check(param))
-                {
-                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
-                }
+               // if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
+               //// if (!PermissionCheck.Check(param))
+               // {
+               //     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
+               // }
                 InputLog(param);
                 var oo = new OracleOperation();
                 return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { queueNum = oo.GetOrdinal(param).ToString() } };
