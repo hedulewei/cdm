@@ -54,7 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CdmCliComNs.cs" />
+    <Compile Include="CdmcCom.cs" />
+    <Compile Include="ICdmcCom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.csproj">
-      <Project>{2247DBE5-BFC2-47A6-9D40-1A231A7EBC27}</Project>
+      <Project>{2247dbe5-bfc2-47a6-9d40-1a231a7ebc27}</Project>
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>

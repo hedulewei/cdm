@@ -88,7 +88,7 @@ namespace Stress_and_Performance_Testing
                 var method = paramb.Method;
                 var volume = paramb.Volume;
 
-                var aa = new CdmCliComNs.CDMCCom();
+                var aa = new CdmCliComNs.CdmcCom();
                 for (int i = 0; i < volume; i++)
                 {
                     //BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
