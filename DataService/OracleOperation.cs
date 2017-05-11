@@ -229,7 +229,13 @@ namespace DataService
                     Log.Info("path="+filepath);
                     Directory.CreateDirectory(@filepath);
                 }
-                var filename = string.Format("{0}\\{1}", filepath, ordinal);
+                var filepath2 = string.Format("{0}\\{1}", filepath, ordinal);
+                if (!Directory.Exists(@filepath2))
+                {
+                    Log.Info("filepath2=" + filepath2);
+                    Directory.CreateDirectory(@filepath2);
+                }
+                var filename = string.Format("{0}\\{1}", filepath2, input.fileName);
                 Log.Info("file name=" + filename);
                 File.WriteAllBytes(filename,input.zipFile);
               

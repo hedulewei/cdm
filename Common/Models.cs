@@ -114,7 +114,7 @@ namespace Common
 
             Gender = string.Empty;
             Birthday = string.Empty;
-            ZipCode = string.Empty;
+          //  ZipCode = string.Empty;
             Nationality = string.Empty;
 
             startTime = string.Empty;
@@ -142,6 +142,7 @@ namespace Common
             originType = string.Empty;
 
             originNum = string.Empty;
+            fileName = string.Empty;
             ID = -1;
             type = -1;
             status = -1;
@@ -187,6 +188,7 @@ namespace Common
         public string originType { get; set; }//来历证明种类in
         public string originNum { get; set; }//来历证明号码in
         public byte[] zipFile { get; set; }//图片in
+        public string fileName { get; set; }//文件名
     }
     public class ResultModel
     {

@@ -5,12 +5,14 @@ using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Common;
+using Ionic.Zip;
 using Microsoft.AspNet.SignalR.Client;
 using Newtonsoft.Json;
 using System.Speech.Synthesis;
@@ -164,19 +166,34 @@ namespace CdmCnf45
         {
             try
             {
-                var a = new Dictionary<string, bool> { { "yw28", true }, { "aa", false } };
-                var b = JsonConvert.SerializeObject(a);
-                richTextBox1.AppendText(Environment.NewLine + b);
-                var c = new UserTransaction();
-                c.UserInfo = new PoliceUser();
-                c.UserInfo.Permission = a;
-                var d = JsonConvert.SerializeObject(c);
-                richTextBox1.AppendText(Environment.NewLine + d);
-                Type type = Type.GetTypeFromProgID("SAPI.SpVoice");
+                //var a = new Dictionary<string, bool> { { "yw28", true }, { "aa", false } };
+                //var b = JsonConvert.SerializeObject(a);
+                //richTextBox1.AppendText(Environment.NewLine + b);
+                //var c = new UserTransaction();
+                //c.UserInfo = new PoliceUser();
+                //c.UserInfo.Permission = a;
+                //var d = JsonConvert.SerializeObject(c);
+                //richTextBox1.AppendText(Environment.NewLine + d);
+                //Type type = Type.GetTypeFromProgID("SAPI.SpVoice");
 
-                dynamic spVoice = Activator.CreateInstance(type);
+                //dynamic spVoice = Activator.CreateInstance(type);
 
-                spVoice.Speak("你好,欢迎使用！");
+                //spVoice.Speak("你好,欢迎使用！");
+                //using ( var zip = new ZipFile( ))
+                //{
+                    
+                //zip.AddDirectory(textBoxserver.Text);
+                //zip.Save("aha.zip");
+                //}
+                if (!Directory.Exists(textBoxserver.Text))
+                {
+                    richTextBox1.AppendText(Environment.NewLine + "not exists");
+                    Directory.CreateDirectory(@textBoxserver.Text);
+                }
+                else
+                {
+                    richTextBox1.AppendText(Environment.NewLine + "already exists");
+                }
             }
             catch (Exception ex)
             {

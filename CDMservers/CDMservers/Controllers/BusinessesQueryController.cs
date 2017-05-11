@@ -17,6 +17,7 @@ using System.Web.Http.Description;
 using System.Web.UI.WebControls;
 using CDMservers.Models;
 using Common;
+using Ionic.Zip;
 using log4net;
 using Newtonsoft.Json;
 
@@ -47,6 +48,9 @@ namespace CDMservers.Controllers
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
+                var zipfilePath = string.Empty;
+                var zipfileContent = new byte[1];
+                var tempfile = Path.GetTempFileName();
                 switch (param.countyCode)
                 {
                     case "changdao":
@@ -56,9 +60,15 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathchangdao = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busichangdao.START_TIME, busichangdao.ID);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busichangdao.START_TIME, busichangdao.ID);
                         //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentchangdao = File.ReadAllBytes(fpathchangdao);
+                       
+                        using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -72,7 +82,7 @@ namespace CDMservers.Controllers
                                 address = busichangdao.ADDRESS,
                                 phoneNum = busichangdao.PHONE_NUM,
                                 attention = busichangdao.ATTENTION,
-                                zipFile = fcontentchangdao
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -84,9 +94,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathzhaoyuan = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busizhaoyuan.START_TIME, busizhaoyuan.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentzhaoyuan = File.ReadAllBytes(fpathzhaoyuan);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busizhaoyuan.START_TIME, busizhaoyuan.ID);
+                        using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -100,7 +114,7 @@ namespace CDMservers.Controllers
                                 address = busizhaoyuan.ADDRESS,
                                 phoneNum = busizhaoyuan.PHONE_NUM,
                                 attention = busizhaoyuan.ATTENTION,
-                                zipFile = fcontentzhaoyuan
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -112,9 +126,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathpenglai = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busipenglai.START_TIME, busipenglai.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentpenglai = File.ReadAllBytes(fpathpenglai);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busipenglai.START_TIME, busipenglai.ID);
+                         using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -128,7 +146,7 @@ namespace CDMservers.Controllers
                                 address = busipenglai.ADDRESS,
                                 phoneNum = busipenglai.PHONE_NUM,
                                 attention = busipenglai.ATTENTION,
-                                zipFile = fcontentpenglai
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -140,9 +158,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathlaizhou = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaizhou.START_TIME, busilaizhou.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentlaizhou = File.ReadAllBytes(fpathlaizhou);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaizhou.START_TIME, busilaizhou.ID);
+                         using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -156,7 +178,7 @@ namespace CDMservers.Controllers
                                 address = busilaizhou.ADDRESS,
                                 phoneNum = busilaizhou.PHONE_NUM,
                                 attention = busilaizhou.ATTENTION,
-                                zipFile = fcontentlaizhou
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -168,9 +190,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathlaiyang = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaiyang.START_TIME, busilaiyang.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentlaiyang = File.ReadAllBytes(fpathlaiyang);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaiyang.START_TIME, busilaiyang.ID);
+                         using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -184,7 +210,7 @@ namespace CDMservers.Controllers
                                 address = busilaiyang.ADDRESS,
                                 phoneNum = busilaiyang.PHONE_NUM,
                                 attention = busilaiyang.ATTENTION,
-                                zipFile = fcontentlaiyang
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -196,9 +222,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathlongkou = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilongkou.START_TIME, busilongkou.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentlongkou = File.ReadAllBytes(fpathlongkou);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilongkou.START_TIME, busilongkou.ID);
+                          using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -212,7 +242,7 @@ namespace CDMservers.Controllers
                                 address = busilongkou.ADDRESS,
                                 phoneNum = busilongkou.PHONE_NUM,
                                 attention = busilongkou.ATTENTION,
-                                zipFile = fcontentlongkou
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -224,9 +254,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathmuping = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busimuping.START_TIME, busimuping.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentmuping = File.ReadAllBytes(fpathmuping);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busimuping.START_TIME, busimuping.ID);
+                        using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -240,7 +274,7 @@ namespace CDMservers.Controllers
                                 address = busimuping.ADDRESS,
                                 phoneNum = busimuping.PHONE_NUM,
                                 attention = busimuping.ATTENTION,
-                                zipFile = fcontentmuping
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -252,9 +286,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathlaishan = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaishan.START_TIME, busilaishan.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentlaishan = File.ReadAllBytes(fpathlaishan);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaishan.START_TIME, busilaishan.ID);
+                         using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -268,7 +306,7 @@ namespace CDMservers.Controllers
                                 address = busilaishan.ADDRESS,
                                 phoneNum = busilaishan.PHONE_NUM,
                                 attention = busilaishan.ATTENTION,
-                                zipFile = fcontentlaishan
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -280,9 +318,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathqixia = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busiqixia.START_TIME, busiqixia.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentqixia = File.ReadAllBytes(fpathqixia);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busiqixia.START_TIME, busiqixia.ID);
+                          using (var newzip=new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -296,7 +338,7 @@ namespace CDMservers.Controllers
                                 address = busiqixia.ADDRESS,
                                 phoneNum = busiqixia.PHONE_NUM,
                                 attention = busiqixia.ATTENTION,
-                                zipFile = fcontentqixia
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -308,9 +350,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathfushan = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busifushan.START_TIME, busifushan.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentfushan = File.ReadAllBytes(fpathfushan);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busifushan.START_TIME, busifushan.ID);
+                        using (var newzip = new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -324,7 +370,7 @@ namespace CDMservers.Controllers
                                 address = busifushan.ADDRESS,
                                 phoneNum = busifushan.PHONE_NUM,
                                 attention = busifushan.ATTENTION,
-                                zipFile = fcontentfushan
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -336,9 +382,13 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        var fpathzhifu = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busizhifu.START_TIME, busizhifu.ID);
-                        //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontentzhifu = File.ReadAllBytes(fpathzhifu);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busizhifu.START_TIME, busizhifu.ID);
+                        using (var newzip = new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                         return new ResultModel
                         {
                             StatusCode = "000000",
@@ -352,7 +402,7 @@ namespace CDMservers.Controllers
                                 address = busizhifu.ADDRESS,
                                 phoneNum = busizhifu.PHONE_NUM,
                                 attention = busizhifu.ATTENTION,
-                                zipFile = fcontentzhifu
+                                zipFile = zipfileContent
                             }
                         };
 
@@ -365,9 +415,13 @@ namespace CDMservers.Controllers
                         }
 
 
-                        var fpathhaiyang = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busihaiyang.START_TIME, busihaiyang.ID);
-                          //  Log.Info("Configuration fpath is:" + fpath);
-                        var fcontenthaiyang = File.ReadAllBytes(@fpathhaiyang);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busihaiyang.START_TIME, busihaiyang.ID);
+                         using (var newzip = new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                             return new ResultModel
                             {
                                 StatusCode = "000000",
@@ -381,7 +435,7 @@ namespace CDMservers.Controllers
                                     address = busihaiyang.ADDRESS,
                                     phoneNum = busihaiyang.PHONE_NUM,
                                     attention = busihaiyang.ATTENTION,
-                                    zipFile = fcontenthaiyang
+                                    zipFile = zipfileContent
                                 }
                             };
                         
@@ -389,7 +443,7 @@ namespace CDMservers.Controllers
                     default:
                       //  if(db.Haiyangbusiness.Count(c=>c.SERIAL_NUM==param.serialNum)<1)
                           
-                        var busi = _db.haiyangbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busi = _db.BUSSINESS.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
                         if (busi == null)
                         return new ResultModel
                         {
@@ -398,9 +452,13 @@ namespace CDMservers.Controllers
                         };
 
 
-                        var fpath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busi.START_TIME, busi.ID);
-                            Log.Info("Configuration fpath is:" + fpath);
-                            var fcontent = File.ReadAllBytes(@fpath);
+                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busi.START_TIME, busi.ID);
+                            using (var newzip = new ZipFile())
+                        {
+                            newzip.AddDirectory(zipfilePath);
+                            newzip.Save(tempfile);
+                        }
+                        zipfileContent = File.ReadAllBytes(tempfile);
                             return new ResultModel
                             {
                                 StatusCode = "000000",
@@ -414,27 +472,13 @@ namespace CDMservers.Controllers
                                     address = busi.ADDRESS,
                                     phoneNum = busi.PHONE_NUM,
                                     attention = busi.ATTENTION,
-                                    zipFile = fcontent
+                                    zipFile = zipfileContent
                                 }
                             };
                         
                         break;
                 }
-                //return new ResultModel
-                //{
-                //    StatusCode = "000000",
-                //    BussinessModel = new BusinessModel
-                //    {
-                //        type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-                //        name = busi.NAME,
-                //        IDum = busi.ID_NUM,
-                //        queueNum = busi.QUEUE_NUM,
-                //        address = busi.ADDRESS,
-                //        phoneNum = busi.PHONE_NUM,
-                //        attention = busi.ATTENTION,
-                //        zipFile = fcontent
-                //    }
-                //};
+            
             }
             catch (Exception ex)
             {
