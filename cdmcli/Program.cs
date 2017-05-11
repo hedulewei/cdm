@@ -29,6 +29,9 @@ namespace cdmcli
                 case "getordinal2":
                          Console.WriteLine(aa.RestHttpClientGet(homeurl, "getordinal2", "?code=334&category=0334"));
                     break;
+                case "jss":
+                    Console.WriteLine(aa.JsonserializeEx("laizhou", "user1", "pass", "haha", 111, 222, @"E:\cdm\CDMservers\CdmCliComNs\bin\Release\CdmCliComNs.zip"));
+                    break;
                 case "GET_VERSION":
                     var haha = JsonConvert.SerializeObject(new BusinessModel { businessCategory = "HE", address = "wolong" });
                     //    var dict = new Dictionary<string, string>
@@ -43,7 +46,7 @@ namespace cdmcli
                     Console.WriteLine("no this method");
                     break;
             }
-
+            Console.ReadKey();
         }
     }
 }

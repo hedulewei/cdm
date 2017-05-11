@@ -32,6 +32,7 @@ TestResults/
 AppPackages/
 *.exe
 *.sdf
+*.opensdf
 *.dll
 *.suo
 *.user
