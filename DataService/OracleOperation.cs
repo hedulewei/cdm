@@ -219,25 +219,25 @@ namespace DataService
                     ordinal = odr.GetInt32(0);
                 }
                 odr.Close();//关闭reader.这是一定要写的  
-                Log.Info("sequence.next="+ordinal);
+                //Log.Info("sequence.next="+ordinal);
                   var currentdate = DateTime.Now.Date;
-                  var filepath = string.Format("d:\\{0}\\{1}", input.countyCode,
-                      string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day));
-                  Log.Info("path 11 =" + filepath);
-                if (!Directory.Exists(@filepath))
-                {
-                    Log.Info("path="+filepath);
-                    Directory.CreateDirectory(@filepath);
-                }
-                var filepath2 = string.Format("{0}\\{1}", filepath, ordinal);
-                if (!Directory.Exists(@filepath2))
-                {
-                    Log.Info("filepath2=" + filepath2);
-                    Directory.CreateDirectory(@filepath2);
-                }
-                var filename = string.Format("{0}\\{1}", filepath2, input.fileName);
-                Log.Info("file name=" + filename);
-                File.WriteAllBytes(filename,input.zipFile);
+                //  var filepath = string.Format("d:\\{0}\\{1}", input.countyCode,
+                //      string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day));
+                //  Log.Info("path 11 =" + filepath);
+                //if (!Directory.Exists(@filepath))
+                //{
+                //    Log.Info("path="+filepath);
+                //    Directory.CreateDirectory(@filepath);
+                //}
+                //var filepath2 = string.Format("{0}\\{1}", filepath, ordinal);
+                //if (!Directory.Exists(@filepath2))
+                //{
+                //    Log.Info("filepath2=" + filepath2);
+                //    Directory.CreateDirectory(@filepath2);
+                //}
+                //var filename = string.Format("{0}\\{1}", filepath2, input.fileName);
+                //Log.Info("file name=" + filename);
+                //File.WriteAllBytes(filename,input.zipFile);
               
                 var scurrentdate = string.Format("{0}/{1}/{2}", currentdate.Year, currentdate.Month, currentdate.Day);
                 com.CommandText = string.Format("insert into bussiness (id,type,start_time,status,queue_num,name,id_num,address,phone_num,attention) values({0},{1},'{2}',{3},'{4}','{5}','{6}','{7}','{8}','{9}')",

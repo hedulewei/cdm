@@ -6,7 +6,8 @@ using Newtonsoft.Json;
 
 namespace Common
 {
-    public enum VoiceType {Fee,Reject}
+    public enum BusinessStatus {AutoSubmit, Upload, PartUpload, Processing, Reject, Fee,Discard,Paid,License }
+    public enum VoiceType { Fee, Reject }
     public enum LedMsgType { Processing, Reject ,Done}
     public enum CountyCode { HaiYang, FuShan,QiXia }
    

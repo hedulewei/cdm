@@ -540,7 +540,27 @@ namespace CDMservers.Controllers
                         case "fushan":
                             return FushanBusinessInfo(cd, param);
                         default:
-                            return AllBusinessInfo(cd, param);
+
+                            var ret= AllBusinessInfo(cd, param);
+                            foreach (BusinessModel r in FushanBusinessInfo(cd, param).BussinessList)
+                            {
+                                ret.BussinessList.Add(r);
+                            }
+                            ret.BussinessList.AddRange(HaiyangBusinessInfo(cd, param).BussinessList);
+                            ret.BussinessList.AddRange(ZhifuBusinessInfo(cd, param).BussinessList);
+
+                            ret.BussinessList.AddRange(ChangdaoBusinessInfo(cd, param).BussinessList);
+                            ret.BussinessList.AddRange(ZhaoyuanBusinessInfo(cd, param).BussinessList);
+                            ret.BussinessList.AddRange(PenglaiBusinessInfo(cd, param).BussinessList);
+                            ret.BussinessList.AddRange(LaizhouBusinessInfo(cd, param).BussinessList);
+                            ret.BussinessList.AddRange(LaiyangBusinessInfo(cd, param).BussinessList);
+
+                            ret.BussinessList.AddRange(LongkouBusinessInfo(cd, param).BussinessList);
+                            ret.BussinessList.AddRange(MupingBusinessInfo(cd, param).BussinessList);
+                            ret.BussinessList.AddRange(LaishanBusinessInfo(cd, param).BussinessList);
+                            ret.BussinessList.AddRange(QixiaBusinessInfo(cd, param).BussinessList);
+                            return ret;
+                            break;
                     }
                 }
             }
@@ -573,7 +593,7 @@ namespace CDMservers.Controllers
         private BusinessListResult HaiyangBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
 
-            IQueryable<haiyangbusiness> busi = cd.haiyangbusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<haiyangbusiness> busi = cd.haiyangbusiness.Where(c =>(param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -620,7 +640,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult ZhifuBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<zhifubusiness> busi = cd.zhifubusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<zhifubusiness> busi = cd.zhifubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -666,7 +686,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult AllBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<BUSSINESS> busi = cd.BUSSINESS.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<BUSSINESS> busi = cd.BUSSINESS.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -712,7 +732,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult ChangdaoBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<changdaobusiness> busi = cd.changdaobusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<changdaobusiness> busi = cd.changdaobusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -758,7 +778,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult ZhaoyuanBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<zhaoyuanbusiness> busi = cd.zhaoyuanbusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<zhaoyuanbusiness> busi = cd.zhaoyuanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -804,7 +824,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult PenglaiBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<penglaibusiness> busi = cd.penglaibusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<penglaibusiness> busi = cd.penglaibusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -850,7 +870,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult LaizhouBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<laizhoubusiness> busi = cd.laizhoubusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<laizhoubusiness> busi = cd.laizhoubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -896,7 +916,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult LaiyangBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<laiyangbusiness> busi = cd.laiyangbusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<laiyangbusiness> busi = cd.laiyangbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -942,7 +962,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult LongkouBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<longkoubusiness> busi = cd.longkoubusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<longkoubusiness> busi = cd.longkoubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -988,7 +1008,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult MupingBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<mupingbusiness> busi = cd.mupingbusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<mupingbusiness> busi = cd.mupingbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -1034,7 +1054,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult LaishanBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<laishanbusiness> busi = cd.laishanbusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<laishanbusiness> busi = cd.laishanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -1080,7 +1100,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult QixiaBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<qixiabusiness> busi = cd.qixiabusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<qixiabusiness> busi = cd.qixiabusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
@@ -1126,7 +1146,7 @@ namespace CDMservers.Controllers
         }
         private BusinessListResult FushanBusinessInfo(ModelAllDb cd, BusinessModel param)
         {
-            IQueryable<fushanbusiness> busi = cd.fushanbusiness.Where(c => c.COUNTYCODE == param.countyCode
+            IQueryable<fushanbusiness> busi = cd.fushanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                  && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)

@@ -27,12 +27,13 @@ namespace CDMservers.Controllers
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
      //   private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
         private readonly UserDbc _dbUserDbc = new UserDbc();
+        private readonly NewDblog _dbLog = new NewDblog();
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 _dbUserDbc.Dispose();
-                //  _dbLog.Dispose();
+                  _dbLog.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -518,6 +519,7 @@ namespace CDMservers.Controllers
                 {
                     return new ResultModel {StatusCode = "000007", Result = "没有权限"};
                 }
+                LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
                 //  Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
                 var currentdate = DateTime.Now.Date;
                 var scurrentdate = string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day);
@@ -537,7 +539,7 @@ namespace CDMservers.Controllers
                 //    File.WriteAllBytes(filename, param.zipFile);
                 //    return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel{ID = param.ID,fileName=param.fileName} };
                 //}
-              
+                param.status = (int)BusinessStatus.Upload;
                
                 switch (param.countyCode)
                 {
@@ -550,6 +552,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -571,6 +574,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -592,6 +596,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -613,6 +618,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -634,6 +640,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -655,6 +662,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -676,6 +684,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -697,6 +706,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -718,6 +728,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -739,6 +750,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -760,6 +772,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -781,6 +794,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -802,6 +816,7 @@ namespace CDMservers.Controllers
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
                                 START_TIME = scurrentdate,
+                                END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
@@ -818,13 +833,50 @@ namespace CDMservers.Controllers
 
                 await Task.Run(async () =>
                 {
-                    await MessagePush.PushVoiceMessage(new CdmMessage
+                    if (param.status == (int)BusinessStatus.Reject)
                     {
-                        ClientType = ClientType.Voice,
-                        Content = param.queueNum,
-                        CountyCode = param.countyCode,
-                        VoiceType = VoiceType.Fee
-                    });
+                        await MessagePush.PushVoiceMessage(new CdmMessage
+                        {
+                            ClientType = ClientType.Voice,
+                            Content = param.queueNum,
+                            CountyCode = param.countyCode,
+                            VoiceType = VoiceType.Reject
+                        });
+                        await MessagePush.PushLedMessage(new CdmMessage
+                        {
+                            ClientType = ClientType.Led,
+                            Content = param.queueNum,
+                            CountyCode = param.countyCode,
+                            LedMsgType = LedMsgType.Reject
+                        });
+                    }
+                    if (param.status == (int)BusinessStatus.Fee)
+                    {
+                        await MessagePush.PushVoiceMessage(new CdmMessage
+                        {
+                            ClientType = ClientType.Voice,
+                            Content = param.queueNum,
+                            CountyCode = param.countyCode,
+                            VoiceType = VoiceType.Fee
+                        });
+                        await MessagePush.PushLedMessage(new CdmMessage
+                        {
+                            ClientType = ClientType.Led,
+                            Content = param.queueNum,
+                            CountyCode = param.countyCode,
+                            LedMsgType = LedMsgType.Done
+                        });
+                    }
+                    if (param.status == (int)BusinessStatus.Processing)
+                    {
+                        await MessagePush.PushLedMessage(new CdmMessage
+                        {
+                            ClientType = ClientType.Led,
+                            Content = param.queueNum,
+                            CountyCode = param.countyCode,
+                            LedMsgType = LedMsgType.Processing
+                        });
+                    }
                 });
             ;
                 return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel{ID=id} };
