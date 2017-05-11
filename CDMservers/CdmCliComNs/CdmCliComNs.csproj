@@ -60,6 +60,12 @@
   <ItemGroup>
     <None Include="by all means.snk" />
     <None Include="packages.config" />
+    <None Include="reg.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="unreg.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.csproj">

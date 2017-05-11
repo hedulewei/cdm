@@ -26,6 +26,8 @@ namespace CdmCliComNs
         string RestHttpClientGet(string host, string method, string param);
         [DispId(2)]
         string SendRestHttpClientRequest(string host, string method, string param);
+        [DispId(3)]
+        string Jsonserialize(UploadPicture up, string fname);
     }
 
     [Guid("7B634074-B8AB-4A14-98D6-1492BE90804B")]
@@ -73,6 +75,13 @@ namespace CdmCliComNs
             //    return "000001服务url错误," + ex.Message;
             }
         }
+
+        public string Jsonserialize(UploadPicture up, string fname)
+        {
+            up.FileContent=File.ReadAllBytes(fname);
+            return JsonConvert.SerializeObject(up);
+        }
+
         public string RestHttpClientGet(string host, string method, string param)
         {
             var url = string.Format("http://{0}/{2}/{1}", host, param, method);

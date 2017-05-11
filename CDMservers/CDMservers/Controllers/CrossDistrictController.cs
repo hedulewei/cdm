@@ -38,6 +38,10 @@ namespace CDMservers.Controllers
         {
             try
             {
+                if (param == null)
+                {
+                    return new SimpleResult { StatusCode = "000003", Content = "请求错误，请检查输入参数！" };
+                }
                 Log.Info("CrossDistrictAuthorization input:" + JsonConvert.SerializeObject(param));
                 var theuser = db.USERS.FirstOrDefault(a => a.USERNAME == param.UserName);
                 if (theuser == null)

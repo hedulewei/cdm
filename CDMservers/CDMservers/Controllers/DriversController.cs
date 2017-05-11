@@ -31,6 +31,10 @@ namespace CDMservers.Controllers
         {
             try
             {
+                if (param == null)
+                {
+                    return new ResultModel { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
                 if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
               //  if (!PermissionCheck.Check(param))
                 {
@@ -54,6 +58,10 @@ namespace CDMservers.Controllers
         {
             try
             {
+                if (param == null)
+                {
+                    return new ResultModel { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
                 if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
                // if (!PermissionCheck.Check(param))
                 {

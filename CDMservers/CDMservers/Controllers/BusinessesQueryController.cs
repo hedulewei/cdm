@@ -43,6 +43,10 @@ namespace CDMservers.Controllers
         {
             try
             {
+                if (param == null)
+                {
+                    return new ResultModel { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
                 Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
                 if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 {
@@ -504,6 +508,10 @@ namespace CDMservers.Controllers
         {
             try
             {
+                if (param == null)
+                {
+                    return new BusinessListResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
                 Log.Info("BusinessesQuery input:" + JsonConvert.SerializeObject(param));
                 if (!PermissionCheck.CheckLevelPermission(param,_dbuUserDbc))
                 {
@@ -540,12 +548,8 @@ namespace CDMservers.Controllers
                         case "fushan":
                             return FushanBusinessInfo(cd, param);
                         default:
-
                             var ret= AllBusinessInfo(cd, param);
-                            foreach (BusinessModel r in FushanBusinessInfo(cd, param).BussinessList)
-                            {
-                                ret.BussinessList.Add(r);
-                            }
+                            ret.BussinessList.AddRange(FushanBusinessInfo(cd, param).BussinessList);
                             ret.BussinessList.AddRange(HaiyangBusinessInfo(cd, param).BussinessList);
                             ret.BussinessList.AddRange(ZhifuBusinessInfo(cd, param).BussinessList);
 

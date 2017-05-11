@@ -13,6 +13,7 @@ using CDMservers.Models;
 using Common;
 using DataService;
 using log4net;
+using Newtonsoft.Json;
 
 namespace CDMservers.Controllers
 {
@@ -34,6 +35,11 @@ namespace CDMservers.Controllers
         {
             try
             {
+                if (param == null)
+                {
+                    return new UploadPictureResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
+                
                 if (!PermissionCheck.CheckLevelPermission(param, _dbUserDbc))
                 {
                     return new UploadPictureResult { StatusCode = "000007", Result = "没有权限" };
@@ -58,7 +64,8 @@ namespace CDMservers.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("PostBusinessFormInfo", ex);
+                Log.InfoFormat("UploadPicture :{0}.", JsonConvert.SerializeObject(param));
+                Log.Error("UploadPicture", ex);
                 return new UploadPictureResult { StatusCode = "000003", Result = ex.Message };
             }
         }
