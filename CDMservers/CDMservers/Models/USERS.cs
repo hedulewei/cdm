@@ -36,7 +36,7 @@ namespace CDMservers.Models
         public string POLICENUM { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(50)]
         public string REALNAME { get; set; }
 
         public bool DISABLED { get; set; }
