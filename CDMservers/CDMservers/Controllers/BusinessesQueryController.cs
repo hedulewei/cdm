@@ -605,7 +605,7 @@ namespace CDMservers.Controllers
             IQueryable<haiyangbusiness> busi = cd.haiyangbusiness.Where(c =>(param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                 //  && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -614,6 +614,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -644,7 +658,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString():string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -663,7 +677,7 @@ namespace CDMservers.Controllers
             IQueryable<zhifubusiness> busi = cd.zhifubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                //   && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -672,6 +686,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -701,7 +729,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -720,7 +748,7 @@ namespace CDMservers.Controllers
             IQueryable<BUSSINESS> busi = cd.BUSSINESS.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                //   && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -729,6 +757,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -758,7 +800,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME,
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -777,7 +819,7 @@ namespace CDMservers.Controllers
             IQueryable<changdaobusiness> busi = cd.changdaobusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                 //  && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -786,6 +828,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -815,7 +871,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -834,7 +890,7 @@ namespace CDMservers.Controllers
             IQueryable<zhaoyuanbusiness> busi = cd.zhaoyuanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+               //    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -843,6 +899,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -872,7 +942,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -891,7 +961,7 @@ namespace CDMservers.Controllers
             IQueryable<penglaibusiness> busi = cd.penglaibusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                //   && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -900,6 +970,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -929,7 +1013,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -948,7 +1032,7 @@ namespace CDMservers.Controllers
             IQueryable<laizhoubusiness> busi = cd.laizhoubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                 //  && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -957,6 +1041,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -986,7 +1084,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1005,7 +1103,7 @@ namespace CDMservers.Controllers
             IQueryable<laiyangbusiness> busi = cd.laiyangbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                 //  && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -1014,6 +1112,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -1043,7 +1155,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1062,7 +1174,7 @@ namespace CDMservers.Controllers
             IQueryable<longkoubusiness> busi = cd.longkoubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                 //  && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -1071,6 +1183,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -1100,7 +1226,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1119,7 +1245,7 @@ namespace CDMservers.Controllers
             IQueryable<mupingbusiness> busi = cd.mupingbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                 //  && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -1128,6 +1254,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -1157,7 +1297,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1176,7 +1316,7 @@ namespace CDMservers.Controllers
             IQueryable<laishanbusiness> busi = cd.laishanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                 //  && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -1185,6 +1325,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -1214,7 +1368,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1233,7 +1387,7 @@ namespace CDMservers.Controllers
             IQueryable<qixiabusiness> busi = cd.qixiabusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                 //  && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -1242,6 +1396,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -1271,7 +1439,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1290,7 +1458,7 @@ namespace CDMservers.Controllers
             IQueryable<fushanbusiness> busi = cd.fushanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                 //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-                   && (param.type == -1 || c.TYPE == param.type)
+                //   && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
@@ -1299,6 +1467,20 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.businessCategory))
+            {
+                var id = "4";
+                switch (param.businessCategory)
+                {
+                    case "cars":
+                        id = "0";
+                        break;
+                    case "drivers":
+                        id = "1";
+                        break;
+                }
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+            }
             if (!string.IsNullOrEmpty(param.startTime))
             {
                 var stime = DateTime.Parse(param.startTime);
@@ -1328,7 +1510,7 @@ namespace CDMservers.Controllers
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME.ToString(),
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
