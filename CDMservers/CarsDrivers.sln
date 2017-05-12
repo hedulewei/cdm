@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cdmcli", "..\cdmcli\cdmcli.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataService", "..\DataService\DataService.csproj", "{69A9F3E0-BDB7-4CCD-AD19-D92168A70766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CdmCliComNs", "CdmCliComNs\CdmCliComNs.csproj", "{1777150A-DB06-434F-9418-BC7D805B4B6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunYiCdm", "CdmCliComNs\YunYiCdm.csproj", "{1777150A-DB06-434F-9418-BC7D805B4B6C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CdmCnf45", "CdmCnf45\CdmCnf45.csproj", "{076AE865-729F-4F5A-97FF-24605132B0F0}"
 EndProject
@@ -25,8 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{371D86
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperateCamera", "D:\code samples\OperateCamera\OperateCamera\OperateCamera.csproj", "{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -154,22 +152,6 @@ Global
 		{6F3C9F4F-23F6-4075-B354-A4019EAAD7EB}.Release|Win32.ActiveCfg = Release|Any CPU
 		{6F3C9F4F-23F6-4075-B354-A4019EAAD7EB}.Release|x64.ActiveCfg = Release|Any CPU
 		{6F3C9F4F-23F6-4075-B354-A4019EAAD7EB}.Release|x86.ActiveCfg = Release|Any CPU
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Debug|Win32.ActiveCfg = Debug|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Debug|Win32.Build.0 = Debug|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Debug|x64.ActiveCfg = Debug|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Debug|x86.ActiveCfg = Debug|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Debug|x86.Build.0 = Debug|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Release|Any CPU.ActiveCfg = Release|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Release|Mixed Platforms.Build.0 = Release|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Release|Win32.ActiveCfg = Release|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Release|Win32.Build.0 = Release|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Release|x64.ActiveCfg = Release|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Release|x86.ActiveCfg = Release|x86
-		{EBFCE2E9-31CB-4EBF-B3F8-B9F0152E9479}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

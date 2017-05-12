@@ -180,9 +180,9 @@
       <Project>{2247dbe5-bfc2-47a6-9d40-1a231a7ebc27}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CdmCliComNs\CdmCliComNs.csproj">
+    <ProjectReference Include="..\CdmCliComNs\YunYiCdm.csproj">
       <Project>{1777150a-db06-434f-9418-bc7d805b4b6c}</Project>
-      <Name>CdmCliComNs</Name>
+      <Name>YunYiCdm</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

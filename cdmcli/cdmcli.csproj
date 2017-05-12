@@ -51,9 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDMservers\CdmCliComNs\CdmCliComNs.csproj">
+    <ProjectReference Include="..\CDMservers\CdmCliComNs\YunYiCdm.csproj">
       <Project>{1777150a-db06-434f-9418-bc7d805b4b6c}</Project>
-      <Name>CdmCliComNs</Name>
+      <Name>YunYiCdm</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{2247dbe5-bfc2-47a6-9d40-1a231a7ebc27}</Project>

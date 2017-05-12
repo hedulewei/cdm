@@ -12,7 +12,7 @@ namespace cdmcli
         private const string homeurl = "localhost:8000";
         static void Main(string[] args)
         {
-            var aa = new CdmCliComNs.CdmcCom();
+            var aa = new YunYiCdm.YunYiCdm();
             if (args.Length < 1)
             {
                 Console.WriteLine("please input method");

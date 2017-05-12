@@ -8,16 +8,17 @@ using Common;
 using Newtonsoft.Json;
 
 
-namespace CdmCliComNs
+namespace YunYiCdm
 {
    // [Guid("7B634074-B8AB-4A14-98D6-1492BE90804B")]
-    [Guid("758B226E-E824-49B5-B688-55DC1F319080")]
+  //  [Guid("758B226E-E824-49B5-B688-55DC1F319080")]
+    [Guid("4C4FEFB2-305D-427A-8EA5-FBA7D7CEBB82")]
 
     [ClassInterface(ClassInterfaceType.None)]
 
-    [ProgId("CdmCliComNs.CdmcCom")]
+    [ProgId("YunYiCdm.YunYiCdm")]
 
-    public class CdmcCom : ICdmcCom
+    public class YunYiCdm : IYunYiCdm
     {
         public string SendRestHttpClientRequest(string host, string method, string param)
         {

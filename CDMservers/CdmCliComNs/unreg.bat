@@ -1,4 +1,4 @@
 ﻿
-C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm CdmCliComNs.dll /unregister
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm YunYiCdm.dll /unregister
 
 pause
