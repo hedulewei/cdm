@@ -10,9 +10,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
+using AForge.Video;
+using AForge.Video.DirectShow;
 using Common;
 using Newtonsoft.Json;
+using System.Windows.Interop;
 
 namespace Stress_and_Performance_Testing
 {
@@ -21,6 +26,9 @@ namespace Stress_and_Performance_Testing
         private readonly List<Thread> _threads=new List<Thread>();
         private delegate void UpdateStatusDelegate(string status);
 
+        private FilterInfoCollection videoDevices;
+      //  private AsyncVideoSource videoSourcePlayer;
+     //   private AForge.Controls.VideoSourcePlayer videoSourcePlayer;
         private Thread _ttt;
         public Formtest()
         {
@@ -366,6 +374,124 @@ namespace Stress_and_Performance_Testing
         private void textBoxsourcefile_TextChanged(object sender, EventArgs e)
         { 
             richTextBox1.AppendText(Environment.NewLine + string.Format("{0},{1},{2},{3}", (int)'a', (int)'z', (int)'A',""));
+        }
+
+        private void buttoncamera_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                richTextBox1.AppendText(string.Format("{0} {1},{2},", Environment.NewLine, videoDevices[0].MonikerString, comboBoxcameras.SelectedIndex));
+                richTextBox1.AppendText(string.Format("{0} {1},{2},", Environment.NewLine, videoDevices[0].Name, comboBoxcameras.SelectedIndex));
+                var videoSource =
+                    new VideoCaptureDevice(videoDevices[comboBoxcameras.SelectedIndex].MonikerString)
+                    {
+                        DesiredFrameSize = new System.Drawing.Size(320, 240),
+                        DesiredFrameRate = 1
+                    };
+                richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 111));
+                videoSourcePlayer.VideoSource = videoSource;
+                richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 222));
+                videoSourcePlayer.Start();
+            }
+            catch (Exception ex)
+            {
+                richTextBox1.AppendText(Environment.NewLine+ex.Message);
+            }
+        }
+
+        private void Formtest_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // 枚举所有视频输入设备
+
+                 videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+
+                if (videoDevices.Count == 0)
+                    throw new ApplicationException();
+
+                foreach (FilterInfo device in videoDevices)
+                {
+                    comboBoxcameras.Items.Add(device.Name);
+                }
+
+                comboBoxcameras.SelectedIndex = 0;
+
+            }
+            catch (ApplicationException)
+            {
+                comboBoxcameras.Items.Add("No local capture devices");
+            }
+        }
+        private string GetImagePath()
+        {
+            string personImgPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory)
+                         + Path.DirectorySeparatorChar.ToString() + "PersonImg";
+            if (!Directory.Exists(personImgPath))
+            {
+                Directory.CreateDirectory(personImgPath);
+            }
+
+            return personImgPath;
+        }
+        private void buttoncameraclose_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                videoSourcePlayer.SignalToStop();
+                videoSourcePlayer.WaitForStop();
+            }
+            catch (Exception ex)
+            {
+                richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, ex.Message));
+            }
+        }
+
+        private void buttoncameracapture_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 1111));
+                if (videoSourcePlayer.IsRunning)
+                {
+                    richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 2222));
+                    BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                                    videoSourcePlayer.GetCurrentVideoFrame().GetHbitmap(),
+                                    IntPtr.Zero,
+                                     Int32Rect.Empty,
+                                    BitmapSizeOptions.FromEmptyOptions());
+                    richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 3333));
+                    PngBitmapEncoder pE = new PngBitmapEncoder();
+                    richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 4444));
+                    pE.Frames.Add(BitmapFrame.Create(bitmapSource));
+                    richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 5555));
+                    string picName ="xiaosy" + ".jpg";
+                    if (File.Exists(picName))
+                    {
+                        File.Delete(picName);
+                    }
+                    richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 6666));
+                    using (Stream stream = File.Create(picName))
+                    {
+                        pE.Save(stream);
+                    }
+                    richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, 7777));
+                    //拍照完成后关摄像头并刷新同时关窗体
+                    //if (videoSourcePlayer != null && videoSourcePlayer.IsRunning)
+                    //{
+                    //    videoSourcePlayer.SignalToStop();
+                    //    videoSourcePlayer.WaitForStop();
+                    //}
+
+                  //  this.Close();
+                    richTextBox1.AppendText(Environment.NewLine + picName);
+                }
+            }
+            catch (Exception ex)
+            {
+              //  MessageBox.Show("摄像头异常：" + ex.Message);
+                richTextBox1.AppendText(string.Format("{0} {1},", Environment.NewLine, ex.Message));
+            }
         }
     }
 }

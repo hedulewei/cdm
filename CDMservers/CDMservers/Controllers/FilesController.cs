@@ -57,7 +57,9 @@ namespace CDMservers.Controllers
                     }
                     var filename = string.Format("{0}\\{1}", filepath, param.FileName);
                  //   Log.Info("file name=" + filename);
+                //base64
                     File.WriteAllBytes(filename, param.FileContent);
+                 //   File.WriteAllBytes(filename, Convert.FromBase64String(param.FileContent));
                     return new UploadPictureResult { StatusCode = "000000", Result = "ok",Id = param.Id, FileName = param.FileName  };
                
               

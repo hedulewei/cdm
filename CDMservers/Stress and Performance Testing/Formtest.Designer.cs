@@ -53,6 +53,13 @@
             this.buttonfiles = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxsourcefile = new System.Windows.Forms.TextBox();
+            this.buttoncamera = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxcameras = new System.Windows.Forms.ComboBox();
+            this.buttoncameracapture = new System.Windows.Forms.Button();
+            this.buttoncameraclose = new System.Windows.Forms.Button();
+            this.videoSourcePlayer = new AForge.Controls.VideoSourcePlayer();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonstart
@@ -95,7 +102,7 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(12, 314);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(652, 175);
+            this.richTextBox1.Size = new System.Drawing.Size(652, 349);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
@@ -274,11 +281,72 @@
             this.textBoxsourcefile.Text = "F:\\tools\\swift-pocket-reference.pdf";
             this.textBoxsourcefile.TextChanged += new System.EventHandler(this.textBoxsourcefile_TextChanged);
             // 
+            // buttoncamera
+            // 
+            this.buttoncamera.Location = new System.Drawing.Point(39, 25);
+            this.buttoncamera.Name = "buttoncamera";
+            this.buttoncamera.Size = new System.Drawing.Size(136, 23);
+            this.buttoncamera.TabIndex = 25;
+            this.buttoncamera.Text = "connect";
+            this.buttoncamera.UseVisualStyleBackColor = true;
+            this.buttoncamera.Click += new System.EventHandler(this.buttoncamera_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboBoxcameras);
+            this.groupBox1.Controls.Add(this.buttoncameracapture);
+            this.groupBox1.Controls.Add(this.buttoncameraclose);
+            this.groupBox1.Controls.Add(this.buttoncamera);
+            this.groupBox1.Location = new System.Drawing.Point(829, 67);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(277, 182);
+            this.groupBox1.TabIndex = 26;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "camera";
+            // 
+            // comboBoxcameras
+            // 
+            this.comboBoxcameras.FormattingEnabled = true;
+            this.comboBoxcameras.Location = new System.Drawing.Point(39, 118);
+            this.comboBoxcameras.Name = "comboBoxcameras";
+            this.comboBoxcameras.Size = new System.Drawing.Size(175, 20);
+            this.comboBoxcameras.TabIndex = 28;
+            // 
+            // buttoncameracapture
+            // 
+            this.buttoncameracapture.Location = new System.Drawing.Point(39, 89);
+            this.buttoncameracapture.Name = "buttoncameracapture";
+            this.buttoncameracapture.Size = new System.Drawing.Size(136, 23);
+            this.buttoncameracapture.TabIndex = 27;
+            this.buttoncameracapture.Text = "capture";
+            this.buttoncameracapture.UseVisualStyleBackColor = true;
+            this.buttoncameracapture.Click += new System.EventHandler(this.buttoncameracapture_Click);
+            // 
+            // buttoncameraclose
+            // 
+            this.buttoncameraclose.Location = new System.Drawing.Point(39, 59);
+            this.buttoncameraclose.Name = "buttoncameraclose";
+            this.buttoncameraclose.Size = new System.Drawing.Size(136, 23);
+            this.buttoncameraclose.TabIndex = 26;
+            this.buttoncameraclose.Text = "close";
+            this.buttoncameraclose.UseVisualStyleBackColor = true;
+            this.buttoncameraclose.Click += new System.EventHandler(this.buttoncameraclose_Click);
+            // 
+            // videoSourcePlayer
+            // 
+            this.videoSourcePlayer.Location = new System.Drawing.Point(683, 314);
+            this.videoSourcePlayer.Name = "videoSourcePlayer";
+            this.videoSourcePlayer.Size = new System.Drawing.Size(579, 314);
+            this.videoSourcePlayer.TabIndex = 10;
+            this.videoSourcePlayer.Text = "videoSourcePlayer";
+            this.videoSourcePlayer.VideoSource = null;
+            // 
             // Formtest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(676, 501);
+            this.ClientSize = new System.Drawing.Size(1310, 675);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBoxsourcefile);
             this.Controls.Add(this.buttonfiles);
@@ -304,9 +372,12 @@
             this.Controls.Add(this.comboBoxmethods);
             this.Controls.Add(this.buttonstop);
             this.Controls.Add(this.buttonstart);
+            this.Controls.Add(this.videoSourcePlayer);
             this.Name = "Formtest";
             this.Text = "Stress and Performance Testing";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Formtest_FormClosing);
+            this.Load += new System.EventHandler(this.Formtest_Load);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -339,6 +410,12 @@
         private System.Windows.Forms.Button buttonfiles;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxsourcefile;
+        private System.Windows.Forms.Button buttoncamera;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button buttoncameracapture;
+        private System.Windows.Forms.Button buttoncameraclose;
+        private System.Windows.Forms.ComboBox comboBoxcameras;
+        private AForge.Controls.VideoSourcePlayer videoSourcePlayer;
     }
 }
 
