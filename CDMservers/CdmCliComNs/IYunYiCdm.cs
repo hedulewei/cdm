@@ -11,6 +11,8 @@ namespace YunYiCdm
         string RestHttpClientGet(string host, string method, string param);
         [DispId(2)]
         string SendRestHttpClientRequest(string host, string method, string param);
+        [DispId(3)]
+        bool ByteToFile(byte[] bytesFile, string absoluteFilePath);
 
         [DispId(4)]
         string JsonserializeEx(string countyCode, string userName, string password, string fileName, int kind, int id,

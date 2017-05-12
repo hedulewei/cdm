@@ -5,10 +5,10 @@ namespace CDMservers.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ModelAllDb : DbContext
+    public partial class Model5122 : DbContext
     {
-        public ModelAllDb()
-            : base("name=ModelAllDb")
+        public Model5122()
+            : base("name=Model5122")
         {
         }
 
@@ -239,14 +239,6 @@ namespace CDMservers.Models
                 .HasPrecision(38, 0);
 
             modelBuilder.Entity<changdaobusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<changdaobusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<changdaobusiness>()
                 .Property(e => e.STATUS)
                 .HasPrecision(38, 0);
 
@@ -331,14 +323,6 @@ namespace CDMservers.Models
                 .HasPrecision(38, 0);
 
             modelBuilder.Entity<fushanbusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<fushanbusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<fushanbusiness>()
                 .Property(e => e.STATUS)
                 .HasPrecision(38, 0);
 
@@ -393,14 +377,6 @@ namespace CDMservers.Models
             modelBuilder.Entity<haiyangbusiness>()
                 .Property(e => e.TYPE)
                 .HasPrecision(38, 0);
-
-            modelBuilder.Entity<haiyangbusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<haiyangbusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
 
             modelBuilder.Entity<haiyangbusiness>()
                 .Property(e => e.STATUS)
@@ -459,14 +435,6 @@ namespace CDMservers.Models
                 .HasPrecision(38, 0);
 
             modelBuilder.Entity<laishanbusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<laishanbusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<laishanbusiness>()
                 .Property(e => e.STATUS)
                 .HasPrecision(38, 0);
 
@@ -523,14 +491,6 @@ namespace CDMservers.Models
                 .HasPrecision(38, 0);
 
             modelBuilder.Entity<laiyangbusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<laiyangbusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<laiyangbusiness>()
                 .Property(e => e.STATUS)
                 .HasPrecision(38, 0);
 
@@ -585,14 +545,6 @@ namespace CDMservers.Models
             modelBuilder.Entity<laizhoubusiness>()
                 .Property(e => e.TYPE)
                 .HasPrecision(38, 0);
-
-            modelBuilder.Entity<laizhoubusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<laizhoubusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
 
             modelBuilder.Entity<laizhoubusiness>()
                 .Property(e => e.STATUS)
@@ -649,14 +601,6 @@ namespace CDMservers.Models
             modelBuilder.Entity<longkoubusiness>()
                 .Property(e => e.TYPE)
                 .HasPrecision(38, 0);
-
-            modelBuilder.Entity<longkoubusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<longkoubusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
 
             modelBuilder.Entity<longkoubusiness>()
                 .Property(e => e.STATUS)
@@ -713,14 +657,6 @@ namespace CDMservers.Models
             modelBuilder.Entity<mupingbusiness>()
                 .Property(e => e.TYPE)
                 .HasPrecision(38, 0);
-
-            modelBuilder.Entity<mupingbusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<mupingbusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
 
             modelBuilder.Entity<mupingbusiness>()
                 .Property(e => e.STATUS)
@@ -777,14 +713,6 @@ namespace CDMservers.Models
             modelBuilder.Entity<penglaibusiness>()
                 .Property(e => e.TYPE)
                 .HasPrecision(38, 0);
-
-            modelBuilder.Entity<penglaibusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<penglaibusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
 
             modelBuilder.Entity<penglaibusiness>()
                 .Property(e => e.STATUS)
@@ -903,14 +831,6 @@ namespace CDMservers.Models
                 .HasPrecision(38, 0);
 
             modelBuilder.Entity<qixiabusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<qixiabusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<qixiabusiness>()
                 .Property(e => e.STATUS)
                 .HasPrecision(38, 0);
 
@@ -1019,14 +939,6 @@ namespace CDMservers.Models
                 .HasPrecision(38, 0);
 
             modelBuilder.Entity<zhaoyuanbusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<zhaoyuanbusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<zhaoyuanbusiness>()
                 .Property(e => e.STATUS)
                 .HasPrecision(38, 0);
 
@@ -1081,14 +993,6 @@ namespace CDMservers.Models
             modelBuilder.Entity<zhifubusiness>()
                 .Property(e => e.TYPE)
                 .HasPrecision(38, 0);
-
-            modelBuilder.Entity<zhifubusiness>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<zhifubusiness>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
 
             modelBuilder.Entity<zhifubusiness>()
                 .Property(e => e.STATUS)

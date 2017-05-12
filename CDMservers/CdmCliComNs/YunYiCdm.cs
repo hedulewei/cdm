@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using Common;
+using Ionic.Zip;
 using Newtonsoft.Json;
 
 
@@ -42,6 +43,28 @@ namespace YunYiCdm
             catch (Exception ex)
             {
                 return JsonConvert.SerializeObject(new ResultModel { StatusCode = "000001", Result = ex.Message });
+            }
+        }
+
+        public bool ByteToFile(byte[] bytesFile, string absoluteFilePath)
+        {
+            try
+            {
+                var tempfile = Path.GetTempFileName();
+                File.WriteAllBytes(tempfile, bytesFile);
+                using (var zip = new ZipFile(tempfile))
+                {
+                    if (!Directory.Exists(absoluteFilePath))
+                    {
+                        Directory.CreateDirectory(absoluteFilePath);
+                    }
+                    zip.ExtractAll(absoluteFilePath);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 

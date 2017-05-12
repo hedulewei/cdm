@@ -40,7 +40,7 @@ namespace CDMservers
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             // EF DbContext
-            builder.RegisterType<CityData>().As<DbContext>().InstancePerLifetimeScope(); //InstancePerApiRequest
+          //  builder.RegisterType<CityData>().As<DbContext>().InstancePerLifetimeScope(); //InstancePerApiRequest
 
             // Register repositories by using Autofac's OpenGenerics feature
             // More info: http://code.google.com/p/autofac/wiki/OpenGenerics

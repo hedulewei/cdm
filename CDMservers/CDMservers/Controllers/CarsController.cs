@@ -28,12 +28,14 @@ namespace CDMservers.Controllers
      //   private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
         private readonly UserDbc _dbUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
+        private readonly Model5122 cd = new Model5122();
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 _dbUserDbc.Dispose();
                   _dbLog.Dispose();
+                  cd.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -52,40 +54,39 @@ namespace CDMservers.Controllers
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 }
                 InputLog(param);
-                using (var cd = new ModelAllDb())
-                {
+               
                     switch (param.countyCode)
                     {
                         case "qixia":
-                            return QixiauBusinessInfo(cd, param);
+                            return QixiauBusinessInfo( param);
                         case "laishan":
-                            return LaishanBusinessInfo(cd, param);
+                            return LaishanBusinessInfo( param);
                         case "zhifu":
-                            return ZhifuBusinessInfo(cd, param);
+                            return ZhifuBusinessInfo( param);
                         case "muping":
-                            return MupingBusinessInfo(cd, param);
+                            return MupingBusinessInfo( param);
                         case "longkou":
-                            return LongkouBusinessInfo(cd, param);
+                            return LongkouBusinessInfo( param);
 
                         case "laiyang":
-                            return LaiyangBusinessInfo(cd, param);
+                            return LaiyangBusinessInfo( param);
                         case "laizhou":
-                            return LaizhouBusinessInfo(cd, param);
+                            return LaizhouBusinessInfo( param);
                         case "penglai":
-                            return PenglaiBusinessInfo(cd, param);
+                            return PenglaiBusinessInfo( param);
                         case "zhaoyuan":
-                            return ZhaoyuanBusinessInfo(cd, param);
+                            return ZhaoyuanBusinessInfo( param);
                         case "changdao":
-                            return ChangdaoBusinessInfo(cd, param);
+                            return ChangdaoBusinessInfo( param);
 
                         case "haiyang":
-                            return HaiyangBusinessInfo(cd,param);
+                            return HaiyangBusinessInfo(param);
                         case "fushan":
-                            return FushanBusinessInfo(cd, param);
+                            return FushanBusinessInfo( param);
                         default:
-                            return AllBusinessInfo(cd, param);
+                            return AllBusinessInfo( param);
                     }
-                }
+                
             }
             catch (DbEntityValidationException e)
             {
@@ -112,7 +113,7 @@ namespace CDMservers.Controllers
                 return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
-        private ResultModel AllBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel AllBusinessInfo( BusinessModel param)
         {
             var busi = cd.BUSSINESS.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -142,7 +143,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel FushanBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel FushanBusinessInfo( BusinessModel param)
         {
             var busi = cd.fushanbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -180,7 +181,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel HaiyangBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel HaiyangBusinessInfo( BusinessModel param)
         {
             var busi = cd.haiyangbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -210,7 +211,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel ZhifuBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel ZhifuBusinessInfo( BusinessModel param)
         {
             var busi = cd.zhifubusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -240,7 +241,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel QixiauBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel QixiauBusinessInfo( BusinessModel param)
         {
             var busi = cd.qixiabusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -270,7 +271,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel LaishanBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel LaishanBusinessInfo( BusinessModel param)
         {
             var busi = cd.laishanbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -300,7 +301,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel MupingBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel MupingBusinessInfo( BusinessModel param)
         {
             var busi = cd.mupingbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -330,7 +331,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel LongkouBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel LongkouBusinessInfo( BusinessModel param)
         {
             var busi = cd.longkoubusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -360,7 +361,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel LaiyangBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel LaiyangBusinessInfo( BusinessModel param)
         {
             var busi = cd.laiyangbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -390,7 +391,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel LaizhouBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel LaizhouBusinessInfo( BusinessModel param)
         {
             var busi = cd.laizhoubusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -420,7 +421,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel PenglaiBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel PenglaiBusinessInfo( BusinessModel param)
         {
             var busi = cd.penglaibusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -450,7 +451,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel ZhaoyuanBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel ZhaoyuanBusinessInfo( BusinessModel param)
         {
             var busi = cd.zhaoyuanbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -480,7 +481,7 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        private ResultModel ChangdaoBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private ResultModel ChangdaoBusinessInfo( BusinessModel param)
         {
             var busi = cd.changdaobusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
@@ -552,128 +553,128 @@ namespace CDMservers.Controllers
                 switch (param.countyCode)
                 {
                     case "zhifu":
-                        using (var cd = new ModelAllDb())
-                        {
+                      
                             cd.zhifubusiness.Add(new zhifubusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
+                                UPLOADER = param.userName,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                       
                         break;
                     case "qixia":
-                        using (var cd = new ModelAllDb())
-                        {
+                       
                             cd.qixiabusiness.Add(new qixiabusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
+                                UPLOADER = param.userName,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "laishan":
-                        using (var cd = new ModelAllDb())
-                        {
+                       
                             cd.laishanbusiness.Add(new laishanbusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
+                                UPLOADER = param.userName,
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "muping":
-                        using (var cd = new ModelAllDb())
-                        {
+                       
                             cd.mupingbusiness.Add(new mupingbusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
+                                UPLOADER = param.userName,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "longkou":
-                        using (var cd = new ModelAllDb())
-                        {
+                       
                             cd.longkoubusiness.Add(new longkoubusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
+                                UPLOADER = param.userName,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "laiyang":
-                        using (var cd = new ModelAllDb())
-                        {
+                      
                             cd.laiyangbusiness.Add(new laiyangbusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
+                                UPLOADER = param.userName,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
@@ -681,21 +682,21 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "laizhou":
-                        using (var cd = new ModelAllDb())
-                        {
+                       
                             cd.laizhoubusiness.Add(new laizhoubusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
+                                UPLOADER = param.userName,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
@@ -703,21 +704,21 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "penglai":
-                        using (var cd = new ModelAllDb())
-                        {
+                       
                             cd.penglaibusiness.Add(new penglaibusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
+                                UPLOADER = param.userName,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
@@ -725,21 +726,21 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "zhaoyuan":
-                        using (var cd = new ModelAllDb())
-                        {
+                       
                             cd.zhaoyuanbusiness.Add(new zhaoyuanbusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 NAME = param.name,
+                                UPLOADER = param.userName,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
@@ -747,20 +748,20 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "changdao":
-                        using (var cd = new ModelAllDb())
-                        {
+                        
                             cd.changdaobusiness.Add(new changdaobusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
+                                UPLOADER = param.userName,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
@@ -769,20 +770,20 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "haiyang":
-                        using (var cd = new Business())
-                        {
-                            cd.Haiyangbusiness.Add(new haiyangbusiness
+                       
+                            cd.haiyangbusiness.Add(new haiyangbusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
+                                UPLOADER = param.userName,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
@@ -791,20 +792,20 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     case "fushan":
-                        using (var cd = new Business())
-                        {
-                            cd.Fushanbusiness.Add(new fushanbusiness
+                        
+                            cd.fushanbusiness.Add(new fushanbusiness
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
+                                UPLOADER = param.userName,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
@@ -813,12 +814,11 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                     default:
-                        using (var cd = new Business())
-                        {
-                            cd.Bussiness.Add(new BUSSINESS
+                        
+                            cd.BUSSINESS.Add(new BUSSINESS
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
@@ -827,6 +827,7 @@ namespace CDMservers.Controllers
                                 END_TIME = scurrentdate,
                                 STATUS = param.status,
                                 TYPE = param.type,
+                                UPLOADER = param.userName,
                                 NAME = param.name,
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
@@ -835,7 +836,7 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
-                        }
+                        
                         break;
                 }
 

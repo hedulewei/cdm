@@ -25,14 +25,16 @@ namespace CDMservers.Controllers
 {
     public class BusinessesQueryController : ApiController
     {
-        private readonly ModelAllDb _db = new ModelAllDb();
+        private readonly Model5122 cd = new Model5122();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
+        private readonly NewDblog _dbLog = new NewDblog();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _db.Dispose();
+                cd.Dispose();
+                _dbLog.Dispose();
                 _dbuUserDbc.Dispose();
             }
             base.Dispose(disposing);
@@ -47,7 +49,8 @@ namespace CDMservers.Controllers
                 {
                     return new ResultModel { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
-                Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
+              //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
+                LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
                 if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 {
                     return new ResultModel { StatusCode = "000007", Result = "没有权限" };
@@ -58,7 +61,7 @@ namespace CDMservers.Controllers
                 switch (param.countyCode)
                 {
                     case "changdao":
-                        var busichangdao = _db.changdaobusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busichangdao = cd.changdaobusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busichangdao == null)
                         {
                             return BusinessNotFound();
@@ -92,7 +95,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "zhaoyuan":
-                        var busizhaoyuan = _db.zhaoyuanbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busizhaoyuan = cd.zhaoyuanbusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busizhaoyuan == null)
                         {
                             return BusinessNotFound();
@@ -124,7 +127,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "penglai":
-                        var busipenglai = _db.penglaibusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busipenglai = cd.penglaibusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busipenglai == null)
                         {
                             return BusinessNotFound();
@@ -156,7 +159,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "laizhou":
-                        var busilaizhou = _db.laizhoubusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busilaizhou = cd.laizhoubusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busilaizhou == null)
                         {
                             return BusinessNotFound();
@@ -188,7 +191,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "laiyang":
-                        var busilaiyang = _db.laiyangbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busilaiyang = cd.laiyangbusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busilaiyang == null)
                         {
                             return BusinessNotFound();
@@ -220,7 +223,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "longkou":
-                        var busilongkou = _db.longkoubusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busilongkou = cd.longkoubusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busilongkou == null)
                         {
                             return BusinessNotFound();
@@ -252,7 +255,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "muping":
-                        var busimuping = _db.mupingbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busimuping = cd.mupingbusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busimuping == null)
                         {
                             return BusinessNotFound();
@@ -284,7 +287,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "laishan":
-                        var busilaishan = _db.laishanbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busilaishan = cd.laishanbusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busilaishan == null)
                         {
                             return BusinessNotFound();
@@ -316,7 +319,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "qixia":
-                        var busiqixia = _db.qixiabusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busiqixia = cd.qixiabusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busiqixia == null)
                         {
                             return BusinessNotFound();
@@ -348,7 +351,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "fushan":
-                        var busifushan = _db.fushanbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busifushan = cd.fushanbusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busifushan == null)
                         {
                             return BusinessNotFound();
@@ -380,7 +383,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "zhifu":
-                        var busizhifu = _db.zhifubusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busizhifu = cd.zhifubusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busizhifu == null)
                         {
                             return BusinessNotFound();
@@ -412,7 +415,7 @@ namespace CDMservers.Controllers
 
                         break;
                     case "haiyang":
-                        var busihaiyang = _db.haiyangbusiness.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+                        var busihaiyang = cd.haiyangbusiness.FirstOrDefault(c => c.ID == param.ID);
                         if (busihaiyang == null)
                         {
                             return BusinessNotFound();
@@ -446,8 +449,8 @@ namespace CDMservers.Controllers
                         break;
                     default:
                       //  if(db.Haiyangbusiness.Count(c=>c.SERIAL_NUM==param.serialNum)<1)
-                          
-                        var busi = _db.BUSSINESS.FirstOrDefault(c => c.SERIAL_NUM == param.serialNum);
+
+                        var busi = cd.BUSSINESS.FirstOrDefault(c => c.ID == param.ID);
                         if (busi == null)
                         return new ResultModel
                         {
@@ -513,60 +516,62 @@ namespace CDMservers.Controllers
                     return new BusinessListResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
                 Log.Info("BusinessesQuery input:" + JsonConvert.SerializeObject(param));
-                if (!PermissionCheck.CheckLevelPermission(param,_dbuUserDbc))
-                {
-                    return new BusinessListResult { StatusCode = "000007", Result = "没有权限" };
-                }
-                using (var cd = new ModelAllDb())
-                {
+                //if (!PermissionCheck.CheckLevelPermission(param,_dbuUserDbc))
+                //{
+                //    return new BusinessListResult { StatusCode = "000007", Result = "没有权限" };
+                //}
+              
                     switch (param.countyCode)
                     {
+                        case "zhifu":
+                            return ZhifuBusinessInfo( param);
+                            break;
                         case "qixia":
-                            return QixiaBusinessInfo(cd, param);
+                            return QixiaBusinessInfo( param);
                         case "laishan":
-                            return LaishanBusinessInfo(cd, param);
+                            return LaishanBusinessInfo( param);
                         case "muping":
-                            return MupingBusinessInfo(cd, param);
+                            return MupingBusinessInfo( param);
                         case "longkou":
-                            return LongkouBusinessInfo(cd, param);
+                            return LongkouBusinessInfo( param);
                         case "laiyang":
-                            return LaiyangBusinessInfo(cd, param);
+                            return LaiyangBusinessInfo( param);
 
                         case "laizhou":
-                            return LaizhouBusinessInfo(cd, param);
+                            return LaizhouBusinessInfo( param);
                         case "penglai":
-                            return PenglaiBusinessInfo(cd, param);
+                            return PenglaiBusinessInfo( param);
                         case "zhaoyuan":
-                            return ZhaoyuanBusinessInfo(cd, param);
+                            return ZhaoyuanBusinessInfo( param);
                         case "changdao":
-                            return ChangdaoBusinessInfo(cd, param);
+                            return ChangdaoBusinessInfo( param);
 
-                        case "zhifu":
-                            return ZhifuBusinessInfo(cd, param);
+
                         case "haiyang":
-                            return HaiyangBusinessInfo(cd, param);
+                            return HaiyangBusinessInfo( param);
                         case "fushan":
-                            return FushanBusinessInfo(cd, param);
-                        default:
-                            var ret= AllBusinessInfo(cd, param);
-                            ret.BussinessList.AddRange(FushanBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(HaiyangBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(ZhifuBusinessInfo(cd, param).BussinessList);
+                            return FushanBusinessInfo( param);
+                            default:
+                           // return new BusinessListResult { StatusCode = "000000", Result = "default" };
+                                var ret= AllBusinessInfo( param);
+                                ret.BussinessList.AddRange(FushanBusinessInfo( param).BussinessList);
+                                ret.BussinessList.AddRange(HaiyangBusinessInfo( param).BussinessList);
+                                ret.BussinessList.AddRange(ZhifuBusinessInfo( param).BussinessList);
 
-                            ret.BussinessList.AddRange(ChangdaoBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(ZhaoyuanBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(PenglaiBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(LaizhouBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(LaiyangBusinessInfo(cd, param).BussinessList);
+                                ret.BussinessList.AddRange(ChangdaoBusinessInfo( param).BussinessList);
+                                ret.BussinessList.AddRange(ZhaoyuanBusinessInfo( param).BussinessList);
+                                ret.BussinessList.AddRange(PenglaiBusinessInfo( param).BussinessList);
+                                ret.BussinessList.AddRange(LaizhouBusinessInfo( param).BussinessList);
+                                ret.BussinessList.AddRange(LaiyangBusinessInfo(param).BussinessList);
 
-                            ret.BussinessList.AddRange(LongkouBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(MupingBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(LaishanBusinessInfo(cd, param).BussinessList);
-                            ret.BussinessList.AddRange(QixiaBusinessInfo(cd, param).BussinessList);
-                            return ret;
-                            break;
+                                ret.BussinessList.AddRange(LongkouBusinessInfo( param).BussinessList);
+                                ret.BussinessList.AddRange(MupingBusinessInfo(param).BussinessList);
+                                ret.BussinessList.AddRange(LaishanBusinessInfo( param).BussinessList);
+                                ret.BussinessList.AddRange(QixiaBusinessInfo( param).BussinessList);
+                                return ret;
+                                break;
                     }
-                }
+                
             }
             catch (DbEntityValidationException e)
             {
@@ -580,7 +585,7 @@ namespace CDMservers.Controllers
                             ve.PropertyName, ve.ErrorMessage);
                     }
                 }
-                throw;
+                return new BusinessListResult { StatusCode = "000003", Result = e.Message };
             }
             catch (EntityDataSourceValidationException ex)
             {
@@ -594,12 +599,12 @@ namespace CDMservers.Controllers
             }
         }
 
-        private BusinessListResult HaiyangBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult HaiyangBusinessInfo( BusinessModel param)
         {
 
             IQueryable<haiyangbusiness> busi = cd.haiyangbusiness.Where(c =>(param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -609,6 +614,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -623,12 +638,13 @@ namespace CDMservers.Controllers
                 ret.BussinessList.Add(new BusinessModel
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID=(int)hy.ID,
                     name = hy.NAME,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -642,11 +658,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult ZhifuBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult ZhifuBusinessInfo( BusinessModel param)
         {
             IQueryable<zhifubusiness> busi = cd.zhifubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+               // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -656,6 +672,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -669,12 +695,13 @@ namespace CDMservers.Controllers
                 ret.BussinessList.Add(new BusinessModel
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
                     name = hy.NAME,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -688,11 +715,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult AllBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult AllBusinessInfo( BusinessModel param)
         {
             IQueryable<BUSSINESS> busi = cd.BUSSINESS.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -702,6 +729,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -717,6 +754,7 @@ namespace CDMservers.Controllers
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
                     IDum = hy.ID_NUM,
+                    ID = (int)hy.ID,
                     queueNum = hy.QUEUE_NUM,
                     startTime = hy.START_TIME,
                     serialNum = hy.SERIAL_NUM,
@@ -734,11 +772,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult ChangdaoBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult ChangdaoBusinessInfo( BusinessModel param)
         {
             IQueryable<changdaobusiness> busi = cd.changdaobusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -748,6 +786,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -762,11 +810,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -780,11 +829,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult ZhaoyuanBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult ZhaoyuanBusinessInfo( BusinessModel param)
         {
             IQueryable<zhaoyuanbusiness> busi = cd.zhaoyuanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -794,6 +843,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -808,11 +867,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -826,11 +886,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult PenglaiBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult PenglaiBusinessInfo( BusinessModel param)
         {
             IQueryable<penglaibusiness> busi = cd.penglaibusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -840,6 +900,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -854,11 +924,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -872,11 +943,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult LaizhouBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult LaizhouBusinessInfo( BusinessModel param)
         {
             IQueryable<laizhoubusiness> busi = cd.laizhoubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -886,6 +957,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -900,11 +981,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -918,11 +1000,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult LaiyangBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult LaiyangBusinessInfo( BusinessModel param)
         {
             IQueryable<laiyangbusiness> busi = cd.laiyangbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -932,6 +1014,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -946,11 +1038,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -964,11 +1057,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult LongkouBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult LongkouBusinessInfo( BusinessModel param)
         {
             IQueryable<longkoubusiness> busi = cd.longkoubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -978,6 +1071,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -992,11 +1095,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1010,11 +1114,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult MupingBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult MupingBusinessInfo( BusinessModel param)
         {
             IQueryable<mupingbusiness> busi = cd.mupingbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -1024,6 +1128,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -1039,10 +1153,11 @@ namespace CDMservers.Controllers
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
                     IDum = hy.ID_NUM,
+                    ID = (int)hy.ID,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1056,11 +1171,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult LaishanBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult LaishanBusinessInfo(BusinessModel param)
         {
             IQueryable<laishanbusiness> busi = cd.laishanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -1070,6 +1185,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -1084,11 +1209,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1102,11 +1228,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult QixiaBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult QixiaBusinessInfo( BusinessModel param)
         {
             IQueryable<qixiabusiness> busi = cd.qixiabusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -1116,6 +1242,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -1130,11 +1266,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -1148,11 +1285,11 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        private BusinessListResult FushanBusinessInfo(ModelAllDb cd, BusinessModel param)
+        private BusinessListResult FushanBusinessInfo( BusinessModel param)
         {
             IQueryable<fushanbusiness> busi = cd.fushanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-                && (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-                 && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                    && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
                      && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
@@ -1162,6 +1299,16 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
@@ -1176,11 +1323,12 @@ namespace CDMservers.Controllers
                 {
                     type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
                     name = hy.NAME,
+                    ID = (int)hy.ID,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = hy.END_TIME,
+                    endTime = hy.END_TIME.ToString(),
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,

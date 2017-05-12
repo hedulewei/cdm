@@ -13,12 +13,9 @@ namespace CDMservers.Models
 
         public decimal TYPE { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string START_TIME { get; set; }
+        public DateTime START_TIME { get; set; }
 
-        [StringLength(10)]
-        public string END_TIME { get; set; }
+        public DateTime END_TIME { get; set; }
 
         public decimal STATUS { get; set; }
 
