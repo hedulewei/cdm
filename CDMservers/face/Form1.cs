@@ -33,7 +33,8 @@ namespace face
         List<Image<Gray, byte>> trainingImages = new List<Image<Gray, byte>>();//Images
              List<string> Names_List = new List<string>(); //labels
         List<int> Names_List_ID = new List<int>();
-       // List<IInputArray> listmMats = new List<IInputArray>();
+        private string playpath = string.Empty;
+        private string directory = string.Empty;
         public Form1()
         {
             InitializeComponent();
@@ -297,6 +298,23 @@ namespace face
              //{
                  
              //}
+         }
+
+         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
+         {
+             using (OpenFileDialog fileDialog = new OpenFileDialog())
+             {
+                 fileDialog.Filter = "视频文件(*.avi;*.wmv)|*.avi;*.wmv|(All file(*.*)|*.*";
+                 if (fileDialog.ShowDialog() == DialogResult.OK)
+                 {
+                     //axWindowsMediaPlayer1.SizeMode = PictureBoxSizeMode.Zoom;
+                     playpath = fileDialog.FileName;
+                     // 初始化视频集合
+                     directory = Path.GetDirectoryName(playpath);
+                   //  playArray = player.GetplayCollection(directory);
+                 }
+             }
+             axWindowsMediaPlayer1.URL = playpath;
          }
     }
 }
