@@ -54,17 +54,12 @@ namespace face
         {
             try
             {
-              //  currentImage = Run(textBoxcurrentimage.Text);
-              //  pictureBoxcurrentimage.Image = Image.FromFile(currentImage);
-              //  UpdateStatus(string.Format("exception :{0}",111));
-
-              ////  recognizer.Train();
-              ////  ff.Load(currentImage);
-              //  UpdateStatus(string.Format("exception :{0}", 333));
+                UpdateStatus(string.Format("check :{0}", 111));
                 var filename = Path.GetTempFileName() + "jpg";
                 pictureBoxcurrentimage.Image.Save(filename);
+                UpdateStatus(string.Format("check :{0}", 222));
                 var res = recognizer.Predict(new Image<Gray,Byte>(filename));
-              richTextBox1.AppendText(string.Format("{0},Distance={1},Label={2},{3}", Environment.NewLine, res.Distance, res.Label,res));
+                UpdateStatus(string.Format("{0},Distance={1},Label={2},{3}", Environment.NewLine, res.Distance, res.Label, res));
             }
             catch (Exception ex)
             {
@@ -250,7 +245,7 @@ namespace face
          {
              try
              {
-           
+                 this.WindowState = FormWindowState.Maximized; 
             //Initialize the FrameGraber event
            
                 Application.Idle += new EventHandler(FrameGrabber);
@@ -293,7 +288,7 @@ namespace face
                      if (HaveFace(currentFrame))
                      {
                          pictureBoxcurrentimage.Image = currentFrame.Bitmap;
-                         UpdateStatus(string.Format("new face founded,{0}", ++facenum));
+                         UpdateStatus(string.Format("high quality face photo captured,{0}", ++facenum));
                          if (facenum > int.Parse(textBoxpicturesource.Text))
                          {
                              Application.Idle -= new EventHandler(FrameGrabber);
@@ -308,9 +303,9 @@ namespace face
                              PersistentImage pImage = new PersistentImage(currentFrame.Width, currentFrame.Height);
                              CvInvoke.cvCopy(currentFrame, pImage, IntPtr.Zero);
                              pImage.DateCreated = DateTime.Now;
-                             UpdateStatus(string.Format("add face to sqlite error,{0}", 111));
+                           //  UpdateStatus(string.Format("add face to sqlite error,{0}", 111));
                              session.Save(pImage);
-                             UpdateStatus(string.Format("add face to sqlite error,{0}", 222));
+                            // UpdateStatus(string.Format("add face to sqlite error,{0}", 222));
                              tx.Commit();
                          }
                          catch(Exception ex)
@@ -330,31 +325,22 @@ namespace face
          }
          bool HaveFace(Image<Bgr,Byte> fname)
          {
-             IImage image;
+             //IImage image;
 
-             image = fname;
+             //image = fname;
 
              long detectionTime;
              List<Rectangle> faces = new List<Rectangle>();
              List<Rectangle> eyes = new List<Rectangle>();
              //   richTextBox1.AppendText(Environment.NewLine + "aaa");
              DetectFace.Detect(
-               image, "haarcascade_frontalface_default.xml", "haarcascade_eye.xml",
+               fname, "haarcascade_frontalface_default.xml", "haarcascade_eye.xml",
                faces, eyes,
                out detectionTime);
-
-             switch (faces.Count)
-             {
-                 case 0:
-                     return false;
-                 case 1:
-
-                     return true;
-                 default:
-                     break;
-             }
+             if (faces.Count == 1 && eyes.Count == 1) return true;
+            
            
-             return true;
+             return false;
            
          }
          bool HaveFace(string fname)
@@ -609,9 +595,64 @@ namespace face
              dataGridView1.Rows.Clear();
          }
 
-         private void RefreshGrid()
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
          {
-             throw new NotImplementedException();
+
          }
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x112)
+            {
+                switch ((int)m.WParam)
+                {
+                    //禁止双击标题栏关闭窗体  
+                    case 0xF063:
+                    case 0xF093:
+                        m.WParam = IntPtr.Zero;
+                        break;
+                    //禁止拖拽标题栏还原窗体  
+                    case 0xF012:
+                    case 0xF010:
+                        m.WParam = IntPtr.Zero;
+                        break;
+                    //禁止双击标题栏  
+                    case 0xf122:
+                        m.WParam = IntPtr.Zero;
+                        break;
+                    //禁止关闭按钮  
+                    case 0xF060:
+                        m.WParam = IntPtr.Zero;
+                        break;
+                    //禁止最大化按钮  
+                    case 0xf020:
+                        m.WParam = IntPtr.Zero;
+                        break;
+                    //禁止最小化按钮  
+                    case 0xf030:
+                        m.WParam = IntPtr.Zero;
+                        break;
+                    //禁止还原按钮  
+                    case 0xf120:
+                        m.WParam = IntPtr.Zero;
+                        break;
+                }
+            }
+            base.WndProc(ref m);
+        }
+
+        private void openToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }  
     }
 }

@@ -59,26 +59,46 @@
             this.buttonloadfaces = new System.Windows.Forms.Button();
             this.buttonclearfaces = new System.Windows.Forms.Button();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxsource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxcurrentimage)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxpicturesource
             // 
-            this.textBoxpicturesource.Location = new System.Drawing.Point(180, 48);
+            this.textBoxpicturesource.Location = new System.Drawing.Point(119, 24);
             this.textBoxpicturesource.Name = "textBoxpicturesource";
-            this.textBoxpicturesource.Size = new System.Drawing.Size(342, 21);
+            this.textBoxpicturesource.Size = new System.Drawing.Size(246, 21);
             this.textBoxpicturesource.TabIndex = 0;
             this.textBoxpicturesource.Text = "45";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(115, 51);
+            this.label1.Location = new System.Drawing.Point(35, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 1;
@@ -87,7 +107,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(115, 78);
+            this.label2.Location = new System.Drawing.Point(35, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 3;
@@ -95,16 +115,16 @@
             // 
             // textBoxcurrentimage
             // 
-            this.textBoxcurrentimage.Location = new System.Drawing.Point(180, 75);
+            this.textBoxcurrentimage.Location = new System.Drawing.Point(119, 51);
             this.textBoxcurrentimage.Name = "textBoxcurrentimage";
-            this.textBoxcurrentimage.Size = new System.Drawing.Size(342, 21);
+            this.textBoxcurrentimage.Size = new System.Drawing.Size(246, 21);
             this.textBoxcurrentimage.TabIndex = 2;
             this.textBoxcurrentimage.Text = "C:\\Emgu\\emgucv-windesktop 3.2.0.2682\\bin\\xiaosy3.jpg";
             this.textBoxcurrentimage.TextChanged += new System.EventHandler(this.textBoxcurrentimage_TextChanged);
             // 
             // buttoncompare
             // 
-            this.buttoncompare.Location = new System.Drawing.Point(604, 78);
+            this.buttoncompare.Location = new System.Drawing.Point(425, 54);
             this.buttoncompare.Name = "buttoncompare";
             this.buttoncompare.Size = new System.Drawing.Size(75, 23);
             this.buttoncompare.TabIndex = 4;
@@ -114,25 +134,28 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 526);
+            this.richTextBox1.Location = new System.Drawing.Point(779, 32);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(943, 125);
+            this.richTextBox1.Size = new System.Drawing.Size(220, 95);
             this.richTextBox1.TabIndex = 5;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // pictureBoxsource
             // 
-            this.pictureBoxsource.Location = new System.Drawing.Point(12, 186);
+            this.pictureBoxsource.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxsource.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxsource.Name = "pictureBoxsource";
-            this.pictureBoxsource.Size = new System.Drawing.Size(455, 334);
+            this.pictureBoxsource.Size = new System.Drawing.Size(524, 312);
             this.pictureBoxsource.TabIndex = 6;
             this.pictureBoxsource.TabStop = false;
             // 
             // pictureBoxcurrentimage
             // 
-            this.pictureBoxcurrentimage.Location = new System.Drawing.Point(500, 186);
+            this.pictureBoxcurrentimage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxcurrentimage.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxcurrentimage.Name = "pictureBoxcurrentimage";
-            this.pictureBoxcurrentimage.Size = new System.Drawing.Size(455, 334);
+            this.pictureBoxcurrentimage.Size = new System.Drawing.Size(502, 312);
             this.pictureBoxcurrentimage.TabIndex = 7;
             this.pictureBoxcurrentimage.TabStop = false;
             // 
@@ -142,9 +165,9 @@
             this.groupBox1.Controls.Add(this.buttoncameracapture);
             this.groupBox1.Controls.Add(this.buttoncameraclose);
             this.groupBox1.Controls.Add(this.buttoncamera);
-            this.groupBox1.Location = new System.Drawing.Point(1035, 12);
+            this.groupBox1.Location = new System.Drawing.Point(779, 148);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(277, 182);
+            this.groupBox1.Size = new System.Drawing.Size(232, 154);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "camera";
@@ -190,16 +213,16 @@
             // 
             // videoSourcePlayer
             // 
-            this.videoSourcePlayer.Location = new System.Drawing.Point(961, 200);
+            this.videoSourcePlayer.Location = new System.Drawing.Point(425, 3);
             this.videoSourcePlayer.Name = "videoSourcePlayer";
-            this.videoSourcePlayer.Size = new System.Drawing.Size(351, 428);
+            this.videoSourcePlayer.Size = new System.Drawing.Size(298, 299);
             this.videoSourcePlayer.TabIndex = 10;
             this.videoSourcePlayer.Text = "videoSourcePlayer";
             this.videoSourcePlayer.VideoSource = null;
             // 
             // buttonchecksource
             // 
-            this.buttonchecksource.Location = new System.Drawing.Point(604, 48);
+            this.buttonchecksource.Location = new System.Drawing.Point(381, 24);
             this.buttonchecksource.Name = "buttonchecksource";
             this.buttonchecksource.Size = new System.Drawing.Size(164, 23);
             this.buttonchecksource.TabIndex = 28;
@@ -209,7 +232,7 @@
             // 
             // buttontrain
             // 
-            this.buttontrain.Location = new System.Drawing.Point(604, 107);
+            this.buttontrain.Location = new System.Drawing.Point(425, 83);
             this.buttontrain.Name = "buttontrain";
             this.buttontrain.Size = new System.Drawing.Size(75, 23);
             this.buttontrain.TabIndex = 29;
@@ -219,7 +242,7 @@
             // 
             // clear
             // 
-            this.clear.Location = new System.Drawing.Point(604, 136);
+            this.clear.Location = new System.Drawing.Point(425, 112);
             this.clear.Name = "clear";
             this.clear.Size = new System.Drawing.Size(75, 23);
             this.clear.TabIndex = 30;
@@ -234,9 +257,10 @@
             this.openToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1847, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1859, 25);
             this.menuStrip1.TabIndex = 32;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // videoToolStripMenuItem
             // 
@@ -256,12 +280,13 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(50, 21);
-            this.openToolStripMenuItem.Text = "open";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.openToolStripMenuItem.Text = "安全退出";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click_1);
             // 
             // buttonswitchcamera
             // 
-            this.buttonswitchcamera.Location = new System.Drawing.Point(12, 146);
+            this.buttonswitchcamera.Location = new System.Drawing.Point(37, 93);
             this.buttonswitchcamera.Name = "buttonswitchcamera";
             this.buttonswitchcamera.Size = new System.Drawing.Size(156, 23);
             this.buttonswitchcamera.TabIndex = 33;
@@ -271,7 +296,7 @@
             // 
             // buttonstopcapture
             // 
-            this.buttonstopcapture.Location = new System.Drawing.Point(194, 146);
+            this.buttonstopcapture.Location = new System.Drawing.Point(37, 122);
             this.buttonstopcapture.Name = "buttonstopcapture";
             this.buttonstopcapture.Size = new System.Drawing.Size(156, 23);
             this.buttonstopcapture.TabIndex = 34;
@@ -288,9 +313,9 @@
             this.idColumn,
             this.timeColumn,
             this.viewColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(1336, 51);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(444, 469);
+            this.dataGridView1.Size = new System.Drawing.Size(371, 302);
             this.dataGridView1.TabIndex = 35;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -314,7 +339,7 @@
             // 
             // buttonloadfaces
             // 
-            this.buttonloadfaces.Location = new System.Drawing.Point(392, 146);
+            this.buttonloadfaces.Location = new System.Drawing.Point(235, 122);
             this.buttonloadfaces.Name = "buttonloadfaces";
             this.buttonloadfaces.Size = new System.Drawing.Size(130, 23);
             this.buttonloadfaces.TabIndex = 36;
@@ -324,7 +349,7 @@
             // 
             // buttonclearfaces
             // 
-            this.buttonclearfaces.Location = new System.Drawing.Point(392, 117);
+            this.buttonclearfaces.Location = new System.Drawing.Point(235, 93);
             this.buttonclearfaces.Name = "buttonclearfaces";
             this.buttonclearfaces.Size = new System.Drawing.Size(130, 23);
             this.buttonclearfaces.TabIndex = 37;
@@ -335,40 +360,115 @@
             // axWindowsMediaPlayer1
             // 
             this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(787, 12);
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(97, 145);
             this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
             this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(242, 168);
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(441, 402);
             this.axWindowsMediaPlayer1.TabIndex = 31;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.axWindowsMediaPlayer1);
+            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(1859, 851);
+            this.splitContainer1.SplitterDistance = 825;
+            this.splitContainer1.TabIndex = 38;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer3);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer2.Panel2.Controls.Add(this.richTextBox1);
+            this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer2.Panel2.Controls.Add(this.videoSourcePlayer);
+            this.splitContainer2.Size = new System.Drawing.Size(1030, 851);
+            this.splitContainer2.SplitterDistance = 518;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.clear);
+            this.splitContainer3.Panel1.Controls.Add(this.buttonclearfaces);
+            this.splitContainer3.Panel1.Controls.Add(this.textBoxpicturesource);
+            this.splitContainer3.Panel1.Controls.Add(this.buttonloadfaces);
+            this.splitContainer3.Panel1.Controls.Add(this.label1);
+            this.splitContainer3.Panel1.Controls.Add(this.textBoxcurrentimage);
+            this.splitContainer3.Panel1.Controls.Add(this.buttonstopcapture);
+            this.splitContainer3.Panel1.Controls.Add(this.label2);
+            this.splitContainer3.Panel1.Controls.Add(this.buttonswitchcamera);
+            this.splitContainer3.Panel1.Controls.Add(this.buttoncompare);
+            this.splitContainer3.Panel1.Controls.Add(this.buttonchecksource);
+            this.splitContainer3.Panel1.Controls.Add(this.buttontrain);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
+            this.splitContainer3.Size = new System.Drawing.Size(1030, 518);
+            this.splitContainer3.SplitterDistance = 202;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.pictureBoxcurrentimage);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.pictureBoxsource);
+            this.splitContainer4.Size = new System.Drawing.Size(1030, 312);
+            this.splitContainer4.SplitterDistance = 502;
+            this.splitContainer4.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1847, 814);
-            this.Controls.Add(this.buttonclearfaces);
-            this.Controls.Add(this.buttonloadfaces);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.buttonstopcapture);
-            this.Controls.Add(this.buttonswitchcamera);
-            this.Controls.Add(this.axWindowsMediaPlayer1);
-            this.Controls.Add(this.clear);
-            this.Controls.Add(this.buttontrain);
-            this.Controls.Add(this.buttonchecksource);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.pictureBoxcurrentimage);
-            this.Controls.Add(this.pictureBoxsource);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.buttoncompare);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxcurrentimage);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxpicturesource);
-            this.Controls.Add(this.videoSourcePlayer);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1859, 876);
+            this.ControlBox = false;
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.Text = "满分学习";
+            this.TopMost = true;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxsource)).EndInit();
@@ -378,6 +478,23 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -415,6 +532,10 @@
         private System.Windows.Forms.DataGridViewButtonColumn viewColumn;
         private System.Windows.Forms.Button buttonloadfaces;
         private System.Windows.Forms.Button buttonclearfaces;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.SplitContainer splitContainer4;
     }
 }
 
