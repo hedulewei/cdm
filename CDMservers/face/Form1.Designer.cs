@@ -46,16 +46,25 @@
             this.buttonchecksource = new System.Windows.Forms.Button();
             this.buttontrain = new System.Windows.Forms.Button();
             this.clear = new System.Windows.Forms.Button();
-            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonswitchcamera = new System.Windows.Forms.Button();
+            this.buttonstopcapture = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.idColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.viewColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.buttonloadfaces = new System.Windows.Forms.Button();
+            this.buttonclearfaces = new System.Windows.Forms.Button();
+            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxsource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxcurrentimage)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxpicturesource
@@ -64,7 +73,7 @@
             this.textBoxpicturesource.Name = "textBoxpicturesource";
             this.textBoxpicturesource.Size = new System.Drawing.Size(342, 21);
             this.textBoxpicturesource.TabIndex = 0;
-            this.textBoxpicturesource.Text = "C:\\Emgu\\emgucv-windesktop 3.2.0.2682\\bin\\xiaosy.jpg";
+            this.textBoxpicturesource.Text = "45";
             // 
             // label1
             // 
@@ -147,6 +156,7 @@
             this.comboBoxcameras.Name = "comboBoxcameras";
             this.comboBoxcameras.Size = new System.Drawing.Size(175, 20);
             this.comboBoxcameras.TabIndex = 28;
+            this.comboBoxcameras.SelectedIndexChanged += new System.EventHandler(this.comboBoxcameras_SelectedIndexChanged);
             // 
             // buttoncameracapture
             // 
@@ -217,15 +227,6 @@
             this.clear.UseVisualStyleBackColor = true;
             this.clear.Click += new System.EventHandler(this.clear_Click);
             // 
-            // axWindowsMediaPlayer1
-            // 
-            this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(787, 12);
-            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(242, 168);
-            this.axWindowsMediaPlayer1.TabIndex = 31;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -233,7 +234,7 @@
             this.openToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1324, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1847, 25);
             this.menuStrip1.TabIndex = 32;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -245,24 +246,111 @@
             this.videoToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
             this.videoToolStripMenuItem.Text = "video";
             // 
+            // openToolStripMenuItem1
+            // 
+            this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(106, 22);
+            this.openToolStripMenuItem1.Text = "open";
+            this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
+            // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(50, 21);
             this.openToolStripMenuItem.Text = "open";
             // 
-            // openToolStripMenuItem1
+            // buttonswitchcamera
             // 
-            this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem1.Text = "open";
-            this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
+            this.buttonswitchcamera.Location = new System.Drawing.Point(12, 146);
+            this.buttonswitchcamera.Name = "buttonswitchcamera";
+            this.buttonswitchcamera.Size = new System.Drawing.Size(156, 23);
+            this.buttonswitchcamera.TabIndex = 33;
+            this.buttonswitchcamera.Text = "switch camera";
+            this.buttonswitchcamera.UseVisualStyleBackColor = true;
+            this.buttonswitchcamera.Click += new System.EventHandler(this.buttonswitchcamera_Click);
+            // 
+            // buttonstopcapture
+            // 
+            this.buttonstopcapture.Location = new System.Drawing.Point(194, 146);
+            this.buttonstopcapture.Name = "buttonstopcapture";
+            this.buttonstopcapture.Size = new System.Drawing.Size(156, 23);
+            this.buttonstopcapture.TabIndex = 34;
+            this.buttonstopcapture.Text = "stop capture";
+            this.buttonstopcapture.UseVisualStyleBackColor = true;
+            this.buttonstopcapture.Click += new System.EventHandler(this.buttonstopcapture_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idColumn,
+            this.timeColumn,
+            this.viewColumn});
+            this.dataGridView1.Location = new System.Drawing.Point(1336, 51);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(444, 469);
+            this.dataGridView1.TabIndex = 35;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            // 
+            // idColumn
+            // 
+            this.idColumn.HeaderText = "ID";
+            this.idColumn.Name = "idColumn";
+            this.idColumn.ReadOnly = true;
+            // 
+            // timeColumn
+            // 
+            this.timeColumn.HeaderText = "Time Stamp";
+            this.timeColumn.Name = "timeColumn";
+            this.timeColumn.ReadOnly = true;
+            // 
+            // viewColumn
+            // 
+            this.viewColumn.HeaderText = "View";
+            this.viewColumn.Name = "viewColumn";
+            this.viewColumn.Text = "";
+            // 
+            // buttonloadfaces
+            // 
+            this.buttonloadfaces.Location = new System.Drawing.Point(392, 146);
+            this.buttonloadfaces.Name = "buttonloadfaces";
+            this.buttonloadfaces.Size = new System.Drawing.Size(130, 23);
+            this.buttonloadfaces.TabIndex = 36;
+            this.buttonloadfaces.Text = "load faces";
+            this.buttonloadfaces.UseVisualStyleBackColor = true;
+            this.buttonloadfaces.Click += new System.EventHandler(this.buttonloadfaces_Click);
+            // 
+            // buttonclearfaces
+            // 
+            this.buttonclearfaces.Location = new System.Drawing.Point(392, 117);
+            this.buttonclearfaces.Name = "buttonclearfaces";
+            this.buttonclearfaces.Size = new System.Drawing.Size(130, 23);
+            this.buttonclearfaces.TabIndex = 37;
+            this.buttonclearfaces.Text = "clear faces";
+            this.buttonclearfaces.UseVisualStyleBackColor = true;
+            this.buttonclearfaces.Click += new System.EventHandler(this.buttonclearfaces_Click);
+            // 
+            // axWindowsMediaPlayer1
+            // 
+            this.axWindowsMediaPlayer1.Enabled = true;
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(787, 12);
+            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
+            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(242, 168);
+            this.axWindowsMediaPlayer1.TabIndex = 31;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1324, 663);
+            this.ClientSize = new System.Drawing.Size(1847, 814);
+            this.Controls.Add(this.buttonclearfaces);
+            this.Controls.Add(this.buttonloadfaces);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.buttonstopcapture);
+            this.Controls.Add(this.buttonswitchcamera);
             this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Controls.Add(this.clear);
             this.Controls.Add(this.buttontrain);
@@ -286,9 +374,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxsource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxcurrentimage)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -318,6 +407,14 @@
         private System.Windows.Forms.ToolStripMenuItem videoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.Button buttonswitchcamera;
+        private System.Windows.Forms.Button buttonstopcapture;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timeColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn viewColumn;
+        private System.Windows.Forms.Button buttonloadfaces;
+        private System.Windows.Forms.Button buttonclearfaces;
     }
 }
 
