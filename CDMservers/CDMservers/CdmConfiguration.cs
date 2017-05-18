@@ -9,5 +9,6 @@ namespace CDMservers
     public static class CdmConfiguration
     {
         public static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
+        public static readonly string DataSource = ConfigurationManager.ConnectionStrings["CityData"].ConnectionString;
     }
 }

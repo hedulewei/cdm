@@ -148,7 +148,8 @@ namespace Common
             type = -1;
             status = -1;
             checkFile = -1;
-
+            postAddr = string.Empty;
+            postPhone = string.Empty;
             zipFile = new byte[1];
         }
         public string countyCode { get; set; }//地区标识//input,out
@@ -188,6 +189,8 @@ namespace Common
         public string texNum { get; set; }//完税凭证号码in
         public string originType { get; set; }//来历证明种类in
         public string originNum { get; set; }//来历证明号码in
+        public string postAddr { get; set; }//牌证邮寄地址
+        public string postPhone { get; set; }//牌证邮寄电话
         public byte[] zipFile { get; set; }//图片in
         public string fileName { get; set; }//文件名
     }

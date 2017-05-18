@@ -81,6 +81,12 @@ namespace YunYiCdm
                 FileContent=File.ReadAllBytes(absoluteFileName)
             });
         }
+
+        public string JsonserializeForCobject(object cObject)
+        {
+           return JsonConvert.SerializeObject(cObject);
+        }
+
         public string RestHttpClientGet(string host, string method, string param)
         {
             var url = string.Format("http://{0}/{2}/{1}", host, param, method);

@@ -5,10 +5,10 @@ namespace CDMservers.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class Model5122 : DbContext
+    public partial class Model1518 : DbContext
     {
-        public Model5122()
-            : base("name=Model5122")
+        public Model1518()
+            : base("name=Model1518")
         {
         }
 
@@ -79,14 +79,6 @@ namespace CDMservers.Models
                 .HasPrecision(38, 0);
 
             modelBuilder.Entity<BUSSINESS>()
-                .Property(e => e.START_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BUSSINESS>()
-                .Property(e => e.END_TIME)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BUSSINESS>()
                 .Property(e => e.STATUS)
                 .HasPrecision(38, 0);
 
@@ -132,6 +124,14 @@ namespace CDMservers.Models
 
             modelBuilder.Entity<BUSSINESS>()
                 .Property(e => e.COUNTYCODE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<BUSSINESS>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<BUSSINESS>()
+                .Property(e => e.POSTADDR)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CARINFOR>()
@@ -286,6 +286,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<changdaobusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<changdaobusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<CONFIG>()
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
@@ -370,6 +378,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<fushanbusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<fushanbusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<haiyangbusiness>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -426,6 +442,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<haiyangbusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<haiyangbusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<laishanbusiness>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -482,6 +506,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<laishanbusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<laishanbusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<laiyangbusiness>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -538,6 +570,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<laiyangbusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<laiyangbusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<laizhoubusiness>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -594,6 +634,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<laizhoubusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<laizhoubusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<longkoubusiness>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -650,6 +698,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<longkoubusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<longkoubusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<mupingbusiness>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -706,6 +762,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<mupingbusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<mupingbusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<penglaibusiness>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -760,6 +824,14 @@ namespace CDMservers.Models
 
             modelBuilder.Entity<penglaibusiness>()
                 .Property(e => e.COUNTYCODE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<penglaibusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<penglaibusiness>()
+                .Property(e => e.POSTADDR)
                 .IsUnicode(false);
 
             modelBuilder.Entity<POPULATION>()
@@ -878,6 +950,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<qixiabusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<qixiabusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<USERS>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -986,6 +1066,14 @@ namespace CDMservers.Models
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<zhaoyuanbusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<zhaoyuanbusiness>()
+                .Property(e => e.POSTADDR)
+                .IsUnicode(false);
+
             modelBuilder.Entity<zhifubusiness>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
@@ -1040,6 +1128,14 @@ namespace CDMservers.Models
 
             modelBuilder.Entity<zhifubusiness>()
                 .Property(e => e.COUNTYCODE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<zhifubusiness>()
+                .Property(e => e.POSTPHONE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<zhifubusiness>()
+                .Property(e => e.POSTADDR)
                 .IsUnicode(false);
 
             modelBuilder.Entity<VITALLOG>()

@@ -25,7 +25,7 @@ namespace CDMservers.Controllers
 {
     public class BusinessesQueryController : ApiController
     {
-        private readonly Model5122 cd = new Model5122();
+        private readonly Model1518 cd = new Model1518();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -667,6 +667,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -738,6 +740,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -798,7 +802,7 @@ namespace CDMservers.Controllers
                     IDum = hy.ID_NUM,
                     ID = (int)hy.ID,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME,
+                    startTime = hy.START_TIME.ToString(),
                     serialNum = hy.SERIAL_NUM,
                     endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
                     userName = hy.NAME,
@@ -809,6 +813,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -880,6 +886,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -951,6 +959,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -1022,6 +1032,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -1093,6 +1105,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -1164,6 +1178,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -1235,6 +1251,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -1306,6 +1324,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -1377,6 +1397,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -1448,6 +1470,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 
@@ -1519,6 +1543,8 @@ namespace CDMservers.Controllers
                     status = (int)hy.STATUS,
                     transferStatus = hy.TRANSFER_STATUS.ToString(),
                     countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
                 });
             }
 

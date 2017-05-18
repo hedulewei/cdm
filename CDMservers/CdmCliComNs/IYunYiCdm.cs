@@ -17,5 +17,7 @@ namespace YunYiCdm
         [DispId(4)]
         string JsonserializeEx(string countyCode, string userName, string password, string fileName, int kind, int id,
             string absoluteFileName);
+        [DispId(5)]
+        string JsonserializeForCobject(object cObject);
     }
 }

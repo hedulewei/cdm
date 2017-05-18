@@ -16,7 +16,6 @@ using System.Web.Http;
 using System.Web.UI.WebControls;
 using CDMservers.Models;
 using Common;
-using DataService;
 using log4net;
 using Newtonsoft.Json;
 
@@ -28,7 +27,7 @@ namespace CDMservers.Controllers
      //   private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
         private readonly UserDbc _dbUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
-        private readonly Model5122 cd = new Model5122();
+        private readonly Model1518 cd = new Model1518();
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -532,7 +531,7 @@ namespace CDMservers.Controllers
                 //  Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
                 var currentdate = DateTime.Now.Date;
                 var scurrentdate = string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day);
-                var id = new OracleOperation().GetBusinessId(); //+param.checkFile;//test only
+                var id = InternalService.GetBusinessId(); //+param.checkFile;//test only
                 //Log.Info("path 11 =" + id);
                 //if (!string.IsNullOrEmpty(param.fileName))
                 //{
@@ -569,7 +568,9 @@ namespace CDMservers.Controllers
                                 UPLOADER = param.userName,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
-                                ATTENTION = param.attention
+                                ATTENTION = param.attention,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                             });
                             cd.SaveChanges();
                        
@@ -591,6 +592,8 @@ namespace CDMservers.Controllers
                                 UPLOADER = param.userName,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -613,6 +616,8 @@ namespace CDMservers.Controllers
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -635,6 +640,8 @@ namespace CDMservers.Controllers
                                 UPLOADER = param.userName,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -657,6 +664,8 @@ namespace CDMservers.Controllers
                                 UPLOADER = param.userName,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -679,6 +688,8 @@ namespace CDMservers.Controllers
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -701,6 +712,8 @@ namespace CDMservers.Controllers
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -723,6 +736,8 @@ namespace CDMservers.Controllers
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -744,6 +759,8 @@ namespace CDMservers.Controllers
                                 ID_NUM = param.IDum,
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 PHONE_NUM = param.phoneNum,
                                 ATTENTION = param.attention
                             });
@@ -767,6 +784,8 @@ namespace CDMservers.Controllers
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -789,6 +808,8 @@ namespace CDMservers.Controllers
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -811,6 +832,8 @@ namespace CDMservers.Controllers
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();
@@ -823,8 +846,8 @@ namespace CDMservers.Controllers
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
                                 UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = scurrentdate,
-                                END_TIME = scurrentdate,
+                                START_TIME = DateTime.Now,
+                                END_TIME = DateTime.Now,
                                 STATUS = param.status,
                                 TYPE = param.type,
                                 UPLOADER = param.userName,
@@ -833,6 +856,8 @@ namespace CDMservers.Controllers
                                 QUEUE_NUM = param.queueNum,
                                 ADDRESS = param.address,
                                 PHONE_NUM = param.phoneNum,
+                                POSTADDR = param.postAddr,
+                                POSTPHONE = param.postPhone,
                                 ATTENTION = param.attention
                             });
                             cd.SaveChanges();

@@ -268,6 +268,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InternalService.cs" />
     <Compile Include="LogIntoDb.cs" />
     <Compile Include="MessagePush.cs" />
     <Compile Include="Models\BUSINESSCATEGORY.cs" />
@@ -285,7 +286,7 @@
     <Compile Include="Models\laiyangbusiness.cs" />
     <Compile Include="Models\laizhoubusiness.cs" />
     <Compile Include="Models\longkoubusiness.cs" />
-    <Compile Include="Models\Model5122.cs" />
+    <Compile Include="Models\Model1518.cs" />
     <Compile Include="Models\mupingbusiness.cs" />
     <Compile Include="Models\NewDblog.cs" />
     <Compile Include="Models\penglaibusiness.cs" />

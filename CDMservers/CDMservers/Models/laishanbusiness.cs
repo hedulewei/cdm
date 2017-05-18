@@ -64,5 +64,11 @@ namespace CDMservers.Models
         [Required]
         [StringLength(20)]
         public string COUNTYCODE { get; set; }
+
+        [StringLength(50)]
+        public string POSTPHONE { get; set; }
+
+        [StringLength(200)]
+        public string POSTADDR { get; set; }
     }
 }
