@@ -20,7 +20,7 @@ namespace CDMservers.Models
         public string PASSWORD { get; set; }
 
         [Required]
-        [StringLength(1024)]
+        [StringLength(2048)]
         public string LIMIT { get; set; }
 
         [Required]

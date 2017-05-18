@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  文件已创建 - 星期五-四月-28-2017   
+--  文件已创建 - 星期四-五月-18-2017   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table USERS
@@ -9,11 +9,11 @@
    (	"ID" NUMBER, 
 	"USERNAME" VARCHAR2(50 BYTE), 
 	"PASSWORD" VARCHAR2(50 BYTE), 
-	"LIMIT" VARCHAR2(1024 BYTE), 
+	"LIMIT" VARCHAR2(2048 BYTE), 
 	"DEPARTMENT" VARCHAR2(50 BYTE), 
 	"POST" VARCHAR2(20 BYTE), 
 	"POLICENUM" VARCHAR2(20 BYTE), 
-	"REALNAME" VARCHAR2(20 BYTE), 
+	"REALNAME" VARCHAR2(50 BYTE), 
 	"DISABLED" NUMBER(1,0) DEFAULT 1, 
 	"PDA_TYPE" NUMBER, 
 	"FIRSTFINGER" VARCHAR2(345 BYTE), 
@@ -38,8 +38,19 @@
    COMMENT ON COLUMN "CITY"."USERS"."SECONDFINGER" IS '食指指纹';
 REM INSERTING into CITY.USERS
 SET DEFINE OFF;
-Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (108777307,'un11','QSS8CpM1wn8IbyS6IHpJEg==','{"123":true,"aa":false}',' ff','Audit','num','rn1',0,null,null,null,'hai','0');
-Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (1317965796,'un','aa','{"yw28":true,"aa":false}',' ff','Audit','num','rn',0,null,null,null,'hai','0');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (1779194495,'芝罘区用户','ISGMyneATSuhkiwz4BURBQ==','{"abc":false,"bcd":false}',' ff','-858993460','警654321','用户',1,null,null,null,'zhifu','0');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (1251188128,'admin','ISGMyneATSuhkiwz4BURBQ==','{"yw28":true,"aa":false}',' ff','Audit','num','admin',1,null,null,null,'zhifu','2');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (531524554,'aaa','ISGMyneATSuhkiwz4BURBQ==','{"yw28":true,"aa":false}',' ff','Audit','num','admin',0,null,null,null,'zhifu','2');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (1112920686,'bbb','ISGMyneATSuhkiwz4BURBQ==','{"yw28":true,"aa":false}',' ff','Audit','num','admin',1,null,null,null,'zhifu','2');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (1354999488,'芝罘区王超','ISGMyneATSuhkiwz4BURBQ==','{"abc":true,"bcd":false}',' ff','-858993460','警123456','王超',1,null,null,null,'zhifu','0');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (397199806,'芝罘区杨成林','ISGMyneATSuhkiwz4BURBQ==','{"abc":false,"bcd":false}',' ff','-858993460','警654321','杨成林',0,null,null,null,'zhifu','0');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (931229250,'福山用户2','ISGMyneATSuhkiwz4BURBQ==','{"1":true,"28":true}',' ff','4240575','福山警号2','福山用户2',1,null,null,null,'fushan','0');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (2088435107,'用户2','ISGMyneATSuhkiwz4BURBQ==','{"1":false,"10029":false,"10032":false,"10048":false,"28":false,"31":false}',' ff','59422287','警号2','用户2',1,null,null,null,'zhifu','1');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (1973863664,'福山用户1','ISGMyneATSuhkiwz4BURBQ==','{"10001":true,"10028":true,"30":true,"3001":true}',' ff','4240575','福山警号1','福山用户1',1,null,null,null,'fushan','1');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (58142548,'用户3','ISGMyneATSuhkiwz4BURBQ==','{"1":true,"1002":true,"1003":true,"1004":true,"1005":true,"1006":true,"1007":true,"1008":true,"1009":true,"1010":true,"1011":true,"1012":true,"1013":true,"1014":true,"1015":true,"1016":true,"1017":true,"1018":true,"1019":true,"1020":true,"1021":true,"1022":true,"1023":true,"1024":true,"1025":true,"1026":true,"1027":true,"1055":true,"1056":true,"14002":true,"28":true,"29":true,"30":true,"3001":true,"31":true,"32":true,"33":true,"34":true,"35":true,"36":true,"37":true,"38":true,"39":true,"40":true,"41":true,"42":true,"43":true,"44":true,"45":true,"46":true,"47":true,"48":true,"49":true,"50":true,"51":true,"52":true,"53":true,"54":true,"57":true,"58":true,"59":true,"60":true,"61":true,"63":true,"cjgjf":true,"cyclsh":true,"cyjg":true,"cysh":true,"dahc":true,"darkjj":true,"dayijao":true,"dayouji":true,"htsl":true,"jlcx":true,"wfjf":true}',' ff','3717095','警号3','用户3',1,null,null,null,'zhifu','0');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (493761642,'ycl','vL4zZeasleosA0OiOVg03Q==','{"aaxx":true}',' ff','0','75819','ycl',1,null,null,null,'zhifu','1');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (137449839,'用户1','ISGMyneATSuhkiwz4BURBQ==','{"1":true,"10001":true,"10028":true,"10031":true,"1019":true,"28":true,"30":true,"59":true,"darkjj":true,"jlcx":true}',' ff','3717095','警号1','用户1',1,null,null,null,'zhifu','1');
+Insert into CITY.USERS (ID,USERNAME,PASSWORD,LIMIT,DEPARTMENT,POST,POLICENUM,REALNAME,DISABLED,PDA_TYPE,FIRSTFINGER,SECONDFINGER,COUNTYCODE,AUTHORITYLEVEL) values (766045001,'芝罘区资料审核','ISGMyneATSuhkiwz4BURBQ==','{"1":true,"1002":true,"1003":true,"1004":true,"1005":true,"1006":true,"1007":true,"1008":true,"1009":true,"1010":true,"1011":true,"1012":true,"1013":true,"1014":true,"1015":true,"1016":true,"1017":true,"1018":true,"1019":true,"1020":true,"1021":true,"1022":true,"1023":true,"1024":true,"1025":true,"1026":true,"1027":true,"1055":true,"1056":true,"28":true,"29":true,"30":true,"3001":true,"31":true,"32":true,"33":true,"34":true,"35":true,"36":true,"37":true,"38":true,"39":true,"40":true,"4001":true,"4002":true,"41":true,"42":true,"43":true,"44":true,"45":true,"46":true,"47":true,"48":true,"49":true,"50":true,"51":true,"52":true,"53":true,"54":true,"57":true,"58":true,"59":true,"60":true,"61":true,"62":true,"63":true,"jlcx":true}',' ff','3912731','警号123456789','芝罘区资料审核',1,null,null,null,'zhifu','0');
 --------------------------------------------------------
 --  DDL for Index USERSNAME
 --------------------------------------------------------

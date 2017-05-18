@@ -82,10 +82,10 @@ namespace CDMservers.Controllers
                 }
                 //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
                 // LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
-                if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
-                {
-                    return new BusinessListResult { StatusCode = "000007", Result = "没有权限" };
-                }
+                //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
+                //{
+                //    return new BusinessListResult { StatusCode = "000007", Result = "没有权限" };
+                //}
 
 
                 switch (param.countyCode)
@@ -545,10 +545,10 @@ namespace CDMservers.Controllers
                 }
                 //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
                 // LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
-                if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
-                {
-                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
-                }
+                //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
+                //{
+                //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
+                //}
 
 
                 switch (param.countyCode)
@@ -973,10 +973,10 @@ namespace CDMservers.Controllers
                 }
                 //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
                 // LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
-                if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
-                {
-                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
-                }
+                //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
+                //{
+                //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
+                //}
                
 
                     switch (param.countyCode)
@@ -1402,10 +1402,10 @@ namespace CDMservers.Controllers
                 }
                 //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
                // LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
-                if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
-                {
-                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
-                }
+                //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
+                //{
+                //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
+                //}
                 //var zipfilePath = string.Empty;
                 //var zipfileContent = new byte[1];
                 //var tempfile = Path.GetTempFileName() + ".zip";
@@ -1733,34 +1733,40 @@ namespace CDMservers.Controllers
                             //    break;
                         case "zhifu":
                         default:
-                            var busizhifu = cd.zhifubusiness.FirstOrDefault(c => c.STATUS == param.status);
-                            if (busizhifu == null)
+                            var pts = UserService.GetPermissionType(cd.USERS, param.userName);
+                            foreach (int pt in pts)
                             {
-                                return BusinessNotFound();
-                            }
-                            busizhifu.STATUS = 3;
-                            cd.SaveChanges();
-                            return new ResultModel
-                            {
-                                StatusCode = "000000",
-                                BussinessModel = new BusinessModel
+                                var what = cd.zhifubusiness.FirstOrDefault(c => c.STATUS == 1&&c.TYPE==pt);
+                                if (what != null)
                                 {
-                                    type = int.Parse(busizhifu.TYPE.ToString(CultureInfo.InvariantCulture)),
-                                    ID = (int) busizhifu.ID,
-                                    name = busizhifu.NAME,
-                                    IDum = busizhifu.ID_NUM,
-                                    serialNum = busizhifu.SERIAL_NUM,
-                                    queueNum = busizhifu.QUEUE_NUM,
-                                    address = busizhifu.ADDRESS,
-                                    phoneNum = busizhifu.PHONE_NUM,
-                                    carNum = busizhifu.CAR_NUM,
-                                    texType = busizhifu.TAX_TYPE,
-                                    texNum = busizhifu.TAX_NUM,
-                                    originType = busizhifu.ORIGIN_TYPE,
-                                    originNum = busizhifu.ORIGIN_NUM,
-                                    attention = busizhifu.ATTENTION,
+                                    var busizhifu = cd.zhifubusiness.FirstOrDefault(c => c.STATUS == 1);
+                                    busizhifu.STATUS = 3;
+                                    cd.SaveChanges();
+                                    return new ResultModel
+                                    {
+                                        StatusCode = "000000",
+                                        BussinessModel = new BusinessModel
+                                        {
+                                            type = int.Parse(busizhifu.TYPE.ToString(CultureInfo.InvariantCulture)),
+                                            ID = (int)busizhifu.ID,
+                                            name = busizhifu.NAME,
+                                            IDum = busizhifu.ID_NUM,
+                                            serialNum = busizhifu.SERIAL_NUM,
+                                            queueNum = busizhifu.QUEUE_NUM,
+                                            address = busizhifu.ADDRESS,
+                                            phoneNum = busizhifu.PHONE_NUM,
+                                            carNum = busizhifu.CAR_NUM,
+                                            texType = busizhifu.TAX_TYPE,
+                                            texNum = busizhifu.TAX_NUM,
+                                            originType = busizhifu.ORIGIN_TYPE,
+                                            originNum = busizhifu.ORIGIN_NUM,
+                                            attention = busizhifu.ATTENTION,
+                                        }
+                                    };
+                                   break;
                                 }
-                            };
+                            }
+                            return BusinessNotFound();
 
                             break;
                             //case "haiyang":
