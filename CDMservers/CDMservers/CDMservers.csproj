@@ -257,6 +257,7 @@
     <Compile Include="cdmhub.cs" />
     <Compile Include="CdmConfiguration.cs" />
     <Compile Include="Controllers\ArchiveController.cs" />
+    <Compile Include="Controllers\BusinessAcceptController.cs" />
     <Compile Include="Controllers\BusinessesQueryController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\CrossDistrictController.cs" />
@@ -286,7 +287,7 @@
     <Compile Include="Models\laiyangbusiness.cs" />
     <Compile Include="Models\laizhoubusiness.cs" />
     <Compile Include="Models\longkoubusiness.cs" />
-    <Compile Include="Models\Model1518.cs" />
+    <Compile Include="Models\Model15182.cs" />
     <Compile Include="Models\mupingbusiness.cs" />
     <Compile Include="Models\NewDblog.cs" />
     <Compile Include="Models\penglaibusiness.cs" />
