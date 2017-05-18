@@ -360,10 +360,6 @@
       <Project>{2247DBE5-BFC2-47A6-9D40-1A231A7EBC27}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DataService\DataService.csproj">
-      <Project>{69a9f3e0-bdb7-4ccd-ad19-d92168a70766}</Project>
-      <Name>DataService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

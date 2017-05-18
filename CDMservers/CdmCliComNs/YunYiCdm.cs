@@ -46,10 +46,12 @@ namespace YunYiCdm
             }
         }
 
-        public bool ByteToFile(byte[] bytesFile, string absoluteFilePath)
+        public string ByteToFile(byte[] bytesFile, string absoluteFilePath)
         {
+            var ret = string.Empty;
             try
             {
+               
                 var tempfile = Path.GetTempFileName();
                 File.WriteAllBytes(tempfile, bytesFile);
                 using (var zip = new ZipFile(tempfile))
@@ -58,13 +60,21 @@ namespace YunYiCdm
                     {
                         Directory.CreateDirectory(absoluteFilePath);
                     }
+                    else
+                    {
+                        var p = Directory.GetFiles(absoluteFilePath);
+                        foreach (string s in p)
+                        {
+                            File.Delete(s);
+                        }
+                    }
                     zip.ExtractAll(absoluteFilePath);
                 }
-                return true;
+                return string.Empty;
             }
             catch (Exception ex)
             {
-                return false;
+                return ret+ex.Message;
             }
         }
 
@@ -85,6 +95,39 @@ namespace YunYiCdm
         public string JsonserializeForCobject(object cObject)
         {
            return JsonConvert.SerializeObject(cObject);
+        }
+
+        public string ResultToFile(string result, string absoluteFilePath)
+        {
+          
+            var ret = string.Empty;
+            try
+            {
+                var model = JsonConvert.DeserializeObject<ResultModel>(result);
+                var tempfile = Path.GetTempFileName();
+                File.WriteAllBytes(tempfile,model.BussinessModel.zipFile );
+                using (var zip = new ZipFile(tempfile))
+                {
+                    if (!Directory.Exists(absoluteFilePath))
+                    {
+                        Directory.CreateDirectory(absoluteFilePath);
+                    }
+                    else
+                    {
+                        var p = Directory.GetFiles(absoluteFilePath);
+                        foreach (string s in p)
+                        {
+                            File.Delete(s);
+                        }
+                    }
+                    zip.ExtractAll(absoluteFilePath);
+                }
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                return ret + ex.Message;
+            }
         }
 
         public string RestHttpClientGet(string host, string method, string param)

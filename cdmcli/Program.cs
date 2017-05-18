@@ -20,6 +20,17 @@ namespace cdmcli
             }
             switch (args[0])
             {
+                case "zip":
+                    var zinput = new BusinessModel { countyCode = "zhifu", businessCategory = "yew1", userName = "user1", password = "pass" ,ID=3032};
+                    var zjson = JsonConvert.SerializeObject(zinput);
+                    Console.WriteLine("input=" + zjson);
+                    var ret = aa.SendRestHttpClientRequest(homeurl, "BusinessesPictureQuery ", zjson);
+                    Console.WriteLine("ResultToFile output = " + aa.ResultToFile(ret, "d:\\aaaaa"));
+                 //   Console.WriteLine("output = " + ret);
+                    var bb = JsonConvert.DeserializeObject<ResultModel>(ret);
+                    Console.WriteLine("output = " + bb.StatusCode);
+                    Console.WriteLine("ByteToFile output = " + aa.ByteToFile(bb.BussinessModel.zipFile, "d:\\aaaaa"));
+                    break;
                 case "getordinal":
                     var input = new BusinessModel { countyCode = "haiyang", businessCategory = "yew1", userName = "user1", password = "pass" };
                     var json = JsonConvert.SerializeObject(input);

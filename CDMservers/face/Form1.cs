@@ -248,12 +248,16 @@ namespace face
                  this.WindowState = FormWindowState.Maximized; 
             //Initialize the FrameGraber event
            
-                Application.Idle += new EventHandler(FrameGrabber);
 
                  videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
                  if (videoDevices.Count == 0)
-                     throw new ApplicationException();
+                 {
+                     comboBoxcameras.Items.Add("No local capture devices");
+                     comboBoxcameras.SelectedIndex = 0;
+                     UpdateStatus("没有摄像头监控，无法开始学习，请连接摄像头！");
+                     return;
+                 }
 
                  foreach (FilterInfo device in videoDevices)
                  {
@@ -264,6 +268,8 @@ namespace face
 
                  grabber = new VideoCapture();
                  grabber.QueryFrame();
+
+                 Application.Idle += new EventHandler(FrameGrabber);
              }
              catch (ApplicationException)
              {
@@ -325,90 +331,19 @@ namespace face
          }
          bool HaveFace(Image<Bgr,Byte> fname)
          {
-             //IImage image;
-
-             //image = fname;
-
              long detectionTime;
              List<Rectangle> faces = new List<Rectangle>();
              List<Rectangle> eyes = new List<Rectangle>();
-             //   richTextBox1.AppendText(Environment.NewLine + "aaa");
              DetectFace.Detect(
                fname, "haarcascade_frontalface_default.xml", "haarcascade_eye.xml",
                faces, eyes,
                out detectionTime);
-             if (faces.Count == 1 && eyes.Count == 1) return true;
-            
+             if (faces.Count == 1 && eyes.Count == 2) return true;
            
              return false;
-           
          }
-         bool HaveFace(string fname)
-         {
-             IImage image;
 
-             image = new UMat(fname, ImreadModes.Color);
-             //var aaa = new Image<Emgu.CV.Structure.Gray, byte>(fname);
-             //trainingImages.Add(aaa);
-
-             //Names_List_ID.Add(Names_List_ID.Count());
-
-             long detectionTime;
-             List<Rectangle> faces = new List<Rectangle>();
-             List<Rectangle> eyes = new List<Rectangle>();
-             //   richTextBox1.AppendText(Environment.NewLine + "aaa");
-             DetectFace.Detect(
-               image, "haarcascade_frontalface_default.xml", "haarcascade_eye.xml",
-               faces, eyes,
-               out detectionTime);
-
-             switch (faces.Count)
-             {
-                 case 0:
-                     return false;
-                 case 1:
-                     
-                     return true;
-                 default :
-                     break;
-             }
-            //var sizea= faces.Select(a => a.Size).ToArray();
-            // Array.Sort(sizea);
-
-            // foreach (Rectangle face in faces)
-            // { CvInvoke.Rectangle(image, face, new Bgr(Color.Red).MCvScalar, 2);
-            //   //  face.Size
-            // }
-             return true;
-             //    CvInvoke.Rectangle(image, face, new Bgr(Color.Red).MCvScalar, 2);
-             //foreach (Rectangle eye in eyes)
-             //    CvInvoke.Rectangle(image, eye, new Bgr(Color.Blue).MCvScalar, 2);
-             //   richTextBox1.AppendText(Environment.NewLine + "bbb");
-             //display the image 
-             //using (InputArray iaImage = image.GetInputArray())
-             //{
-             //    // recognizer.Train(image, );
-             //    var tempfile = Path.GetTempFileName() + ".jpg";
-             //    //  richTextBox1.AppendText(Environment.NewLine + "ccc");
-             //    image.Save(tempfile);
-             //    // aaa.Save(tempfile);
-             //    // recognizer.Train(image, Names_List_ID.ToArray());
-             //    // listmMats.Add(iaImage);
-             //    //var a = new ImageViewer();
-             //    //a.BackgroundImage = ;
-             //    //a.ShowDialog();
-             //    //ImageViewer.Show(image, String.Format(
-             //    //  //    ImageViewer.Show(image, String.Format(
-             //    //    "Completed face and eye detection using {0} in {1} milliseconds",
-             //    //    (iaImage.Kind == InputArray.Type.CudaGpuMat && CudaInvoke.HasCuda) ? "CUDA" :
-             //    //    (iaImage.IsUMat && CvInvoke.UseOpenCL) ? "OpenCL"
-             //    //    : "CPU",
-             //    //    detectionTime));
-             //    richTextBox1.AppendText(Environment.NewLine + "eee");
-             //    return tempfile;
-             //}
-         }
-         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
          {
              try
              {
@@ -537,18 +472,31 @@ namespace face
 
          private void buttonswitchcamera_Click(object sender, EventArgs e)
          {
-             facenum = 0;
-             Application.Idle -= new EventHandler(FrameGrabber);
-             grabber.Dispose();
-             grabber = new VideoCapture(comboBoxcameras.SelectedIndex);
-             grabber.QueryFrame();
-             Application.Idle += new EventHandler(FrameGrabber);
+             try
+             {
+                 facenum = 0;
+                 Application.Idle -= new EventHandler(FrameGrabber);
+                 grabber.Dispose();
+                 grabber = new VideoCapture(comboBoxcameras.SelectedIndex);
+                 grabber.QueryFrame();
+                 Application.Idle += new EventHandler(FrameGrabber);
+             }
+             catch (Exception ex)
+             {
+                 UpdateStatus(string.Format("maybe no camera:{0}",ex));
+             }
          }
 
          private void buttonstopcapture_Click(object sender, EventArgs e)
          {
+             try{
              Application.Idle -= new EventHandler(FrameGrabber);
              grabber.Dispose();
+              }
+             catch (Exception ex)
+             {
+                 UpdateStatus(string.Format("maybe no camera:{0}",ex));
+             }
          }
 
          private void buttonloadfaces_Click(object sender, EventArgs e)

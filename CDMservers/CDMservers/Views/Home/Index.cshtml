@@ -1,10 +1,13 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿@{
+    Layout = "~/views/shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<div class="jumbotron">
+    <input type="button" id="down-manual" value="下载学习软件"  name="download" style="width:100em;color: red;background-color: turquoise" />
+  
 </div>
 <div class="row">
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <h2>Getting started</h2>
         <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
         a broad range of clients, including browsers and mobile devices. ASP.NET Web API
@@ -20,5 +23,125 @@
         <h2>Web Hosting</h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
+    </div>*@
 </div>
+<script>
+
+    $(function () {
+        //点击效果（包括顶部导航、右侧导航）
+
+        //var num = [1, 2, 3, 4, 5, 6]; //, 7, 8, 9
+        //// num.length = topNum;
+        ////alert($("#top2").height());
+        ////返回顶部
+        //$(".toTop").click(function () {
+        //    $("html,body").animate({ scrollTop: "0" }, 1000);
+        //    //$(".rightNav .top1").click();
+        //});
+        ////每一版的高度
+        //var pt = 190;
+        ////$(".doc").css("height", $(window).height() - pt);
+        //var padTop = pt +"px";
+        //var top2 = $("#top2").offset().top;
+        //if (top2 <= $(window).scrollTop()) {
+        //    //$("#main-content .doc:first").css("paddingTop", padTop);
+        //    $.each(num, function (i, j) {
+        //        $(".top" + j + "").click(function () {
+        //            if (j > 3) {
+        //                j = j - 1;
+        //            }
+        //            $("#main-content .doc:first").css("paddingTop", padTop);
+        //            $("html,body").animate({ scrollTop: $("#top" + j + "").offset().top }, 1000);
+        //        });
+        //    });
+        //} else if (top2 > $(window).scrollTop()) {
+        //    //$("#main-content .doc:first").css("paddingTop", "0");
+        //    $.each(num, function (i, j) {
+        //        $(".top" + j + "").click(function () {
+        //            if (j > 3) {
+        //                j = j - 1;
+        //            }
+        //            $("#main-content .doc:first").css("paddingTop", "0");
+        //            $("html,body").animate({ scrollTop: $("#top" + j + "").offset().top }, 1000);
+        //        });
+        //    });
+        //}
+
+        //$(window).scroll(function() {
+        //    if (top2 <= $(window).scrollTop()) {
+        //        $("#main-content .doc:first").css("paddingTop", padTop);
+        //        $("#top2").addClass("posFix").css({ left: ($(window).width() - $("#top2").width()) / 2 });
+        //    } else if (top2 > $(window).scrollTop()) {
+        //        $("#main-content .doc:first").css("paddingTop", "0");
+        //        $("#top2").removeClass("posFix");
+        //    }
+        //});
+
+        $("#down-manual").click(function () {
+            window.open("/filesfordownload/DriversStudySetup_1_0_0.exe", '_blank');
+        });
+
+    });
+
+
+
+
+    //$(window).resize(function () {
+    //    //每一版的高度
+    //    $(".doc").css("height", $(window).height());
+    //});
+
+
+    //鼠标滚动效果、滚动条效果
+    //$(window).scroll(function () {
+    //    var topNum = $("[id^='top']").length;//获取当前页面拥有的锚点个数
+    //    var scrollTop = $(window).scrollTop();
+    //    for (var i = 1; i <= topNum; i++) {
+    //        if ($("#top" + i + "").offset().top <= scrollTop) {
+    //            $(".rightNav .top" + i + "").siblings().removeClass("anchor").end().addClass("anchor");
+    //        }
+    //    }
+    //    //$.each(num, function (i, j) {
+    //    //    if ($("#top" + j + "").offset().top <= scrollTop) {
+    //    //        $(".rightNav .top" + j + "").siblings().removeClass("anchor").end().addClass("anchor");
+    //    //    }
+    //    //});
+    //});
+
+    //$("div.client>div").hover(function () {
+    //    var c = $(this).attr("class");
+    //    var path;
+    //    if (c === "top3") {
+    //        path = "/Content/Images/client/下载pc.png";
+    //    } else if (c === "top4") {
+    //        path = "/Content/Images/client/下载pc.png";
+    //    } else if (c === "top5") {
+    //        path = "/Content/Images/client/下载安卓1.png";
+    //    } else if (c === "top6") {
+    //        path = "/Content/Images/client/下载ios1.png";
+    //    } else if (c === "top7") {
+    //        path = "/Content/Images/client/下载1.png";
+    //    }
+    //    if (path) {
+    //        $(this).children().first().attr("src", path);
+    //    }
+    //}, function () {
+    //    var c = $(this).attr("class");
+    //    var path;
+    //    if (c === "top3") {
+    //        path = "/Content/Images/client/下载pc1.png";
+    //    } else if (c === "top4") {
+    //        path = "/Content/Images/client/下载pc1.png";
+    //    } else if (c === "top5") {
+    //        path = "/Content/Images/client/下载安卓.png";
+    //    } else if (c === "top6") {
+    //        path = "/Content/Images/client/下载ios.png";
+    //    } else if (c === "top7") {
+    //        path = "/Content/Images/client/clientTop5.png";
+    //    }
+    //    if (path) {
+    //        $(this).children().first().attr("src", path);
+    //    }
+    //});
+
+</script>

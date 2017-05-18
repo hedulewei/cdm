@@ -51,13 +51,13 @@ namespace CDMservers.Controllers
                 }
               //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
                 LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
-                if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
-                {
-                    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
-                }
+                //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
+                //{
+                //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
+                //}
                 var zipfilePath = string.Empty;
                 var zipfileContent = new byte[1];
-                var tempfile = Path.GetTempFileName();
+                var tempfile = Path.GetTempFileName()+".zip";
                 switch (param.countyCode)
                 {
                     case "changdao":
@@ -389,8 +389,9 @@ namespace CDMservers.Controllers
                             return BusinessNotFound();
                         }
 
-                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busizhifu.START_TIME, busizhifu.ID);
-                        using (var newzip = new ZipFile())
+                        zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busizhifu.START_TIME.Year, busizhifu.START_TIME.Month, busizhifu.START_TIME.Day, busizhifu.ID);
+                        Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+                        using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
                         {
                             newzip.AddDirectory(zipfilePath);
                             newzip.Save(tempfile);
@@ -420,10 +421,8 @@ namespace CDMservers.Controllers
                         {
                             return BusinessNotFound();
                         }
-
-
-                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busihaiyang.START_TIME, busihaiyang.ID);
-                         using (var newzip = new ZipFile())
+                        zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busihaiyang.START_TIME.Year, busihaiyang.START_TIME.Month, busihaiyang.START_TIME.Day, busihaiyang.ID);
+                        using (var newzip = new ZipFile())
                         {
                             newzip.AddDirectory(zipfilePath);
                             newzip.Save(tempfile);
@@ -458,9 +457,8 @@ namespace CDMservers.Controllers
                             Result = "没有找到相关业务 ！"
                         };
 
-
-                        zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busi.START_TIME, busi.ID);
-                            using (var newzip = new ZipFile())
+                        zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busi.START_TIME.Year, busi.START_TIME.Month, busi.START_TIME.Day, busi.ID);
+                       using (var newzip = new ZipFile())
                         {
                             newzip.AddDirectory(zipfilePath);
                             newzip.Save(tempfile);
@@ -489,7 +487,7 @@ namespace CDMservers.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("BusinessesQuery", ex);
+                Log.Error("BusinessesPictureQuery", ex);
                 return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
             
