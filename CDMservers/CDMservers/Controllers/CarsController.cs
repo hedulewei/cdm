@@ -27,7 +27,7 @@ namespace CDMservers.Controllers
      //   private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
         private readonly UserDbc _dbUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
-        private readonly Model15182 cd = new Model15182();
+        private readonly Model1519 cd = new Model1519();
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -214,7 +214,7 @@ namespace CDMservers.Controllers
         //}
         private ResultModel ZhifuBusinessInfo( BusinessModel param)
         {
-            var busi = cd.zhifubusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            var busi = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
             if (busi == null)
                 return new ResultModel
@@ -530,7 +530,7 @@ namespace CDMservers.Controllers
                     return new ResultModel {StatusCode = "000007", Result = "没有权限"};
                 }
                 LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
-                //  Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
+                  Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
                 var currentdate = DateTime.Now.Date;
                 var scurrentdate = string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day);
                 var id = InternalService.GetBusinessId(); //+param.checkFile;//test only
@@ -555,7 +555,7 @@ namespace CDMservers.Controllers
                 {
                     case "zhifu":
                       default:
-                            cd.zhifubusiness.Add(new zhifubusiness
+                            cd.ZHIFUBUSINESS.Add(new ZHIFUBUSINESS
                             {
                                 ID = id,
                                 COUNTYCODE = param.countyCode,
@@ -573,6 +573,11 @@ namespace CDMservers.Controllers
                                 ATTENTION = param.attention,
                                 POSTADDR = param.postAddr,
                                 POSTPHONE = param.postPhone,
+                                CAR_NUM = param.carNum,
+                                TAX_NUM = param.texNum,
+                                TAX_TYPE = param.texType,
+                                ORIGIN_NUM = param.originNum,
+                                ORIGIN_TYPE = param.originType,
                             });
                             cd.SaveChanges();
                        

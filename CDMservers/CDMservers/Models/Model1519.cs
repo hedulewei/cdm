@@ -5,10 +5,10 @@ namespace CDMservers.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class Model15182 : DbContext
+    public partial class Model1519 : DbContext
     {
-        public Model15182()
-            : base("name=Model15182")
+        public Model1519()
+            : base("name=Model1519")
         {
         }
 
@@ -22,7 +22,7 @@ namespace CDMservers.Models
         public virtual DbSet<COUNTY> COUNTY { get; set; }
         public virtual DbSet<POPULATION> POPULATION { get; set; }
         public virtual DbSet<USERS> USERS { get; set; }
-        public virtual DbSet<zhifubusiness> zhifubusiness { get; set; }
+        public virtual DbSet<ZHIFUBUSINESS> ZHIFUBUSINESS { get; set; }
         public virtual DbSet<VITALLOG> VITALLOG { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -359,91 +359,91 @@ namespace CDMservers.Models
                 .Property(e => e.AUTHORITYLEVEL)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.ID)
                 .HasPrecision(38, 0);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.TYPE)
                 .HasPrecision(38, 0);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.STATUS)
                 .HasPrecision(38, 0);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.SERIAL_NUM)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.REJECT_REASON)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.NAME)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.PHONE_NUM)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.PROCESS_USER)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.FILE_RECV_USER)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.TRANSFER_STATUS)
                 .HasPrecision(38, 0);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.UPLOADER)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.COMPLETE_PAY_USER)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.ATTENTION)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.POSTPHONE)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.POSTADDR)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.CHECK_FILE)
                 .HasPrecision(38, 0);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.CAR_NUM)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.TAX_TYPE)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.TAX_NUM)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.ORIGIN_TYPE)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<zhifubusiness>()
+            modelBuilder.Entity<ZHIFUBUSINESS>()
                 .Property(e => e.ORIGIN_NUM)
                 .IsUnicode(false);
 

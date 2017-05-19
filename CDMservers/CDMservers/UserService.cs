@@ -18,10 +18,10 @@ namespace CDMservers
             var limit = JsonConvert.DeserializeObject<Dictionary<string, bool>>(user.LIMIT);
             foreach (KeyValuePair<string, bool> keyValuePair in limit)
             {
-                if (keyValuePair.Value)
+                if (keyValuePair.Value&&keyValuePair.Key.Length==5)
                 {
                     int tt = -1;
-                    if (int.TryParse(keyValuePair.Key, out tt))
+                    if (int.TryParse(keyValuePair.Key.Substring(1), out tt))
                     {
                         ret.Add(tt);
                     }

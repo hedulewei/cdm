@@ -25,7 +25,7 @@ namespace CDMservers.Controllers
 {
     public class BusinessesQueryController : ApiController
     {
-        private readonly Model15182 cd = new Model15182();
+        private readonly Model1519 cd = new Model1519();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -383,7 +383,7 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
-                        var busizhifu = cd.zhifubusiness.FirstOrDefault(c => c.ID == param.ID);
+                        var busizhifu = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.ID == param.ID);
                         if (busizhifu == null)
                         {
                             return BusinessNotFound();
@@ -675,7 +675,7 @@ namespace CDMservers.Controllers
         //}
         private BusinessListResult ZhifuBusinessInfo( BusinessModel param)
         {
-            IQueryable<zhifubusiness> busi = cd.zhifubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+            IQueryable<ZHIFUBUSINESS> busi = cd.ZHIFUBUSINESS.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                 //   && (param.type == -1 || c.TYPE == param.type)
@@ -714,12 +714,12 @@ namespace CDMservers.Controllers
             if (param.transferStatus != string.Empty)
             {
                 var aa = decimal.Parse(param.transferStatus);
-                busi = cd.zhifubusiness.Where(c => c.TRANSFER_STATUS == aa);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
             }
             busi = busi.Take(100);
 
             var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-            foreach (zhifubusiness hy in busi)
+            foreach (ZHIFUBUSINESS hy in busi)
             {
                 ret.BussinessList.Add(new BusinessModel
                 {

@@ -6,8 +6,8 @@ namespace CDMservers.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CITY.zhifubusiness")]
-    public partial class zhifubusiness
+    [Table("CITY.ZHIFUBUSINESS")]
+    public partial class ZHIFUBUSINESS
     {
         public decimal ID { get; set; }
 

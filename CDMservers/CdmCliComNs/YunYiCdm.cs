@@ -94,6 +94,7 @@ namespace YunYiCdm
 
         public string JsonserializeForCobject(object cObject)
         {
+            
            return JsonConvert.SerializeObject(cObject);
         }
 

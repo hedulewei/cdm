@@ -23,7 +23,7 @@ namespace CDMservers.Controllers
     public class BusinessAcceptController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private Model15182 cd = new Model15182();
+        private Model1519 cd = new Model1519();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
          private static Dictionary<string, Dictionary<string, string>> queueLock =
             new Dictionary<string, Dictionary<string, string>>();
@@ -80,7 +80,7 @@ namespace CDMservers.Controllers
                 {
                     return new BusinessListResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
-                //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
+                  Log.Info("RejectTaskList input:" + JsonConvert.SerializeObject(param));
                 // LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
                 //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 //{
@@ -407,10 +407,10 @@ namespace CDMservers.Controllers
                     //    break;
                     case "zhifu":
                     default:
-                        var busizhifu = cd.zhifubusiness.Where(c => c.STATUS == 4);
+                        var busizhifu = cd.ZHIFUBUSINESS.Where(c => c.STATUS == 4);
 
                         var blist = new List<BusinessModel>();
-                        foreach (zhifubusiness rejectTask in busizhifu)
+                        foreach (ZHIFUBUSINESS rejectTask in busizhifu)
                         {
                             blist.Add(new BusinessModel
                             {
@@ -543,7 +543,7 @@ namespace CDMservers.Controllers
                 {
                     return new ResultModel { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
-                //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
+                Log.Info("RejectTask input:" + JsonConvert.SerializeObject(param));
                 // LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
                 //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 //{
@@ -870,13 +870,14 @@ namespace CDMservers.Controllers
                     //    break;
                     case "zhifu":
                     default:
-                        var busizhifu = cd.zhifubusiness.FirstOrDefault(c => c.ID == param.ID);
+                        var busizhifu = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.ID == param.ID);
                         if (busizhifu == null)
                         {
                             return BusinessFinishNotFound();
                         }
                         busizhifu.STATUS = 4;
                         busizhifu.REJECT_REASON = busizhifu.REJECT_REASON;
+                       
                         cd.SaveChanges();
                         return new ResultModel
                         {
@@ -971,7 +972,7 @@ namespace CDMservers.Controllers
                 {
                     return new ResultModel { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
-                //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
+                Log.Info("FinishTask input:" + JsonConvert.SerializeObject(param));
                 // LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
                 //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 //{
@@ -1298,13 +1299,14 @@ namespace CDMservers.Controllers
                         //    break;
                         case "zhifu":
                         default:
-                            var busizhifu = cd.zhifubusiness.FirstOrDefault(c => c.ID == param.ID);
+                            var busizhifu = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.ID == param.ID);
                             if (busizhifu == null)
                             {
                                 return BusinessFinishNotFound();
                             }
                             busizhifu.STATUS = 5;
                             busizhifu.SERIAL_NUM = busizhifu.SERIAL_NUM;
+                         
                             cd.SaveChanges();
                             return new ResultModel
                             {
@@ -1400,7 +1402,7 @@ namespace CDMservers.Controllers
                 {
                     return new ResultModel { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
-                //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
+                Log.Info("AcquireTask input:" + JsonConvert.SerializeObject(param));
                // LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
                 //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 //{
@@ -1734,13 +1736,13 @@ namespace CDMservers.Controllers
                         case "zhifu":
                         default:
                             var pts = UserService.GetPermissionType(cd.USERS, param.userName);
-                            foreach (int pt in pts)
+                            var currentTop100 = cd.ZHIFUBUSINESS.Where(c=> c.STATUS == 1&& c.START_TIME==DateTime.Now.Date ).OrderBy(c=>c.ID).Take(100);
+                            foreach (ZHIFUBUSINESS busizhifu in currentTop100)
                             {
-                                var what = cd.zhifubusiness.FirstOrDefault(c => c.STATUS == 1&&c.TYPE==pt);
-                                if (what != null)
+                                if (pts.Contains((int)busizhifu.TYPE))
                                 {
-                                    var busizhifu = cd.zhifubusiness.FirstOrDefault(c => c.STATUS == 1);
                                     busizhifu.STATUS = 3;
+                                    busizhifu.PROCESS_USER = param.userName;
                                     cd.SaveChanges();
                                     return new ResultModel
                                     {
@@ -1763,9 +1765,41 @@ namespace CDMservers.Controllers
                                             attention = busizhifu.ATTENTION,
                                         }
                                     };
-                                   break;
                                 }
                             }
+                            //foreach (int pt in pts)
+                            //{
+                            //    var what = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.STATUS == 1&&c.TYPE==pt);
+                            //    if (what != null)
+                            //    {
+                            //        var busizhifu = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.STATUS == 1);
+                            //        busizhifu.STATUS = 3;
+                            //        busizhifu.PROCESS_USER = param.userName;
+                            //        cd.SaveChanges();
+                            //        return new ResultModel
+                            //        {
+                            //            StatusCode = "000000",
+                            //            BussinessModel = new BusinessModel
+                            //            {
+                            //                type = int.Parse(busizhifu.TYPE.ToString(CultureInfo.InvariantCulture)),
+                            //                ID = (int)busizhifu.ID,
+                            //                name = busizhifu.NAME,
+                            //                IDum = busizhifu.ID_NUM,
+                            //                serialNum = busizhifu.SERIAL_NUM,
+                            //                queueNum = busizhifu.QUEUE_NUM,
+                            //                address = busizhifu.ADDRESS,
+                            //                phoneNum = busizhifu.PHONE_NUM,
+                            //                carNum = busizhifu.CAR_NUM,
+                            //                texType = busizhifu.TAX_TYPE,
+                            //                texNum = busizhifu.TAX_NUM,
+                            //                originType = busizhifu.ORIGIN_TYPE,
+                            //                originNum = busizhifu.ORIGIN_NUM,
+                            //                attention = busizhifu.ATTENTION,
+                            //            }
+                            //        };
+                            //       break;
+                            //    }
+                            //}
                             return BusinessNotFound();
 
                             break;
