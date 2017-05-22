@@ -463,5 +463,7 @@ namespace CDMservers.Models
                 .Property(e => e.OPERATION)
                 .IsUnicode(false);
         }
+
+        public System.Data.Entity.DbSet<Common.BusinessModel> BusinessModels { get; set; }
     }
 }

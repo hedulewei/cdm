@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+
 namespace Common
 {
+
     public class UploadPicture
     {
         public string CountyCode { get; set; }

@@ -51,9 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessListResult.cs" />
+    <Compile Include="BusinessModel.cs" />
+    <Compile Include="BusinessVolumeQuery.cs" />
+    <Compile Include="CdmClient.cs" />
+    <Compile Include="CdmMessage.cs" />
+    <Compile Include="CommonResult.cs" />
     <Compile Include="Models.cs" />
+    <Compile Include="PoliceUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultModel.cs" />
+    <Compile Include="SimpleResult.cs" />
     <Compile Include="UploadPicture.cs" />
+    <Compile Include="UserTransaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.snk" />
