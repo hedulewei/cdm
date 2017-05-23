@@ -19,6 +19,7 @@ namespace Common
         public string UserName { get; set; }
         public int Volume { get; set; }//ÒµÎñÁ¿
     }
+
     public class BusinessVolumeQueryResult:CommonResult
     {
         public BusinessVolumeQueryResult()

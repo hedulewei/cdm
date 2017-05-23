@@ -57,6 +57,7 @@
     <Compile Include="CdmClient.cs" />
     <Compile Include="CdmMessage.cs" />
     <Compile Include="CommonResult.cs" />
+    <Compile Include="DahcUser.cs" />
     <Compile Include="Models.cs" />
     <Compile Include="PoliceUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

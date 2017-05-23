@@ -427,7 +427,7 @@ namespace CDMservers.Controllers
                         busizhifu.PROCESS_USER = param.userName;
                          busizhifu.FILE_RECV_USER = param.fileRecvUser;
                       //  busizhifu.TRANSFER_STATUS = param.transferStatus;
-                         busizhifu.UPLOADER = param.uploader;
+                      //   busizhifu.UPLOADER = param.uploader;
                         busizhifu.COMPLETE_PAY_USER = param.completePayUser;
 
                          busizhifu.ATTENTION = param.attention;
@@ -1761,7 +1761,7 @@ namespace CDMservers.Controllers
                             }
                             busizhifu.STATUS = 5;
                             busizhifu.SERIAL_NUM = param.serialNum;
-                         
+                            busizhifu.PROCESS_USER = param.processUser;
                             cd.SaveChanges();
                             return new ResultModel
                             {
