@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using CDMservers.Models;
 using Common;
-using Ionic.Zip;
 using log4net;
 using Newtonsoft.Json;
 
@@ -22,15 +12,14 @@ namespace CDMservers.Controllers
 {
     public class StatisticQueryController : ApiController
     {
-        private Model1519 db = new Model1519();
-
+        private readonly Model1519 _db = new Model1519();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -45,13 +34,21 @@ namespace CDMservers.Controllers
                 {
                     return new BusinessVolumeQueryResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
-                Log.Info("BusinessVolumeQuery input:" + JsonConvert.SerializeObject(param));
-                LogIntoDb.Log(db, param.UserName, "BusinessVolumeQuery", JsonConvert.SerializeObject(param));
+
+                Log.Info("BusinessVolumeQuery input:" + JsonConvert.SerializeObject(param));//file roll log
+
+                LogIntoDb.Log(_db, param.UserName, "BusinessVolumeQuery", JsonConvert.SerializeObject(param));
+
                 //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 //{
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 //}
-              
+
+                var userlist = _db.USERS.Where(q => q.COUNTYCODE == param.CountyCode);
+                var retlist = new List<OneUserVolume>();
+                var startdate = DateTime.Parse(param.StartTime);
+                var endtime = DateTime.Parse(param.EndTime);
+
                 switch (param.CountyCode)
                 {
                     //case "changdao":
@@ -99,33 +96,23 @@ namespace CDMservers.Controllers
                    
                     //    break;
                     case "zhifu":
-                        var userlist = db.USERS.Where(q => q.COUNTYCODE == param.CountyCode);
-                        var retlist = new List<OneUserVolume>();
-                        var startdate = DateTime.Parse(param.StartTime);
-                        var endtime = DateTime.Parse(param.EndTime);
-                        foreach (USERS oneUsers in userlist)
-                        {
-                           var count= db.ZHIFUBUSINESS.Count(q => (q.PROCESS_USER == oneUsers.USERNAME ||
-                               q.COMPLETE_PAY_USER == oneUsers.USERNAME ||
-                               q.UPLOADER == oneUsers.USERNAME)&&
-                               q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0);
-                            retlist.Add(new OneUserVolume{UserName = oneUsers.USERNAME,Volume = count});
-                        }
+                        retlist.AddRange(from oneUsers in userlist
+                                         let count = _db.ZHIFUBUSINESS.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                         let processcount = _db.ZHIFUBUSINESS.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                         let completecount = _db.ZHIFUBUSINESS.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                         select new OneUserVolume {UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount});
                         return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "",Volumes = retlist};
                         break;
                     default:
-
                         return new BusinessVolumeQueryResult { StatusCode = "000000", Result ="" };
                         break;
                 }
-
             }
             catch (Exception ex)
             {
                 Log.Error("BusinessVolumeQuery", ex);
                 return new BusinessVolumeQueryResult { StatusCode = "000003", Result = ex.Message };
             }
-
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -94,7 +95,7 @@ namespace CDMservers.Controllers
                             var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == id);
                             if (busi == null)
                             {
-                                
+
                                 return new CommonResult { StatusCode = "000015", Result = string.Format("接受档案移交出错,没有找到id={0}的业务，{1}", id, param.CountyCode), };
                             }
                             busi.TRANSFER_STATUS = 2;
@@ -276,7 +277,7 @@ namespace CDMservers.Controllers
                             var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == id);
                             if (busi == null)
                             {
-                                return new CommonResult { StatusCode = "000015", Result = string.Format("档案移交出错,没有找到id={0}的业务，{1}",id,param.CountyCode), };
+                                return new CommonResult { StatusCode = "000015", Result = string.Format("档案移交出错,没有找到id={0}的业务，{1}", id, param.CountyCode), };
                             }
                             busi.TRANSFER_STATUS = 1;
                         }
@@ -313,7 +314,7 @@ namespace CDMservers.Controllers
                 //{
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 //}
-              
+
                 switch (param.countyCode)
                 {
                     //case "changdao":
@@ -367,7 +368,7 @@ namespace CDMservers.Controllers
 
                         foreach (USERS onebusi in busi)
                         {
-                            var limit = JsonConvert.DeserializeObject<Dictionary<string,bool>>(onebusi.LIMIT);
+                            var limit = JsonConvert.DeserializeObject<Dictionary<string, bool>>(onebusi.LIMIT);
                             if (limit.ContainsKey("dahc") && limit["dahc"])
                             {
                                 retlist.Add(new DahcUser
@@ -376,7 +377,7 @@ namespace CDMservers.Controllers
                                     Id = (int)onebusi.ID,
                                 });
                             }
-                            
+
                         }
                         // return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "",Volumes = retlist};
                         return new UsersOfArchiveQueryResult { StatusCode = "000000", Result = "", DahcUsers = retlist };
@@ -518,14 +519,19 @@ namespace CDMservers.Controllers
                 {
                     return new BusinessListResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
+
                 Log.Info("NotArchiveQuery input:" + JsonConvert.SerializeObject(param));
+
                 LogIntoDb.Log(db, param.userName, "NotArchiveQuery", JsonConvert.SerializeObject(param));
+
                 //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 //{
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 //}
+
                 var startdate = DateTime.Parse(param.startTime);
                 var endtime = DateTime.Parse(param.endTime);
+
                 switch (param.countyCode)
                 {
                     //case "changdao":
@@ -573,7 +579,6 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
-
                         var busi = db.ZHIFUBUSINESS.Where(q => q.TRANSFER_STATUS == 0 && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0);
                         if (!busi.Any())
                             return new BusinessListResult
@@ -581,46 +586,36 @@ namespace CDMservers.Controllers
                                 StatusCode = "000009",
                                 Result = "没有找到相关业务 ！"
                             };
-                      
-                     //    var userlist = db.USERS.Where(q => q.COUNTYCODE == param.CountyCode);
-                        var retlist = new List<BusinessModel>();
 
-                        foreach (ZHIFUBUSINESS onebusi in busi)
+                        var retlist = busi.Select(onebusi => new BusinessModel
                         {
-                            retlist.Add(new BusinessModel
-                            {
-                                ID=(int)onebusi.ID,
-                                processUser = onebusi.PROCESS_USER,
-                                type=(int)onebusi.TYPE,
-                                name=onebusi.NAME,
-                                startTime=onebusi.START_TIME.ToString(),
-                                endTime = onebusi.END_TIME.ToString(),
-                                uploader = onebusi.UPLOADER,
-                                status=(int)onebusi.STATUS,
-                                queueNum = onebusi.QUEUE_NUM,
-                                IDum = onebusi.ID_NUM,
-                                address = onebusi.ADDRESS,
-                                serialNum =onebusi.SERIAL_NUM,
-                                fileRecvUser = onebusi.FILE_RECV_USER,
-                            });
-                        }
-                       // return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "",Volumes = retlist};
+                            ID = (int)onebusi.ID,
+                            processUser = onebusi.PROCESS_USER,
+                            type = (int)onebusi.TYPE,
+                            name = onebusi.NAME,
+                            startTime = onebusi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                            endTime = onebusi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                            uploader = onebusi.UPLOADER,
+                            status = (int)onebusi.STATUS,
+                            queueNum = onebusi.QUEUE_NUM,
+                            IDum = onebusi.ID_NUM,
+                            address = onebusi.ADDRESS,
+                            serialNum = onebusi.SERIAL_NUM,
+                            fileRecvUser = onebusi.FILE_RECV_USER,
+                        }).ToList();
+
                         return new BusinessListResult { StatusCode = "000000", Result = "", BussinessList = retlist };
                         break;
                     default:
-
                         return new BusinessListResult { StatusCode = "000000", Result = "" };
                         break;
                 }
-
             }
             catch (Exception ex)
             {
                 Log.Error("NotArchiveQuery", ex);
                 return new BusinessListResult { StatusCode = "000003", Result = ex.Message };
             }
-
         }
-     
     }
 }
