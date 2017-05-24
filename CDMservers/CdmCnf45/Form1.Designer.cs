@@ -41,6 +41,10 @@
             this.textBoxreject = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxfeevoice = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxvoicecount = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxvoiceinterval = new System.Windows.Forms.TextBox();
             this.groupBoxvoiceconfig.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,6 +85,10 @@
             // 
             // groupBoxvoiceconfig
             // 
+            this.groupBoxvoiceconfig.Controls.Add(this.label6);
+            this.groupBoxvoiceconfig.Controls.Add(this.textBoxvoiceinterval);
+            this.groupBoxvoiceconfig.Controls.Add(this.label5);
+            this.groupBoxvoiceconfig.Controls.Add(this.textBoxvoicecount);
             this.groupBoxvoiceconfig.Controls.Add(this.label4);
             this.groupBoxvoiceconfig.Controls.Add(this.textBoxcounty);
             this.groupBoxvoiceconfig.Controls.Add(this.buttonrejecttest);
@@ -91,10 +99,11 @@
             this.groupBoxvoiceconfig.Controls.Add(this.textBoxfeevoice);
             this.groupBoxvoiceconfig.Location = new System.Drawing.Point(15, 57);
             this.groupBoxvoiceconfig.Name = "groupBoxvoiceconfig";
-            this.groupBoxvoiceconfig.Size = new System.Drawing.Size(813, 151);
+            this.groupBoxvoiceconfig.Size = new System.Drawing.Size(813, 192);
             this.groupBoxvoiceconfig.TabIndex = 4;
             this.groupBoxvoiceconfig.TabStop = false;
             this.groupBoxvoiceconfig.Text = "voice config";
+            this.groupBoxvoiceconfig.Enter += new System.EventHandler(this.groupBoxvoiceconfig_Enter);
             // 
             // label4
             // 
@@ -167,6 +176,40 @@
             this.textBoxfeevoice.TabIndex = 4;
             this.textBoxfeevoice.TextChanged += new System.EventHandler(this.textBoxfeevoice_TextChanged);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(23, 113);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "播放次数";
+            // 
+            // textBoxvoicecount
+            // 
+            this.textBoxvoicecount.Location = new System.Drawing.Point(88, 110);
+            this.textBoxvoicecount.Name = "textBoxvoicecount";
+            this.textBoxvoicecount.Size = new System.Drawing.Size(238, 21);
+            this.textBoxvoicecount.TabIndex = 11;
+            this.textBoxvoicecount.TextChanged += new System.EventHandler(this.textBoxvoicecount_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(23, 140);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 12);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "播放间隔";
+            // 
+            // textBoxvoiceinterval
+            // 
+            this.textBoxvoiceinterval.Location = new System.Drawing.Point(88, 137);
+            this.textBoxvoiceinterval.Name = "textBoxvoiceinterval";
+            this.textBoxvoiceinterval.Size = new System.Drawing.Size(238, 21);
+            this.textBoxvoiceinterval.TabIndex = 13;
+            this.textBoxvoiceinterval.TextChanged += new System.EventHandler(this.textBoxvoiceinterval_TextChanged);
+            // 
             // FormVoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -205,6 +248,10 @@
         private System.Windows.Forms.Button buttonrejecttest;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxcounty;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxvoiceinterval;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxvoicecount;
     }
 }
 

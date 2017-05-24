@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Common
 {
-    public enum VoiceType { Fee, Reject }
+    public enum VoiceType { Fee, Reject ,PlayOver}
     public enum LedMsgType { Processing, Reject ,Done}
 
     public enum ClientType { Voice, Led }

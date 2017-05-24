@@ -155,5 +155,40 @@ namespace CDMservers.Controllers
                 return new CommonResult { StatusCode = "000003", Result = ex.Message };
             }
         }
+        [Route("VoiceCall")]
+        [HttpPost]
+        public async Task<CommonResult> VoiceCall([FromBody] VoiceCallRequest param)
+        {
+            try
+            {
+                if (param == null)
+                {
+                    return new CommonResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
+                await Task.Run(async () =>
+                {
+                     await MessagePush.PushVoiceMessage(new CdmMessage
+                        {
+                            ClientType = ClientType.Voice,
+                            Content = param.VoiceContent,
+                            CountyCode = param.CountyCode,
+                            VoiceType = VoiceType.PlayOver
+                        });
+                      
+                    
+                  
+                  
+                });
+                return new CommonResult
+                {
+                    StatusCode = "000000",
+                };
+            }
+            catch (Exception ex)
+            {
+                Log.Error("VoiceCall", ex);
+                return new CommonResult { StatusCode = "000003", Result = ex.Message };
+            }
+        }
     }
 }

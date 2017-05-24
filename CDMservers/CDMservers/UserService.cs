@@ -20,10 +20,10 @@ namespace CDMservers
             {
                 if (keyValuePair.Value&&keyValuePair.Key.Length==5)
                 {
-                    int tt = -1;
-                    if (int.TryParse(keyValuePair.Key.Substring(1), out tt))
+                    int permtype;
+                    if (int.TryParse(keyValuePair.Key.Substring(1), out permtype))
                     {
-                        ret.Add(tt);
+                        ret.Add(permtype);
                     }
                 }
             }

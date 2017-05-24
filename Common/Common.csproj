@@ -82,6 +82,7 @@
     <Compile Include="UsersOfArchiveQueryResult.cs" />
     <Compile Include="UserTransaction.cs" />
     <Compile Include="UserTransactionType.cs" />
+    <Compile Include="VoiceCallRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.snk" />

@@ -28,6 +28,8 @@ namespace CdmCnf45
         private bool IsSignalrConnected = false;
         private Thread _tCheckSignalr;
         private Mutex _lockvoiceMutex = new Mutex();
+        private int voicecount = 2;
+        private int voiceinterval = 2000;
         public FormVoice()
         {
             InitializeComponent();
@@ -39,6 +41,15 @@ namespace CdmCnf45
             textBoxreject.Text = ConfigurationManager.AppSettings["rejectVoice"];
             textBoxfeevoice.Text = ConfigurationManager.AppSettings["feeVoice"];
             textBoxcounty.Text = ConfigurationManager.AppSettings["countyCode"];
+
+            textBoxvoicecount.Text = ConfigurationManager.AppSettings["voiceCount"];
+            textBoxvoiceinterval.Text = ConfigurationManager.AppSettings["voiceInterval"];
+
+            int count;
+            if (int.TryParse(textBoxvoicecount.Text, out count)) voicecount = count;
+
+            if (int.TryParse(textBoxvoiceinterval.Text, out count)) voiceinterval = count;
+
             _tCheckSignalr = new Thread(new ThreadStart(CheckSignalr));
             _tCheckSignalr.Start();
         }
@@ -141,18 +152,24 @@ namespace CdmCnf45
                         case VoiceType.Fee:
                             voice = textBoxfeevoice.Text.Replace("queueNum", mcc.Content);
                             break;
+                        case VoiceType.PlayOver:
+                            voice =  mcc.Content;
+                            break;
                         default:
                             voice = textBoxreject.Text.Replace("queueNum", mcc.Content);
                             break;
                     }
                     BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "first voice begin" });
-                    spVoice.Speak(voice);
-                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "first voice end" });
-                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format(Environment.NewLine + voice) });
-                    Thread.Sleep(1000 * 2);
-                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "second voice begin" });
-                    spVoice.Speak(voice);
-                    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "second voice end" });
+                    for (int i = 0; i < voicecount; i++)
+                    {
+                        BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("{0},第{1}次呼叫开始,{2}",Environment.NewLine ,i+1, voice) });
+                        spVoice.Speak(voice);
+                        Thread.Sleep(voiceinterval);
+                        BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("{0},第{1}次呼叫结束,{2}", Environment.NewLine, i + 1, voice) });
+                    }
+                   
+                  
+                
                 }
             }
             catch (Exception ex)
@@ -257,6 +274,27 @@ namespace CdmCnf45
         private void textBoxcounty_TextChanged(object sender, EventArgs e)
         {
             Setconfig("countyCode", textBoxcounty.Text);
+        }
+
+        private void textBoxvoiceinterval_TextChanged(object sender, EventArgs e)
+        {
+            Setconfig("voiceInterval", textBoxvoiceinterval.Text);
+            int count;
+           
+
+            if (int.TryParse(textBoxvoiceinterval.Text, out count)) voiceinterval = count;
+        }
+
+        private void textBoxvoicecount_TextChanged(object sender, EventArgs e)
+        {
+            Setconfig("voiceCount", textBoxvoicecount.Text);
+            int count;
+            if (int.TryParse(textBoxvoicecount.Text, out count)) voicecount = count;
+        }
+
+        private void groupBoxvoiceconfig_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
