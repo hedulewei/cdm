@@ -13,25 +13,25 @@ namespace CDMservers
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static Dictionary<string, Dictionary<string, string>> queueLock =
-            new Dictionary<string, Dictionary<string, string>>();
+        private static Dictionary<string, Dictionary<BusinessCategory, string>> queueLock =
+            new Dictionary<string, Dictionary<BusinessCategory, string>>();
 
         static InternalService()
         {
-            queueLock.Add("haiyang", new Dictionary<string, string> { { "cars", "cars1" }, { "drivers", "drivers1" }, { "archives", "archives1" } });
-            queueLock.Add("laizhou", new Dictionary<string, string> { { "cars", "cars2" }, { "drivers", "drivers2" }, { "archives", "archives2" } });
-            queueLock.Add("zhifu", new Dictionary<string, string> { { "cars", "cars3" }, { "drivers", "drivers3" }, { "archives", "archives3" } });
-            queueLock.Add("laishan", new Dictionary<string, string> { { "cars", "cars4" }, { "drivers", "drivers4" }, { "archives", "archives4" } });
-            queueLock.Add("fushan", new Dictionary<string, string> { { "cars", "cars5" }, { "drivers", "drivers5" }, { "archives", "archives5" } });
+            queueLock.Add("haiyang", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars1" }, { BusinessCategory.Drivers, "drivers1" }, { BusinessCategory.Archives, "archives1" } });
+            queueLock.Add("laizhou", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars2" }, { BusinessCategory.Drivers, "drivers2" }, { BusinessCategory.Archives, "archives2" } });
+            queueLock.Add("zhifu", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars3" }, { BusinessCategory.Drivers, "drivers3" }, { BusinessCategory.Archives, "archives3" } });
+            queueLock.Add("laishan", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars4" }, { BusinessCategory.Drivers, "drivers4" }, { BusinessCategory.Archives, "archives4" } });
+            queueLock.Add("fushan", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars5" }, { BusinessCategory.Drivers, "drivers5" }, { BusinessCategory.Archives, "archives5" } });
 
-            queueLock.Add("longkou", new Dictionary<string, string> { { "cars", "cars6" }, { "drivers", "drivers6" }, { "archives", "archives6" } });
-            queueLock.Add("penglai", new Dictionary<string, string> { { "cars", "cars7" }, { "drivers", "drivers7" }, { "archives", "archives7" } });
-            queueLock.Add("muping", new Dictionary<string, string> { { "cars", "cars8" }, { "drivers", "drivers8" }, { "archives", "archives8" } });
-            queueLock.Add("zhaoyuan", new Dictionary<string, string> { { "cars", "cars9" }, { "drivers", "drivers9" }, { "archives", "archives9" } });
-            queueLock.Add("qixia", new Dictionary<string, string> { { "cars", "cars10" }, { "drivers", "drivers10" }, { "archives", "archives10" } });
+            queueLock.Add("longkou", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars6" }, { BusinessCategory.Drivers, "drivers6" }, { BusinessCategory.Archives, "archives6" } });
+            queueLock.Add("penglai", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars7" }, { BusinessCategory.Drivers, "drivers7" }, { BusinessCategory.Archives, "archives7" } });
+            queueLock.Add("muping", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars8" }, { BusinessCategory.Drivers, "drivers8" }, { BusinessCategory.Archives, "archives8" } });
+            queueLock.Add("zhaoyuan", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars9" }, { BusinessCategory.Drivers, "drivers9" }, { BusinessCategory.Archives, "archives9" } });
+            queueLock.Add("qixia", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars10" }, { BusinessCategory.Drivers, "drivers10" }, { BusinessCategory.Archives, "archives10" } });
 
-            queueLock.Add("laiyang", new Dictionary<string, string> { { "cars", "cars11" }, { "drivers", "drivers11" }, { "archives", "archives11" } });
-            queueLock.Add("changdao", new Dictionary<string, string> { { "cars", "cars12" }, { "drivers", "drivers12" }, { "archives", "archives12" } });
+            queueLock.Add("laiyang", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars11" }, { BusinessCategory.Drivers, "drivers11" }, { BusinessCategory.Archives, "archives11" } });
+            queueLock.Add("changdao", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars12" }, { BusinessCategory.Drivers, "drivers12" }, { BusinessCategory.Archives, "archives12" } });
         }
        
         public static int GetBusinessId()
@@ -55,7 +55,7 @@ namespace CDMservers
             var OracleConnectionconn = new OracleConnection(CdmConfiguration.DataSource);//进行连接           
             try
             {
-                var lockvalue= queueLock[input.countyCode][input.businessCategory];
+                var lockvalue= queueLock[input.countyCode][(BusinessCategory)input.businessCategory];
               //  Log.Error("GetOrdinal lockvalue:" + lockvalue);
                 lock (lockvalue)
                 {

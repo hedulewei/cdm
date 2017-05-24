@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
+using System.Web.UI;
 using CDMservers.Models;
 using Common;
 using log4net;
@@ -15,7 +16,7 @@ namespace CDMservers.Controllers
 {
     public class ArchiveController : ApiController
     {
-        private Model1519 db = new Model1519();
+        private Model1524 db = new Model1524();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void Dispose(bool disposing)
@@ -414,6 +415,8 @@ namespace CDMservers.Controllers
                 //}
                 var startdate = DateTime.Parse(param.startTime);
                 var endtime = DateTime.Parse(param.endTime);
+                var businesscategory = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+
                 switch (param.countyCode)
                 {
                     //case "changdao":
@@ -461,8 +464,10 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
-
-                        var busi = db.ZHIFUBUSINESS.Where(q => q.TRANSFER_STATUS == 1 && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0);
+                        var busi = db.ZHIFUBUSINESS.Where(q => q.TRANSFER_STATUS == 1 &&
+                              q.UPLOADER == param.userName &&
+                            q.QUEUE_NUM.StartsWith(businesscategory) &&
+                            q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0);
                         if (!busi.Any())
                             return new BusinessListResult
                             {
@@ -531,7 +536,7 @@ namespace CDMservers.Controllers
 
                 var startdate = DateTime.Parse(param.startTime);
                 var endtime = DateTime.Parse(param.endTime);
-
+                var businesscategory = param.businessCategory.ToString(CultureInfo.InvariantCulture);
                 switch (param.countyCode)
                 {
                     //case "changdao":
@@ -579,30 +584,53 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
-                        var busi = db.ZHIFUBUSINESS.Where(q => q.TRANSFER_STATUS == 0 && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0);
+                        var busi = db.ZHIFUBUSINESS.Where(q => q.TRANSFER_STATUS == 0 && 
+                            q.UPLOADER==param.userName&&
+                            q.QUEUE_NUM.StartsWith(businesscategory) &&
+                            q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0);
                         if (!busi.Any())
                             return new BusinessListResult
                             {
                                 StatusCode = "000009",
                                 Result = "没有找到相关业务 ！"
                             };
+                          var retlist = new List<BusinessModel>();
 
-                        var retlist = busi.Select(onebusi => new BusinessModel
+                        foreach (ZHIFUBUSINESS onebusi in busi)
                         {
-                            ID = (int)onebusi.ID,
-                            processUser = onebusi.PROCESS_USER,
-                            type = (int)onebusi.TYPE,
-                            name = onebusi.NAME,
-                            startTime = onebusi.START_TIME.ToString(CultureInfo.InvariantCulture),
-                            endTime = onebusi.END_TIME.ToString(CultureInfo.InvariantCulture),
-                            uploader = onebusi.UPLOADER,
-                            status = (int)onebusi.STATUS,
-                            queueNum = onebusi.QUEUE_NUM,
-                            IDum = onebusi.ID_NUM,
-                            address = onebusi.ADDRESS,
-                            serialNum = onebusi.SERIAL_NUM,
-                            fileRecvUser = onebusi.FILE_RECV_USER,
-                        }).ToList();
+                            retlist.Add(new BusinessModel
+                            {
+                                ID = (int)onebusi.ID,
+                                processUser = onebusi.PROCESS_USER,
+                                type = (int)onebusi.TYPE,
+                                name = onebusi.NAME,
+                                startTime = onebusi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                                endTime = onebusi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                                uploader = onebusi.UPLOADER,
+                                status = (int)onebusi.STATUS,
+                                queueNum = onebusi.QUEUE_NUM,
+                                IDum = onebusi.ID_NUM,
+                                address = onebusi.ADDRESS,
+                                serialNum = onebusi.SERIAL_NUM,
+                                fileRecvUser = onebusi.FILE_RECV_USER,
+                            });
+                        }
+                        //var retlist = busi.Select(onebusi => new BusinessModel
+                        //{
+                        //    ID = (int)onebusi.ID,
+                        //    processUser = onebusi.PROCESS_USER,
+                        //    type = (int)onebusi.TYPE,
+                        //    name = onebusi.NAME,
+                        //    startTime = onebusi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                        //    endTime = onebusi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                        //    uploader = onebusi.UPLOADER,
+                        //    status = (int)onebusi.STATUS,
+                        //    queueNum = onebusi.QUEUE_NUM,
+                        //    IDum = onebusi.ID_NUM,
+                        //    address = onebusi.ADDRESS,
+                        //    serialNum = onebusi.SERIAL_NUM,
+                        //    fileRecvUser = onebusi.FILE_RECV_USER,
+                        //}).ToList();
 
                         return new BusinessListResult { StatusCode = "000000", Result = "", BussinessList = retlist };
                         break;

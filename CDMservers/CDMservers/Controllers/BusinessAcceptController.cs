@@ -23,7 +23,7 @@ namespace CDMservers.Controllers
     public class BusinessAcceptController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private Model1519 cd = new Model1519();
+        private Model1524 cd = new Model1524();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
          private static Dictionary<string, Dictionary<string, string>> queueLock =
             new Dictionary<string, Dictionary<string, string>>();
@@ -2191,7 +2191,7 @@ namespace CDMservers.Controllers
                         case "zhifu":
                         default:
                             var pts = UserService.GetPermissionType(cd.USERS, param.userName);
-                            var currentTop100 = cd.ZHIFUBUSINESS.Where(c=> c.STATUS == 1).OrderBy(c=>c.ID).Take(100);
+                            var currentTop100 = cd.ZHIFUBUSINESS.Where(c=> c.STATUS == 1&&c.QUEUE_NUM!=string.Empty).OrderBy(c=>c.ID).Take(100);
                             foreach (ZHIFUBUSINESS busizhifu in currentTop100)
                             {
                                 if (pts.Contains((int)busizhifu.TYPE)&&busizhifu.START_TIME.CompareTo(DateTime.Now.Date)>=0)

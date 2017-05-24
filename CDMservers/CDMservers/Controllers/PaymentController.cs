@@ -19,14 +19,14 @@ namespace CDMservers.Controllers
 {
     public class PaymentController : ApiController
     {
-        private Model1519 db = new Model1519();
+        private readonly Model1524 _db = new Model1524();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -42,7 +42,7 @@ namespace CDMservers.Controllers
                     return new ResultModel { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
                 Log.Info("Payment input:" + JsonConvert.SerializeObject(param));
-                LogIntoDb.Log(db, param.userName, "Payment", JsonConvert.SerializeObject(param));
+                LogIntoDb.Log(_db, param.userName, "Payment", JsonConvert.SerializeObject(param));
                 //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
                 //{
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
@@ -95,7 +95,7 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
-                        var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == param.ID);
+                        var busi = _db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == param.ID);
                         if (busi == null)
                             return new ResultModel
                             {
@@ -103,7 +103,7 @@ namespace CDMservers.Controllers
                                 Result = "没有找到相关业务 ！"
                             };
                         busi.STATUS = (int)BusinessStatus.Paid;
-                        db.SaveChanges();
+                        _db.SaveChanges();
                         return new ResultModel { StatusCode = "000000", Result = "" };
                         break;
                     default:

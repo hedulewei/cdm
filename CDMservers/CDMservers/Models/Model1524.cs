@@ -5,10 +5,10 @@ namespace CDMservers.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class Model1519 : DbContext
+    public partial class Model1524 : DbContext
     {
-        public Model1519()
-            : base("name=Model1519")
+        public Model1524()
+            : base("name=Model1524")
         {
         }
 
@@ -239,6 +239,10 @@ namespace CDMservers.Models
                 .Property(e => e.ADDRESS)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<CORPORATEINFO>()
+                .Property(e => e.PHONENUMBER)
+                .IsUnicode(false);
+
             modelBuilder.Entity<COUNTY>()
                 .Property(e => e.COUNTYCODE)
                 .IsUnicode(false);
@@ -463,7 +467,5 @@ namespace CDMservers.Models
                 .Property(e => e.OPERATION)
                 .IsUnicode(false);
         }
-
-        public System.Data.Entity.DbSet<Common.BusinessModel> BusinessModels { get; set; }
     }
 }

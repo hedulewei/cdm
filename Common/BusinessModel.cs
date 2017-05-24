@@ -8,7 +8,7 @@
             userName = string.Empty;
             password = string.Empty;
 
-            businessCategory = string.Empty;
+            businessCategory = (int)BusinessCategory.Cars;
             counterNum = string.Empty;
 
             Gender = string.Empty;
@@ -55,7 +55,7 @@
 
         public string password { get; set; }
         public string BusinessUser { get; set; }
-        public string businessCategory { get; set; }//业务种类//input,out
+        public int businessCategory { get; set; }//业务种类//input,out
         public string counterNum { get; set; }
         public int ID { get; set; }//每笔业务编号，唯一//out
         public int type { get; set; }//业务种类//input,out

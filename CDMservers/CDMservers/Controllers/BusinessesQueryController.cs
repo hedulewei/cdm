@@ -25,7 +25,7 @@ namespace CDMservers.Controllers
 {
     public class BusinessesQueryController : ApiController
     {
-        private readonly Model1519 cd = new Model1519();
+        private readonly Model1524 cd = new Model1524();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -687,19 +687,10 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
-            if (!string.IsNullOrEmpty(param.businessCategory))
+            BusinessCategory businessCategory;
+            if (Enum.TryParse(param.businessCategory.ToString(CultureInfo.InvariantCulture),out businessCategory))
             {
-                var id = "4";
-                switch (param.businessCategory)
-                {
-                    case "cars":
-                        id = "0";
-                        break;
-                    case "drivers":
-                        id = "1";
-                        break;
-                }
-                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(((int)businessCategory).ToString(CultureInfo.InvariantCulture)));
             }
             if (!string.IsNullOrEmpty(param.startTime))
             {

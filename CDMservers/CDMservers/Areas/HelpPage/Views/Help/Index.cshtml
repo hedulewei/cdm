@@ -6,7 +6,7 @@
 @model Collection<ApiDescription>
 
 @{
-    ViewBag.Title = "ASP.NET Web API Help Page";
+    ViewBag.Title = "CDM Web API Help Page";
 
     // Group APIs by controller
     ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
@@ -20,12 +20,22 @@
         </div>
     </div>
 </header>
+<style>
+    .newmethoddesc {
+        color: red;
+        padding-left: 10em;
+    }
+</style>
 <div id="body" class="help-page">
     <section class="featured">
         <div class="content-wrapper">
             <h2>Introduction</h2>
-            <p>
-                Provide a general description of your APIs here.
+            <p style="padding-left: 3em;font-weight: bold;font-size: 2em">
+                新增服务：
+                <p class="newmethoddesc">身份信息上传, IdentityInforQuery</p>
+                <p class="newmethoddesc">身份证号查询电话, PhoneQueryById</p>
+            <p class="newmethoddesc">公司信息上传, CorporationInforQuery</p>
+            <p class="newmethoddesc">公司信息查询电话, PhoneQueryByCoInfor</p>
             </p>
         </div>
     </section>

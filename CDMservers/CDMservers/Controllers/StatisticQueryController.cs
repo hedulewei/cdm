@@ -12,7 +12,7 @@ namespace CDMservers.Controllers
 {
     public class StatisticQueryController : ApiController
     {
-        private readonly Model1519 _db = new Model1519();
+        private readonly Model1524 _db = new Model1524();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void Dispose(bool disposing)
@@ -23,7 +23,9 @@ namespace CDMservers.Controllers
             }
             base.Dispose(disposing);
         }
-
+        /// <summary>
+        /// 业务量查询method
+        /// </summary>
         [Route("BusinessVolumeQuery")]
         [HttpPost]
         public BusinessVolumeQueryResult BusinessVolumeQuery([FromBody] BusinessVolumeQuery param)

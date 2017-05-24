@@ -24,10 +24,9 @@ namespace CDMservers.Controllers
     public class CarsController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-     //   private static readonly string FileRootPath = ConfigurationManager.AppSettings["FileRootPath"];
         private readonly UserDbc _dbUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
-        private readonly Model1519 cd = new Model1519();
+        private readonly Model1524 cd = new Model1524();
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -529,7 +528,7 @@ namespace CDMservers.Controllers
                 {
                     return new ResultModel {StatusCode = "000007", Result = "没有权限"};
                 }
-                LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
+                LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(CultureInfo.InvariantCulture), JsonConvert.SerializeObject(param));
                   Log.Info("PostBusinessFormInfo input is:" + JsonConvert.SerializeObject(param));
                 var currentdate = DateTime.Now.Date;
                 var scurrentdate = string.Format("{0}-{1}-{2}", currentdate.Year, currentdate.Month, currentdate.Day);
@@ -578,6 +577,7 @@ namespace CDMservers.Controllers
                                 TAX_TYPE = param.texType,
                                 ORIGIN_NUM = param.originNum,
                                 ORIGIN_TYPE = param.originType,
+                                TRANSFER_STATUS = 0,
                             });
                             cd.SaveChanges();
                        

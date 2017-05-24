@@ -260,10 +260,12 @@
     <Compile Include="Controllers\BusinessAcceptController.cs" />
     <Compile Include="Controllers\BusinessesQueryController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
+    <Compile Include="Controllers\CorporationController.cs" />
     <Compile Include="Controllers\CrossDistrictController.cs" />
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IdentityInformationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OperatorsController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -289,7 +291,7 @@
     <Compile Include="Models\laiyangbusiness.cs" />
     <Compile Include="Models\laizhoubusiness.cs" />
     <Compile Include="Models\longkoubusiness.cs" />
-    <Compile Include="Models\Model1519.cs" />
+    <Compile Include="Models\Model1524.cs" />
     <Compile Include="Models\mupingbusiness.cs" />
     <Compile Include="Models\NewDblog.cs" />
     <Compile Include="Models\penglaibusiness.cs" />

@@ -105,99 +105,99 @@ namespace Stress_and_Performance_Testing
                     watch.Start();
                     switch (method)
                     {
-                        case "GetBusinessInfoByOdc":
-                            param =
-                                JsonConvert.SerializeObject(new BusinessModel
-                                {
-                                    unloadTaskNum =( paramb.Ordinal+i).ToString(),
-                                    businessCategory = "HE",
-                                    userName = paramb.UserName,
-                                    countyCode = paramb.CountyCode,
-                                    queueNum = "50010",
-                                    type = paramb.Type,
-                                    address = "wolong"
-                                });
-                            var ret = aa.SendRestHttpClientRequest(homeurl, method, param);
-                            //  richTextBox1.AppendText(Environment.NewLine + "输入：" + param + "     输出:" + aa.SendRestHttpClientRequest(homeurl, method, param));
-                            watch.Stop();
-                            BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
-                            {
-                                string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,{4}",
-                                    method, paramb.Ordinal, 
-                                   // ret, //url={4}
-                                    JsonConvert.DeserializeObject<ResultModel>(ret).StatusCode,
-                                    watch.ElapsedMilliseconds,ret.Length)
-                            });
-                            //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
-                            //{
-                            //    string.Format("{0} transaction, elapsed time {3} milliseconds, input:{1},output:{2}",
-                            //        method, param, ret, watch.ElapsedMilliseconds)
-                            //});
-                            break;
-                        case "PostBusinessFormInfo":
-                            param =
-                                JsonConvert.SerializeObject(new BusinessModel
-                                {
-                                    businessCategory = "HE",
-                                    userName = paramb.UserName,
-                                    countyCode = paramb.CountyCode,
-                                    unloadTaskNum =( paramb.Ordinal + i).ToString(),
-                                    queueNum = "50010",
-                                    type = paramb.Type,
-                                    checkFile = paramb.Ordinal+i,
-                                    zipFile = File.ReadAllBytes(@textBoxsourcefile.Text),
-                                    address = "wolong"
-                                });
-                            var bb = aa.SendRestHttpClientRequest(homeurl, method, param);
-                            //  richTextBox1.AppendText(Environment.NewLine + "输入：" + param + "     输出:" + aa.SendRestHttpClientRequest(homeurl, method, param));
-                            watch.Stop();
-                            var theret = JsonConvert.DeserializeObject<ResultModel>(bb);
-                            BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
-                            {
-                                string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,{4}",
-                                    method, paramb.Ordinal, 
-                                   // ret, //url={4}
-                                    theret.StatusCode,
-                                    watch.ElapsedMilliseconds,theret.Result)
-                            });
-                            //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
-                            //{
-                            //    string.Format("{0} transaction, elapsed time {3} milliseconds, input:{1},output:{2}",
-                            //        method, param, ret, watch.ElapsedMilliseconds)
-                            //});
-                            break;
-                        case "getordinal":
-                            var input = new BusinessModel
-                            {
-                                countyCode = "haiyang",
-                                businessCategory = "yew1",
-                                userName = "user1",
-                                password = "pass"
-                            };
-                            var json = JsonConvert.SerializeObject(input);
-                            Console.WriteLine("input=" + json);
-                            Console.WriteLine("output = " + aa.RestHttpClientGet(textBoxurl.Text, "getordinal", json));
-                            break;
+                        //case "GetBusinessInfoByOdc":
+                        //    param =
+                        //        JsonConvert.SerializeObject(new BusinessModel
+                        //        {
+                        //            unloadTaskNum =( paramb.Ordinal+i).ToString(),
+                        //            businessCategory = "HE",
+                        //            userName = paramb.UserName,
+                        //            countyCode = paramb.CountyCode,
+                        //            queueNum = "50010",
+                        //            type = paramb.Type,
+                        //            address = "wolong"
+                        //        });
+                        //    var ret = aa.SendRestHttpClientRequest(homeurl, method, param);
+                        //    //  richTextBox1.AppendText(Environment.NewLine + "输入：" + param + "     输出:" + aa.SendRestHttpClientRequest(homeurl, method, param));
+                        //    watch.Stop();
+                        //    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
+                        //    {
+                        //        string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,{4}",
+                        //            method, paramb.Ordinal, 
+                        //           // ret, //url={4}
+                        //            JsonConvert.DeserializeObject<ResultModel>(ret).StatusCode,
+                        //            watch.ElapsedMilliseconds,ret.Length)
+                        //    });
+                        //    //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
+                        //    //{
+                        //    //    string.Format("{0} transaction, elapsed time {3} milliseconds, input:{1},output:{2}",
+                        //    //        method, param, ret, watch.ElapsedMilliseconds)
+                        //    //});
+                        //    break;
+                        //case "PostBusinessFormInfo":
+                        //    param =
+                        //        JsonConvert.SerializeObject(new BusinessModel
+                        //        {
+                        //            businessCategory = "HE",
+                        //            userName = paramb.UserName,
+                        //            countyCode = paramb.CountyCode,
+                        //            unloadTaskNum =( paramb.Ordinal + i).ToString(),
+                        //            queueNum = "50010",
+                        //            type = paramb.Type,
+                        //            checkFile = paramb.Ordinal+i,
+                        //            zipFile = File.ReadAllBytes(@textBoxsourcefile.Text),
+                        //            address = "wolong"
+                        //        });
+                        //    var bb = aa.SendRestHttpClientRequest(homeurl, method, param);
+                        //    //  richTextBox1.AppendText(Environment.NewLine + "输入：" + param + "     输出:" + aa.SendRestHttpClientRequest(homeurl, method, param));
+                        //    watch.Stop();
+                        //    var theret = JsonConvert.DeserializeObject<ResultModel>(bb);
+                        //    BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
+                        //    {
+                        //        string.Format("thread {1},{0} transaction, result = {2}, elapsed time {3} milliseconds,{4}",
+                        //            method, paramb.Ordinal, 
+                        //           // ret, //url={4}
+                        //            theret.StatusCode,
+                        //            watch.ElapsedMilliseconds,theret.Result)
+                        //    });
+                        //    //BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[]
+                        //    //{
+                        //    //    string.Format("{0} transaction, elapsed time {3} milliseconds, input:{1},output:{2}",
+                        //    //        method, param, ret, watch.ElapsedMilliseconds)
+                        //    //});
+                        //    break;
+                        //case "getordinal":
+                        //    var input = new BusinessModel
+                        //    {
+                        //        countyCode = "haiyang",
+                        //        businessCategory = "yew1",
+                        //        userName = "user1",
+                        //        password = "pass"
+                        //    };
+                        //    var json = JsonConvert.SerializeObject(input);
+                        //    Console.WriteLine("input=" + json);
+                        //    Console.WriteLine("output = " + aa.RestHttpClientGet(textBoxurl.Text, "getordinal", json));
+                        //    break;
                         case "getordinal2":
                             Console.WriteLine(aa.RestHttpClientGet(textBoxurl.Text, "getordinal2",
                                 "?code=334&category=0334"));
                             break;
-                        case "GET_VERSION":
-                            var haha =
-                                JsonConvert.SerializeObject(new BusinessModel
-                                {
-                                    businessCategory = "HE",
-                                    address = "wolong"
-                                });
-                            //    var dict = new Dictionary<string, string>
-                            //{
-                            //    {"UserName","param1. userName"},
-                            //    {"Password"," param1.password"},
-                            //    {"grant_type", "password"}
-                            //};
-                            Console.WriteLine("输入：" + haha + "     输出" +
-                                              aa.SendRestHttpClientRequest(homeurl, "GET_VERSION", haha));
-                            break;
+                        //case "GET_VERSION":
+                        //    var haha =
+                        //        JsonConvert.SerializeObject(new BusinessModel
+                        //        {
+                        //            businessCategory = "HE",
+                        //            address = "wolong"
+                        //        });
+                        //    //    var dict = new Dictionary<string, string>
+                        //    //{
+                        //    //    {"UserName","param1. userName"},
+                        //    //    {"Password"," param1.password"},
+                        //    //    {"grant_type", "password"}
+                        //    //};
+                        //    Console.WriteLine("输入：" + haha + "     输出" +
+                        //                      aa.SendRestHttpClientRequest(homeurl, "GET_VERSION", haha));
+                        //    break;
                         default:
                             BeginInvoke(new UpdateStatusDelegate(UpdateStatus),
                                 new object[] { string.Format("no this method, " + method) });

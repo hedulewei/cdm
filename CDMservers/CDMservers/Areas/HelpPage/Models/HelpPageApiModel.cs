@@ -25,7 +25,13 @@ namespace CDMservers.Areas.HelpPage.Models
         /// <summary>
         /// Gets or sets the <see cref="ApiDescription"/> that describes the API.
         /// </summary>
-        public ApiDescription ApiDescription { get; set; }
+        public ApiDescription ApiDescription
+        {
+            get;
+            set;
+
+
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="ParameterDescription"/> collection that describes the URI parameters for the API.

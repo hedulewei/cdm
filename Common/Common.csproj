@@ -51,20 +51,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArchivesTransferRequest.cs" />
+    <Compile Include="AuthorityLevel.cs" />
+    <Compile Include="BusinessCategory.cs" />
     <Compile Include="BusinessListResult.cs" />
     <Compile Include="BusinessModel.cs" />
+    <Compile Include="BusinessStatus.cs" />
     <Compile Include="BusinessVolumeQuery.cs" />
+    <Compile Include="BusinessVolumeQueryResult.cs" />
     <Compile Include="CdmClient.cs" />
     <Compile Include="CdmMessage.cs" />
+    <Compile Include="CommonRequest.cs" />
     <Compile Include="CommonResult.cs" />
+    <Compile Include="CountyCode.cs" />
     <Compile Include="DahcUser.cs" />
+    <Compile Include="Gender.cs" />
+    <Compile Include="IndentityInforQuery.cs" />
     <Compile Include="Models.cs" />
+    <Compile Include="OneUserVolume.cs" />
+    <Compile Include="PhoneQueryResult.cs" />
     <Compile Include="PoliceUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultModel.cs" />
     <Compile Include="SimpleResult.cs" />
     <Compile Include="UploadPicture.cs" />
+    <Compile Include="UploadPictureResult.cs" />
+    <Compile Include="UsersOfArchiveQueryResult.cs" />
     <Compile Include="UserTransaction.cs" />
+    <Compile Include="UserTransactionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.snk" />

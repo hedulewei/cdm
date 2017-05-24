@@ -19,5 +19,8 @@ namespace CDMservers.Models
 
         [StringLength(100)]
         public string ADDRESS { get; set; }
+
+        [StringLength(50)]
+        public string PHONENUMBER { get; set; }
     }
 }
