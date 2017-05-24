@@ -5,10 +5,10 @@ namespace CDMservers.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class Model1524 : DbContext
+    public partial class Model15242 : DbContext
     {
-        public Model1524()
-            : base("name=Model1524")
+        public Model15242()
+            : base("name=Model15242")
         {
         }
 
@@ -157,27 +157,27 @@ namespace CDMservers.Models
 
             modelBuilder.Entity<CARINFOR>()
                 .Property(e => e.CAR_LENGTH)
-                .HasPrecision(3, 3);
+                .HasPrecision(38, 0);
 
             modelBuilder.Entity<CARINFOR>()
                 .Property(e => e.CAR_WIDTH)
-                .HasPrecision(3, 3);
+                .HasPrecision(38, 0);
 
             modelBuilder.Entity<CARINFOR>()
                 .Property(e => e.CAR_HEIGHT)
-                .HasPrecision(3, 3);
+                .HasPrecision(38, 0);
 
             modelBuilder.Entity<CARINFOR>()
                 .Property(e => e.STANDARD_LENGTH)
-                .HasPrecision(3, 3);
+                .HasPrecision(38, 0);
 
             modelBuilder.Entity<CARINFOR>()
                 .Property(e => e.STANDARD_WIDTH)
-                .HasPrecision(3, 3);
+                .HasPrecision(38, 0);
 
             modelBuilder.Entity<CARINFOR>()
                 .Property(e => e.STANDARD_HEIGHT)
-                .HasPrecision(3, 3);
+                .HasPrecision(38, 0);
 
             modelBuilder.Entity<CARINFOR>()
                 .Property(e => e.QUEUE_NUM)

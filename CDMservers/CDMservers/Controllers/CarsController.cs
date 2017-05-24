@@ -18,6 +18,7 @@ using CDMservers.Models;
 using Common;
 using log4net;
 using Newtonsoft.Json;
+using Oracle.ManagedDataAccess.Client;
 
 namespace CDMservers.Controllers
 {
@@ -26,7 +27,7 @@ namespace CDMservers.Controllers
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly UserDbc _dbUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
-        private readonly Model1524 cd = new Model1524();
+        private readonly Model15242 cd = new Model15242();
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -36,6 +37,110 @@ namespace CDMservers.Controllers
                   cd.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private int GetCarInfoId()
+        {
+            using (var OracleConnectionconn = new OracleConnection(CdmConfiguration.DataSource))
+            {
+                OracleConnectionconn.Open();//打开指定的连接  
+                OracleCommand com = OracleConnectionconn.CreateCommand();
+                com.CommandText = string.Format("SELECT carinfoid.nextval FROM dual");//写好想执行的Sql语句 
+              //  Log.Info("CommandText=" + com.CommandText);
+                OracleDataReader odr = com.ExecuteReader();
+                var ordinal = -1;
+                while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了                    
+                {
+                    ordinal = odr.GetInt32(0);
+                }
+                odr.Close();//关闭reader.这是一定要写的  
+               OracleConnectionconn.Close();
+                return ordinal;
+            }
+        }
+//        客户端发送：上传车辆信息指令，内容车牌，车辆品牌，车辆类型，大驾号，号牌种类，车主姓名，车主身份证号码，表单编号，地区编号。
+//服务器返回：是否成功。
+        [Route("CarInfoUpload")]
+        [HttpPost]
+        public CommonResult CarInfoUpload([FromBody] CarInfoUploadRequest param)
+        {
+            try
+            {
+                if (param == null)
+                {
+                    return new CommonResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
+                var today = DateTime.Now;
+                var id = GetCarInfoId();
+                Log.InfoFormat("{0},{1},{2},{3}",id,111,param.CAR_HEIGHT, param.CAR_WIDTH);
+                cd.CARINFOR.Add(new CARINFOR
+                {
+                    ID = id,
+                    TIME=today,
+                    CAR_NUM = param.CAR_NUM,
+
+                    BRAND = param.BRAND,
+                    MODEL_TYPE = param.MODEL_TYPE,
+                    VIN = param.VIN,
+                    PLATE_TYPE = param.PLATE_TYPE,
+                    OWNER = param.OWNER,
+
+                    OWNER_ID = param.OWNER_ID,
+                    CAR_HEIGHT = param.CAR_HEIGHT,
+                    CAR_WIDTH = param.CAR_WIDTH,
+                    CAR_LENGTH = param.CAR_LENGTH,
+                    SERIAL_NUM = param.SERIAL_NUM,
+
+                    STANDARD_HEIGHT = param.STANDARD_HEIGHT,
+                    STANDARD_LENGTH = param.STANDARD_LENGTH,
+                    STANDARD_WIDTH = param.STANDARD_WIDTH,
+                    QUEUE_NUM = param.QUEUE_NUM,
+                    FINISH = param.FINISH,
+
+                    TASK_TYPE = param.TASK_TYPE,
+                    INSPECTOR = param.INSPECTOR,
+                    RECHECKER = param.RECHECKER,
+                    UNLOAD_TASK_NUM = param.UNLOAD_TASK_NUM,
+                    INVALID_TASK = param.INVALID_TASK,
+                });
+                Log.InfoFormat("{0},{1}", id, 222);
+                cd.SaveChanges();
+                Log.InfoFormat("{0},{1}", id, 333);
+                return new CommonResult
+                {
+                    StatusCode = "000000",
+                    Result = ""
+                };
+            }
+            catch (DbEntityValidationException e)
+            {
+                var err = string.Empty;
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    var err1 =
+                        string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    err += err1;
+                    Log.InfoFormat(err1);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        var err2 = string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                        Log.InfoFormat(err2);
+                        err += err2;
+                    }
+                }
+                return new CommonResult { StatusCode = "000003", Result = "DbEntityValidationException:" + err };
+            }
+            catch (EntityDataSourceValidationException ex)
+            {
+                Log.Error("EntityDataSourceValidationException", ex);
+                return new CommonResult { StatusCode = "000003", Result = ex.Message };
+            }
+            catch (Exception ex)
+            {
+                Log.Error("CarInfoUpload", ex);
+                return new CommonResult { StatusCode = "000003", Result = ex.Message };
+            }
         }
         [Route("GetBusinessInfoByOdc")]
         [HttpPost]

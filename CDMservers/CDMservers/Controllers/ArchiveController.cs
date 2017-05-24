@@ -16,7 +16,7 @@ namespace CDMservers.Controllers
 {
     public class ArchiveController : ApiController
     {
-        private Model1524 db = new Model1524();
+        private Model15242 db = new Model15242();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void Dispose(bool disposing)
@@ -185,10 +185,10 @@ namespace CDMservers.Controllers
                     case "zhifu":
                         foreach (int id in param.Ids)
                         {
-                            var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == id);
+                            var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == id&&q.TRANSFER_STATUS==1);
                             if (busi == null)
                             {
-                                return new CommonResult { StatusCode = "000015", Result = string.Format("撤销档案移交出错,没有找到id={0}的业务，{1}", id, param.CountyCode), };
+                                return new CommonResult { StatusCode = "000015", Result = string.Format("撤销档案移交出错,没有找到id={0}的业务或该业务档案标识不为1，{1}", id, param.CountyCode), };
                             }
                             busi.TRANSFER_STATUS = 0;
                         }
@@ -197,7 +197,7 @@ namespace CDMservers.Controllers
                         break;
                     default:
 
-                        return new CommonResult { StatusCode = "000000", Result = "" };
+                        return new CommonResult { StatusCode = "000016", Result = "没有该县区标识"+param.CountyCode };
                         break;
                 }
 
@@ -281,6 +281,7 @@ namespace CDMservers.Controllers
                                 return new CommonResult { StatusCode = "000015", Result = string.Format("档案移交出错,没有找到id={0}的业务，{1}", id, param.CountyCode), };
                             }
                             busi.TRANSFER_STATUS = 1;
+                            busi.FILE_RECV_USER = param.UserName;
                         }
                         db.SaveChanges();
                         return new CommonResult { StatusCode = "000000", Result = "", };

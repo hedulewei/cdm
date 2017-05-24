@@ -270,6 +270,7 @@
     <Compile Include="Controllers\OperatorsController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\StatisticQueryController.cs" />
+    <Compile Include="Controllers\TabulationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -291,7 +292,7 @@
     <Compile Include="Models\laiyangbusiness.cs" />
     <Compile Include="Models\laizhoubusiness.cs" />
     <Compile Include="Models\longkoubusiness.cs" />
-    <Compile Include="Models\Model1524.cs" />
+    <Compile Include="Models\Model15242.cs" />
     <Compile Include="Models\mupingbusiness.cs" />
     <Compile Include="Models\NewDblog.cs" />
     <Compile Include="Models\penglaibusiness.cs" />

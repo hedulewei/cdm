@@ -19,7 +19,7 @@ namespace CDMservers.Controllers
 {
     public class IdentityInformationController : ApiController
     {
-        private readonly Model1524 _db = new Model1524();
+        private readonly Model15242 _db = new Model15242();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 

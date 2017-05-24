@@ -19,7 +19,7 @@ namespace CDMservers.Controllers
 {
     public class PaymentController : ApiController
     {
-        private readonly Model1524 _db = new Model1524();
+        private readonly Model15242 _db = new Model15242();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void Dispose(bool disposing)
@@ -103,6 +103,7 @@ namespace CDMservers.Controllers
                                 Result = "没有找到相关业务 ！"
                             };
                         busi.STATUS = (int)BusinessStatus.Paid;
+                        busi.COMPLETE_PAY_USER = param.userName;
                         _db.SaveChanges();
                         return new ResultModel { StatusCode = "000000", Result = "" };
                         break;

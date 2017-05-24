@@ -62,7 +62,7 @@ namespace CDMservers.Models
         [StringLength(50)]
         public string RECHECKER { get; set; }
 
-        [StringLength(15)]
+        [StringLength(20)]
         public string UNLOAD_TASK_NUM { get; set; }
 
         public decimal? INVALID_TASK { get; set; }

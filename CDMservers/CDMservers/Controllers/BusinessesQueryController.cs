@@ -25,7 +25,7 @@ namespace CDMservers.Controllers
 {
     public class BusinessesQueryController : ApiController
     {
-        private readonly Model1524 cd = new Model1524();
+        private readonly Model15242 cd = new Model15242();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -684,13 +684,15 @@ namespace CDMservers.Controllers
                        && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
                          && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
                            && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
             BusinessCategory businessCategory;
             if (Enum.TryParse(param.businessCategory.ToString(CultureInfo.InvariantCulture),out businessCategory))
             {
-                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(((int)businessCategory).ToString(CultureInfo.InvariantCulture)));
+                var ttt = ((int) businessCategory).ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
             }
             if (!string.IsNullOrEmpty(param.startTime))
             {

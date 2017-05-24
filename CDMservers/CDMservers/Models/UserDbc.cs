@@ -68,5 +68,7 @@ namespace CDMservers.Models
                 .Property(e => e.AUTHORITYLEVEL)
                 .IsUnicode(false);
         }
+
+        public System.Data.Entity.DbSet<Common.BusinessModel> BusinessModels { get; set; }
     }
 }

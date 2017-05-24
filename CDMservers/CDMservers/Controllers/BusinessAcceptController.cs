@@ -23,7 +23,7 @@ namespace CDMservers.Controllers
     public class BusinessAcceptController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private Model1524 cd = new Model1524();
+        private Model15242 cd = new Model15242();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
          private static Dictionary<string, Dictionary<string, string>> queueLock =
             new Dictionary<string, Dictionary<string, string>>();
@@ -1761,7 +1761,7 @@ namespace CDMservers.Controllers
                             }
                             busizhifu.STATUS = 5;
                             busizhifu.SERIAL_NUM = param.serialNum;
-                            busizhifu.PROCESS_USER = param.processUser;
+                            busizhifu.PROCESS_USER = param.userName;
                             cd.SaveChanges();
                             return new ResultModel
                             {

@@ -222,7 +222,9 @@ namespace CDMservers.Controllers
                         input.name, input.Gender, input.Nationality, input.Birthday, input.address, input.ZipCode, input.IDum, input.phoneNum);//写好想执行的Sql语句   
                     Log.Info("insert bbb=");
                     Log.Info("insert CommandText=" + com.CommandText);
-                    return com.ExecuteNonQuery();
+                    var ret= com.ExecuteNonQuery();
+                    oracleConnectionconn.Close();
+                    return ret;
                 }
                 else
                 {
@@ -231,8 +233,11 @@ namespace CDMservers.Controllers
                         input.name, input.Gender, input.Nationality, input.Birthday, input.address, input.ZipCode, input.IDum, input.phoneNum);//写好想执行的Sql语句   
                     Log.Info("update bbb=");
                     Log.Info("update CommandText=" + com.CommandText);
-                    return com.ExecuteNonQuery();
+                    var ret = com.ExecuteNonQuery();
+                    oracleConnectionconn.Close();
+                    return ret;
                 }
+               
             }
         }
         [Route("GET_QUEUE_NUM")]
