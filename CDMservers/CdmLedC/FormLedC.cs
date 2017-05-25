@@ -40,6 +40,9 @@ namespace CdmLedC
             textBoxprocessing.Text = ConfigurationManager.AppSettings["processing"];
             textBoxcounty.Text = ConfigurationManager.AppSettings["countyCode"];
             CreateNewQueue();
+
+            _tCheckSignalr = new Thread(new ThreadStart(CheckSignalr));
+            _tCheckSignalr.Start();
         }
         private void CreateNewQueue()
         {
@@ -64,7 +67,7 @@ namespace CdmLedC
             }
             catch (Exception ex)
             {
-                richTextBoxLog.AppendText(Environment.NewLine+ex.Message);
+                richTextBoxLog.AppendText(Environment.NewLine + ex.Message);
             }
         }
         private object LedMessageProcessing(CdmMessage mcc)
@@ -102,7 +105,7 @@ namespace CdmLedC
             {
                 var msg = new Message
                 {
-                    Label = "[cdmLedC]" ,
+                    Label = "[cdmLedC]",
                     Recoverable = true,
                     Body = voice
                 };
@@ -235,15 +238,31 @@ namespace CdmLedC
 
         private void buttonsometest_Click(object sender, EventArgs e)
         {
-//            using System.Security;
-//using System.Security.Cryptography;
+            //            using System.Security;
+            //using System.Security.Cryptography;
 
-MD5 md5 = new MD5CryptoServiceProvider();
-byte[] palindata = Encoding.Default.GetBytes(textBoxpass.Text);//将要加密的字符串转换为字节数组
-byte[] encryptdata=md5.ComputeHash(palindata);//将字符串加密后也转换为字符数组
-var miText = Convert.ToBase64String(encryptdata);//将加密后的字节数组转换为加密字符串
-richTextBoxLog.AppendText(Environment.NewLine+"ciphertext:"+miText+miText.Length);
-            
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] palindata = Encoding.Default.GetBytes(textBoxpass.Text);//将要加密的字符串转换为字节数组
+            byte[] encryptdata = md5.ComputeHash(palindata);//将字符串加密后也转换为字符数组
+            var miText = Convert.ToBase64String(encryptdata);//将加密后的字节数组转换为加密字符串
+            richTextBoxLog.AppendText(Environment.NewLine + "ciphertext:" + miText + miText.Length);
+
+        }
+
+        private void notifyIcon1_Click(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void FormLedC_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
+        private void FormLedC_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
         }
     }
 }

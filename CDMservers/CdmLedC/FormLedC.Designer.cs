@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLedC));
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.groupBoxvoiceconfig = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -45,6 +47,7 @@
             this.buttonlogin = new System.Windows.Forms.Button();
             this.buttonsometest = new System.Windows.Forms.Button();
             this.textBoxpass = new System.Windows.Forms.TextBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBoxvoiceconfig.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,6 +120,7 @@
             this.buttonrejecttest.TabIndex = 8;
             this.buttonrejecttest.Text = "reject test";
             this.buttonrejecttest.UseVisualStyleBackColor = true;
+            this.buttonrejecttest.Visible = false;
             this.buttonrejecttest.Click += new System.EventHandler(this.buttonrejecttest_Click);
             // 
             // buttondonetest
@@ -127,6 +131,7 @@
             this.buttondonetest.TabIndex = 5;
             this.buttondonetest.Text = "done test";
             this.buttondonetest.UseVisualStyleBackColor = true;
+            this.buttondonetest.Visible = false;
             this.buttondonetest.Click += new System.EventHandler(this.buttondonetest_Click);
             // 
             // label3
@@ -188,6 +193,7 @@
             this.buttonlogin.TabIndex = 5;
             this.buttonlogin.Text = "login server";
             this.buttonlogin.UseVisualStyleBackColor = true;
+            this.buttonlogin.Visible = false;
             this.buttonlogin.Click += new System.EventHandler(this.buttonlogin_Click);
             // 
             // buttonsometest
@@ -198,6 +204,7 @@
             this.buttonsometest.TabIndex = 11;
             this.buttonsometest.Text = "test";
             this.buttonsometest.UseVisualStyleBackColor = true;
+            this.buttonsometest.Visible = false;
             this.buttonsometest.Click += new System.EventHandler(this.buttonsometest_Click);
             // 
             // textBoxpass
@@ -206,6 +213,14 @@
             this.textBoxpass.Name = "textBoxpass";
             this.textBoxpass.Size = new System.Drawing.Size(238, 21);
             this.textBoxpass.TabIndex = 11;
+            this.textBoxpass.Visible = false;
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "cdm led";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
             // 
             // FormLedC
             // 
@@ -219,8 +234,11 @@
             this.Controls.Add(this.textBoxserver);
             this.Controls.Add(this.buttonlogin);
             this.Controls.Add(this.richTextBoxLog);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormLedC";
             this.Text = "Form Led Message";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLedC_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormLedC_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBoxvoiceconfig.ResumeLayout(false);
             this.groupBoxvoiceconfig.PerformLayout();
@@ -248,6 +266,7 @@
         private System.Windows.Forms.TextBox textBoxcounty;
         private System.Windows.Forms.Button buttonsometest;
         private System.Windows.Forms.TextBox textBoxpass;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 
