@@ -1,6 +1,6 @@
 ﻿namespace VoicePlayService
 {
-    partial class CdmVoice
+    partial class VoiceService
     {
         /// <summary> 
         /// 必需的设计器变量。

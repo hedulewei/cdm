@@ -16,7 +16,7 @@ namespace VoicePlayService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new CdmVoice() 
+                new VoiceService() 
             };
             ServiceBase.Run(ServicesToRun);
         }

@@ -18,14 +18,14 @@ using Newtonsoft.Json;
 using System.Speech.Synthesis;
 
 
-namespace CdmCnf45
+namespace CdmVoice
 {
     public partial class FormVoice : Form
     {
         private delegate void UpdateStatusDelegate(string status);
         private IHubProxy HubProxy { set; get; }
         private HubConnection Connection { get; set; }
-        private bool IsSignalrConnected = false;
+      //  private bool IsSignalrConnected = false;
         private Thread _tCheckSignalr;
         private Mutex _lockvoiceMutex = new Mutex();
         private int voicecount = 2;
@@ -110,7 +110,7 @@ namespace CdmCnf45
                     BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("signalr 查询: {0}", "start ok") });
                     await HubProxy.Invoke("Login", new CdmClient { CountyCode = textBoxcounty.Text, ClientType = ClientType.Voice });
                     BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { "signalr login ok" });
-                    IsSignalrConnected = true;
+                 //   IsSignalrConnected = true;
                 }
                 catch (Exception hex)
                 {
@@ -118,7 +118,7 @@ namespace CdmCnf45
                     //    richTextBox1.AppendText(string.Format("signalr 查询:url={0},{1}", server, "网站可能在更新，稍后再查。"));
                     //else
                     BeginInvoke(new UpdateStatusDelegate(UpdateStatus), new object[] { string.Format("signalr 查询: error.{0}", hex.Message) });
-                    IsSignalrConnected = false;
+                  //  IsSignalrConnected = false;
                 }
             }
             catch (Exception ex)

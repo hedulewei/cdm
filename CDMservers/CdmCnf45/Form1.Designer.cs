@@ -1,4 +1,4 @@
-﻿namespace CdmCnf45
+﻿namespace CdmVoice
 {
     partial class FormVoice
     {

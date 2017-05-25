@@ -10,26 +10,28 @@ using Newtonsoft.Json;
 
 namespace VoicePlayService
 {
-    public partial class CdmVoice : ServiceBase
+    public partial class VoiceService : ServiceBase
     {
         private int voicecount = 2;
         private int voiceinterval = 2000;
         private IHubProxy HubProxy { set; get; }
         private HubConnection Connection { get; set; }
-        private bool IsSignalrConnected = false;
+     //   private bool IsSignalrConnected = false;
         private Thread _tCheckSignalr;
         private Mutex _lockvoiceMutex = new Mutex();
-        public CdmVoice()
+        private static string traceFile;
+        public VoiceService()
         {
             InitializeComponent();
+            traceFile = GetTraceFile();
         }
 
         protected override void OnStart(string[] args)
         {
-            var traceFile = GetTraceFile();
-            Trace.AutoFlush = true;
-            Trace.Listeners.Clear();
-            Trace.Listeners.Add(new TextWriterTraceListener(traceFile));
+           
+            //Trace.AutoFlush = true;
+            //Trace.Listeners.Clear();
+            //Trace.Listeners.Add(new TextWriterTraceListener(traceFile));
 
             var vc = ConfigurationManager.AppSettings["voiceCount"];
             var vi = ConfigurationManager.AppSettings["voiceInterval"];
@@ -44,7 +46,7 @@ namespace VoicePlayService
         protected override void OnStop()
         {
             _tCheckSignalr.Abort();
-            Trace.Close();
+           // Trace.Close();
         }
         private string GetTraceFile()
         {
@@ -172,9 +174,21 @@ namespace VoicePlayService
         }
         private void TraceLog(string format)
         {
-            Trace.TraceInformation("{0}--{1}", DateTime.Now, format);
+          //  Trace.TraceInformation("{0}--{1}", DateTime.Now, format);
+            WritelogStatic(format);
         }
-
+        static void WritelogStatic(string logtext)
+        {
+            try
+            {
+                using (var sw = System.IO.File.AppendText(traceFile))
+                {
+                    sw.WriteLine(DateTime.Now.ToLocalTime() + "---" + logtext);
+                    sw.Close();
+                }
+            }
+            catch (Exception) { }
+        }
         private string GetAppConfig(string key)
         {
             return ConfigurationManager.AppSettings[key]; ;
