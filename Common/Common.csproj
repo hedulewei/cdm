@@ -94,6 +94,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultModel.cs" />
     <Compile Include="SimpleResult.cs" />
+    <Compile Include="SoftwareUpdateRequest.cs" />
+    <Compile Include="SoftwareUpdateResult.cs" />
     <Compile Include="TabulationQuery.cs" />
     <Compile Include="UploadPicture.cs" />
     <Compile Include="UploadPictureResult.cs" />

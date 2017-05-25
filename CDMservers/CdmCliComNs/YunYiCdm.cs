@@ -131,6 +131,38 @@ namespace YunYiCdm
             }
         }
 
+        public string SoftwareUpdateToFile(string result, string absoluteFilePath)
+        {
+            var ret = string.Empty;
+            try
+            {
+                var model = JsonConvert.DeserializeObject<SoftwareUpdateResult>(result);
+                var tempfile = Path.GetTempFileName();
+                File.WriteAllBytes(tempfile, model.FileContent);
+                using (var zip = new ZipFile(tempfile))
+                {
+                    if (!Directory.Exists(absoluteFilePath))
+                    {
+                        Directory.CreateDirectory(absoluteFilePath);
+                    }
+                    else
+                    {
+                        var p = Directory.GetFiles(absoluteFilePath);
+                        foreach (string s in p)
+                        {
+                            File.Delete(s);
+                        }
+                    }
+                    zip.ExtractAll(absoluteFilePath);
+                }
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                return ret + ex.Message;
+            }
+        }
+
         public string RestHttpClientGet(string host, string method, string param)
         {
             var url = string.Format("http://{0}/{2}/{1}", host, param, method);

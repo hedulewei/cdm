@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.UI.WebControls;
@@ -70,6 +71,47 @@ namespace CDMservers.Controllers
                 return new UploadPictureResult { StatusCode = "000003", Result = ex.Message };
             }
         }
-     
+        [Route("SoftwareUpdate")]
+        [HttpPost]
+        public SoftwareUpdateResult SoftwareUpdate([FromBody] SoftwareUpdateRequest param)
+        {
+            try
+            {
+                if (param == null)
+                {
+                    return new SoftwareUpdateResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
+                var version =long.Parse( param.Version.Replace(".", ""));
+                var updpath =new DirectoryInfo(CdmConfiguration.SoftwareUpdatePath).GetFiles("*.zip");
+                var ret = new SoftwareUpdateResult
+                {
+                    NewVersionFileName = string.Empty,
+                    StatusCode = "000000"
+                };
+                foreach (FileInfo fileInfo in updpath)
+                {
+                        var tmp = fileInfo.Name.Replace(".", "");
+                        var reg = new Regex(@"\d+");
+                        var m = reg.Match(tmp).ToString();
+                        if (long.Parse(m) > version)
+                        {
+                            ret.NewVersionFileName = fileInfo.Name;
+                            ret.FileContent = File.ReadAllBytes(fileInfo.FullName);
+                            break;
+                        }
+                    
+                }
+               
+                return ret;
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.InfoFormat("SoftwareUpdate :{0}.", JsonConvert.SerializeObject(param));
+                Log.Error("SoftwareUpdate", ex);
+                return new SoftwareUpdateResult { StatusCode = "000003", Result = ex.Message };
+            }
+        }
     }
 }

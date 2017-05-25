@@ -21,5 +21,7 @@ namespace YunYiCdm
         string JsonserializeForCobject(object cObject);
         [DispId(6)]
         string ResultToFile(string result, string absoluteFilePath);
+        [DispId(7)]
+        string SoftwareUpdateToFile(string result, string absoluteFilePath);
     }
 }
