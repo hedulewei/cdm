@@ -1,0 +1,3 @@
+﻿
+net stop cdmvoiceplay
+pause

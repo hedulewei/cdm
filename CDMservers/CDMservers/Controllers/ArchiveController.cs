@@ -587,6 +587,7 @@ namespace CDMservers.Controllers
                     case "zhifu":
                         var busi = db.ZHIFUBUSINESS.Where(q => q.TRANSFER_STATUS == 0 && 
                             q.UPLOADER==param.userName&&
+                            (q.STATUS == 5 || q.STATUS == 7 || q.STATUS == 8) &&
                             q.QUEUE_NUM.StartsWith(businesscategory) &&
                             q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0);
                         if (!busi.Any())

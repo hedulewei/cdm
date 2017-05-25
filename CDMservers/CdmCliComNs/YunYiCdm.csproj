@@ -65,10 +65,10 @@
   <ItemGroup>
     <None Include="by all means.snk" />
     <None Include="packages.config" />
-    <None Include="reg.bat">
+    <None Include="cdmcomreg.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="unreg.bat">
+    <None Include="cdmcomunreg.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

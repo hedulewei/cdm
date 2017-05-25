@@ -247,7 +247,9 @@ namespace CdmCnf45
 
         private void FormVoice_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Process.GetCurrentProcess().Kill();
+            e.Cancel = true;
+            this.Hide();
+           // Process.GetCurrentProcess().Kill();
             //   try { _tCheckSignalr.Abort(); }
             //catch(Exception){}
         }
@@ -295,6 +297,11 @@ namespace CdmCnf45
         private void groupBoxvoiceconfig_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void notifyIcon1_Click(object sender, EventArgs e)
+        {
+            this.Show();
         }
     }
 }

@@ -688,10 +688,12 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
-            BusinessCategory businessCategory;
-            if (Enum.TryParse(param.businessCategory.ToString(CultureInfo.InvariantCulture),out businessCategory))
+          //  BusinessCategory businessCategory;
+            Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory),param.businessCategory))
             {
-                var ttt = ((int) businessCategory).ToString(CultureInfo.InvariantCulture);
+                Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt =param.businessCategory.ToString(CultureInfo.InvariantCulture);
                 busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
             }
             if (!string.IsNullOrEmpty(param.startTime))
@@ -734,6 +736,14 @@ namespace CDMservers.Controllers
                     countyCode = hy.COUNTYCODE,
                     postAddr = hy.POSTADDR,
                     postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
+
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
                 });
             }
 

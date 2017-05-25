@@ -2636,15 +2636,20 @@ namespace CDMservers.Controllers
                                             name = busizhifu.NAME,
                                             IDum = busizhifu.ID_NUM,
                                             serialNum = busizhifu.SERIAL_NUM,
+
                                             queueNum = busizhifu.QUEUE_NUM,
                                             address = busizhifu.ADDRESS,
                                             phoneNum = busizhifu.PHONE_NUM,
                                             carNum = busizhifu.CAR_NUM,
                                             texType = busizhifu.TAX_TYPE,
+
                                             texNum = busizhifu.TAX_NUM,
                                             originType = busizhifu.ORIGIN_TYPE,
                                             originNum = busizhifu.ORIGIN_NUM,
                                             attention = busizhifu.ATTENTION,
+
+                                            postAddr = busizhifu.POSTADDR,
+                                            postPhone = busizhifu.POSTPHONE,
                                         }
                                     };
                                 }

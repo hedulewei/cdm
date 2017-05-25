@@ -28,11 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVoice));
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.buttonlogin = new System.Windows.Forms.Button();
             this.textBoxserver = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxvoiceconfig = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxvoiceinterval = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxvoicecount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxcounty = new System.Windows.Forms.TextBox();
             this.buttonrejecttest = new System.Windows.Forms.Button();
@@ -41,10 +47,7 @@
             this.textBoxreject = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxfeevoice = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxvoicecount = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxvoiceinterval = new System.Windows.Forms.TextBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBoxvoiceconfig.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +67,7 @@
             this.buttonlogin.TabIndex = 1;
             this.buttonlogin.Text = "some";
             this.buttonlogin.UseVisualStyleBackColor = true;
+            this.buttonlogin.Visible = false;
             this.buttonlogin.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBoxserver
@@ -105,6 +109,40 @@
             this.groupBoxvoiceconfig.Text = "voice config";
             this.groupBoxvoiceconfig.Enter += new System.EventHandler(this.groupBoxvoiceconfig_Enter);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(23, 140);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 12);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "播放间隔";
+            // 
+            // textBoxvoiceinterval
+            // 
+            this.textBoxvoiceinterval.Location = new System.Drawing.Point(88, 137);
+            this.textBoxvoiceinterval.Name = "textBoxvoiceinterval";
+            this.textBoxvoiceinterval.Size = new System.Drawing.Size(238, 21);
+            this.textBoxvoiceinterval.TabIndex = 13;
+            this.textBoxvoiceinterval.TextChanged += new System.EventHandler(this.textBoxvoiceinterval_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(23, 113);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "播放次数";
+            // 
+            // textBoxvoicecount
+            // 
+            this.textBoxvoicecount.Location = new System.Drawing.Point(88, 110);
+            this.textBoxvoicecount.Name = "textBoxvoicecount";
+            this.textBoxvoicecount.Size = new System.Drawing.Size(238, 21);
+            this.textBoxvoicecount.TabIndex = 11;
+            this.textBoxvoicecount.TextChanged += new System.EventHandler(this.textBoxvoicecount_TextChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -130,6 +168,7 @@
             this.buttonrejecttest.TabIndex = 8;
             this.buttonrejecttest.Text = "reject test";
             this.buttonrejecttest.UseVisualStyleBackColor = true;
+            this.buttonrejecttest.Visible = false;
             this.buttonrejecttest.Click += new System.EventHandler(this.buttonrejecttest_Click);
             // 
             // buttonfeetest
@@ -140,6 +179,7 @@
             this.buttonfeetest.TabIndex = 5;
             this.buttonfeetest.Text = "fee test";
             this.buttonfeetest.UseVisualStyleBackColor = true;
+            this.buttonfeetest.Visible = false;
             this.buttonfeetest.Click += new System.EventHandler(this.buttonfeetest_Click);
             // 
             // label3
@@ -176,39 +216,12 @@
             this.textBoxfeevoice.TabIndex = 4;
             this.textBoxfeevoice.TextChanged += new System.EventHandler(this.textBoxfeevoice_TextChanged);
             // 
-            // label5
+            // notifyIcon1
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 113);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "播放次数";
-            // 
-            // textBoxvoicecount
-            // 
-            this.textBoxvoicecount.Location = new System.Drawing.Point(88, 110);
-            this.textBoxvoicecount.Name = "textBoxvoicecount";
-            this.textBoxvoicecount.Size = new System.Drawing.Size(238, 21);
-            this.textBoxvoicecount.TabIndex = 11;
-            this.textBoxvoicecount.TextChanged += new System.EventHandler(this.textBoxvoicecount_TextChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 140);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 12);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "播放间隔";
-            // 
-            // textBoxvoiceinterval
-            // 
-            this.textBoxvoiceinterval.Location = new System.Drawing.Point(88, 137);
-            this.textBoxvoiceinterval.Name = "textBoxvoiceinterval";
-            this.textBoxvoiceinterval.Size = new System.Drawing.Size(238, 21);
-            this.textBoxvoiceinterval.TabIndex = 13;
-            this.textBoxvoiceinterval.TextChanged += new System.EventHandler(this.textBoxvoiceinterval_TextChanged);
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
             // 
             // FormVoice
             // 
@@ -220,6 +233,7 @@
             this.Controls.Add(this.textBoxserver);
             this.Controls.Add(this.buttonlogin);
             this.Controls.Add(this.richTextBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormVoice";
             this.Opacity = 0.8D;
@@ -252,6 +266,7 @@
         private System.Windows.Forms.TextBox textBoxvoiceinterval;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxvoicecount;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 
