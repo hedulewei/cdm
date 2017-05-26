@@ -31,6 +31,100 @@ namespace CDMservers.Controllers
             }
             base.Dispose(disposing);
         }
+        [Route("AcquireIdentityInfor")]
+        [HttpPost]
+        public AcquireIdentityInforResult AcquireIdentityInfor([FromBody] AcquireIdentityInforRequest param)
+        {
+            try
+            {
+                if (param == null)
+                {
+                    return new AcquireIdentityInforResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
+                Log.Info("AcquireIdentityInfor input:" + JsonConvert.SerializeObject(param));
+                LogIntoDb.Log(_db, param.UserName, "AcquireIdentityInfor", JsonConvert.SerializeObject(param));
+
+                var busi = _db.POPULATION.FirstOrDefault(q => q.IDNUM == param.IdentityCardNumber);
+                if (busi == null)
+                {
+                    return new AcquireIdentityInforResult { StatusCode = "000019", Result = "没有找到相关人员信息 ！" };
+
+                }
+                var gender = Gender.Unknown;
+                Enum.TryParse(busi.SEX, out gender);
+                return new AcquireIdentityInforResult
+                {
+                    StatusCode = "000000",
+                    Result = "",
+                    Address = busi.ADDRESS, Name = busi.NAME,
+                    Gender = gender,
+                    Nationality = busi.NATION,
+                    Birthday = busi.BORN,
+                    Postcode = busi.POSTCODE,
+                    PostAddress = busi.POSTADDRESS,
+                    Mobile = busi.MOBILE,
+                    Telephone = busi.TELEPHONE,
+                    Email = busi.EMAIL,
+                    IdentityCardNumber = busi.IDNUM,
+                    FingerprintOne = busi.FIRSTFINGER,
+                    FingerprintTwo = busi.SECONDFINGER,
+                    IrisRight = busi.RIGHTEYE,
+                    IrisLeft = busi.LEFTEYE,
+                };
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("AcquireIdentityInfor", ex);
+                return new AcquireIdentityInforResult { StatusCode = "000003", Result = ex.Message };
+            }
+
+        }
+        [Route("IdentityInforUpload")]
+        [HttpPost]
+        public CommonResult IdentityInforUpload([FromBody] IdentityInforUploadRequest param)
+        {
+            try
+            {
+                if (param == null)
+                {
+                    return new CommonResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
+                }
+                Log.Info("IdentityInforUpload input:" + JsonConvert.SerializeObject(param));
+                LogIntoDb.Log(_db, param.UserName, "IdentityInforUpload", JsonConvert.SerializeObject(param));
+               
+                var busi = _db.POPULATION.FirstOrDefault(q => q.IDNUM == param.IdentityCardNumber);
+                if (busi == null)
+                {
+                    _db.POPULATION.Add(new POPULATION
+                    {
+                      
+                        FIRSTFINGER = param.FingerprintOne,
+                        IDNUM = param.IdentityCardNumber,
+                        SECONDFINGER = param.FingerprintTwo,
+                        LEFTEYE = param.IrisLeft,
+                        RIGHTEYE = param.IrisRight,
+                    });
+                }
+                else
+                {
+                   
+                    busi.RIGHTEYE = param.IrisRight;
+                    busi.LEFTEYE = param.IrisLeft;
+                    busi.FIRSTFINGER = param.FingerprintOne;
+                    busi.SECONDFINGER = param.FingerprintTwo;
+                }
+                _db.SaveChanges();
+                return new CommonResult { StatusCode = "000000", Result = "" };
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("IdentityInforUpload", ex);
+                return new CommonResult { StatusCode = "000003", Result = ex.Message };
+            }
+
+        }
         [Route("PhoneQueryById")]
         [HttpPost]
         public PhoneQueryResult PhoneQueryById([FromBody] IndentityInforQuery param)

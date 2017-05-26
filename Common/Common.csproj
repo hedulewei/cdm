@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcquireIdentityInforRequest.cs" />
+    <Compile Include="AcquireIdentityInforResult.cs" />
     <Compile Include="ArchivesTransferRequest.cs" />
     <Compile Include="AuthorityLevel.cs" />
     <Compile Include="BasisRequest.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="CountyCode.cs" />
     <Compile Include="DahcUser.cs" />
     <Compile Include="Gender.cs" />
+    <Compile Include="IdentityInforUploadRequest.cs" />
     <Compile Include="IndentityInforQuery.cs" />
     <Compile Include="Models.cs" />
     <Compile Include="OneUserVolume.cs" />

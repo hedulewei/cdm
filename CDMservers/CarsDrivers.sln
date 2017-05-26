@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDMservers", "CDMservers\CD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.csproj", "{2247DBE5-BFC2-47A6-9D40-1A231A7EBC27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cdmcli", "..\cdmcli\cdmcli.csproj", "{6E7DF7C2-DCA3-4DE0-B13A-542DA814A2A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCdm", "..\cdmcli\TestCdm.csproj", "{6E7DF7C2-DCA3-4DE0-B13A-542DA814A2A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YunYiCdm", "CdmCliComNs\YunYiCdm.csproj", "{1777150A-DB06-434F-9418-BC7D805B4B6C}"
 EndProject
