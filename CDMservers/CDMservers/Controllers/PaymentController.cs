@@ -48,7 +48,7 @@ namespace CDMservers.Controllers
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 //}
 
-                switch (param.countyCode)
+                switch (param.countyCode.ToLower())
                 {
                     //case "changdao":
 
@@ -95,6 +95,8 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
+                    case "shisuo":
+                    case "dacheng":
                         var busi = _db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == param.ID);
                         if (busi == null)
                             return new ResultModel

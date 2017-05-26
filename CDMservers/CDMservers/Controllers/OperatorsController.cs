@@ -272,7 +272,7 @@ namespace CDMservers.Controllers
 
       
        
-        public static string GetIP()
+        public static string GetIp()
         {
             try
             {
@@ -290,7 +290,7 @@ namespace CDMservers.Controllers
                     userHostAddress = HttpContext.Current.Request.UserHostAddress;
                 }
                 //最后判断获取是否成功，并检查IP地址的格式（检查其格式非常重要）
-                if (!string.IsNullOrEmpty(userHostAddress) && IsIP(userHostAddress))
+                if (!string.IsNullOrEmpty(userHostAddress) && IsIp(userHostAddress))
                 {
                     return userHostAddress;
                 }
@@ -307,7 +307,7 @@ namespace CDMservers.Controllers
         /// </summary>
         /// <param name="ip"></param>
         /// <returns></returns>
-        public static bool IsIP(string ip)
+        public static bool IsIp(string ip)
         {
             return System.Text.RegularExpressions.Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
         }

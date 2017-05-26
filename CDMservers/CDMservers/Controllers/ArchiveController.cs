@@ -44,7 +44,7 @@ namespace CDMservers.Controllers
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 //}
 
-                switch (param.CountyCode)
+                switch (param.CountyCode.ToLower())
                 {
                     //case "changdao":
 
@@ -91,6 +91,8 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
+                    case "shisuo":
+                    case "dacheng":
                         foreach (int id in param.Ids)
                         {
                             var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == id);
@@ -136,7 +138,7 @@ namespace CDMservers.Controllers
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 //}
 
-                switch (param.CountyCode)
+                switch (param.CountyCode.ToLower())
                 {
                     //case "changdao":
 
@@ -183,6 +185,8 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
+                    case "shisuo":
+                    case "dacheng":
                         foreach (int id in param.Ids)
                         {
                             var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == id&&q.TRANSFER_STATUS==1);
@@ -226,7 +230,7 @@ namespace CDMservers.Controllers
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 //}
 
-                switch (param.CountyCode)
+                switch (param.CountyCode.ToLower())
                 {
                     //case "changdao":
 
@@ -272,6 +276,8 @@ namespace CDMservers.Controllers
                     //case "haiyang":
 
                     //    break;
+                    case "shisuo":
+                    case "dacheng":
                     case "zhifu":
                         foreach (int id in param.Ids)
                         {
@@ -317,7 +323,7 @@ namespace CDMservers.Controllers
                 //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
                 //}
 
-                switch (param.countyCode)
+                switch (param.countyCode.ToLower())
                 {
                     //case "changdao":
 
@@ -364,7 +370,8 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
-
+                    case "shisuo":
+                    case "dacheng":
                         var busi = db.USERS.Where(q => q.COUNTYCODE == param.countyCode);
                         var retlist = new List<DahcUser>();
 
@@ -418,7 +425,7 @@ namespace CDMservers.Controllers
                 var endtime = DateTime.Parse(param.endTime);
                 var businesscategory = param.businessCategory.ToString(CultureInfo.InvariantCulture);
 
-                switch (param.countyCode)
+                switch (param.countyCode.ToLower())
                 {
                     //case "changdao":
 
@@ -464,6 +471,8 @@ namespace CDMservers.Controllers
                     //case "haiyang":
 
                     //    break;
+                    case "shisuo":
+                    case "dacheng":
                     case "zhifu":
                         var busi = db.ZHIFUBUSINESS.Where(q => q.TRANSFER_STATUS == 1 &&
                               q.UPLOADER == param.userName &&
@@ -493,6 +502,7 @@ namespace CDMservers.Controllers
                                 status = (int)onebusi.STATUS,
                                 queueNum = onebusi.QUEUE_NUM,
                                 IDum = onebusi.ID_NUM,
+                                countyCode = onebusi.COUNTYCODE,
                                 address = onebusi.ADDRESS,
                                 serialNum = onebusi.SERIAL_NUM,
                                 fileRecvUser = onebusi.FILE_RECV_USER,
@@ -538,7 +548,7 @@ namespace CDMservers.Controllers
                 var startdate = DateTime.Parse(param.startTime);
                 var endtime = DateTime.Parse(param.endTime);
                 var businesscategory = param.businessCategory.ToString(CultureInfo.InvariantCulture);
-                switch (param.countyCode)
+                switch (param.countyCode.ToLower())
                 {
                     //case "changdao":
 
@@ -584,6 +594,8 @@ namespace CDMservers.Controllers
                     //case "haiyang":
 
                     //    break;
+                    case "shisuo":
+                    case "dacheng":
                     case "zhifu":
                         var busi = db.ZHIFUBUSINESS.Where(q => q.TRANSFER_STATUS == 0 && 
                             q.UPLOADER==param.userName&&
@@ -613,6 +625,7 @@ namespace CDMservers.Controllers
                                 queueNum = onebusi.QUEUE_NUM,
                                 IDum = onebusi.ID_NUM,
                                 address = onebusi.ADDRESS,
+                                countyCode = onebusi.COUNTYCODE,
                                 serialNum = onebusi.SERIAL_NUM,
                                 fileRecvUser = onebusi.FILE_RECV_USER,
                             });

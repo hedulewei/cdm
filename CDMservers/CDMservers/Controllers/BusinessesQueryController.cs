@@ -58,7 +58,7 @@ namespace CDMservers.Controllers
                 var zipfilePath = string.Empty;
                 var zipfileContent = new byte[1];
                 var tempfile = Path.GetTempFileName()+".zip";
-                switch (param.countyCode)
+                switch (param.countyCode.ToLower())
                 {
                     //case "changdao":
                     //    var busichangdao = cd.changdaobusiness.FirstOrDefault(c => c.ID == param.ID);
@@ -383,6 +383,8 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case "zhifu":
+                    case "shisuo":
+                    case "dacheng":
                         var busizhifu = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.ID == param.ID);
                         if (busizhifu == null)
                         {
@@ -519,8 +521,10 @@ namespace CDMservers.Controllers
                 //    return new BusinessListResult { StatusCode = "000007", Result = "没有权限" };
                 //}
 
-                switch (param.countyCode)
+                switch (param.countyCode.ToLower())
                 {
+                    case "shisuo":
+                    case "dacheng":
                     case "zhifu":
                         default:
                         return ZhifuBusinessInfo(param);

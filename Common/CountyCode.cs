@@ -4,6 +4,7 @@
     {
         HaiYang, FuShan, QiXia, LaiShan, ZhiFu,
         MuPing, LongKou, LaiYang, LaiZhou, PengLai,
-        ZhaoYuan, ChangDao
+        ZhaoYuan, ChangDao,
+        DaCheng,ShiSuo
     }
 }

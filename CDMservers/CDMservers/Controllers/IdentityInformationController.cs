@@ -108,10 +108,16 @@ namespace CDMservers.Controllers
                 }
                 else
                 {
-                   
+                   if(!string.IsNullOrEmpty(param.IrisRight))
                     busi.RIGHTEYE = param.IrisRight;
+
+                   if (!string.IsNullOrEmpty(param.IrisLeft))
                     busi.LEFTEYE = param.IrisLeft;
+
+                   if (!string.IsNullOrEmpty(param.FingerprintOne))
                     busi.FIRSTFINGER = param.FingerprintOne;
+
+                   if (!string.IsNullOrEmpty(param.FingerprintTwo))
                     busi.SECONDFINGER = param.FingerprintTwo;
                 }
                 _db.SaveChanges();

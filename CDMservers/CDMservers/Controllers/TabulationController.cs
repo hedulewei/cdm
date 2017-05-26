@@ -96,29 +96,36 @@ namespace CDMservers.Controllers
 
                     //    break;
                     case CountyCode.ZhiFu:
-                        var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal );
-                            if (busi == null)
-                            {
-                                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}",  param.TabulationOrdinal), };
-                            }
-                            busi.TRANSFER_STATUS = 0;
-                      
-                        return new ResultModel { StatusCode = "000000", Result = "",BussinessModel = new BusinessModel
+                    case CountyCode.DaCheng:
+                    case CountyCode.ShiSuo:
+                        var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal);
+                        if (busi == null)
                         {
-                            ID = (int)busi.ID,
-                            processUser = busi.PROCESS_USER,
-                            type = (int)busi.TYPE,
-                            name = busi.NAME,
-                            startTime = busi.START_TIME.ToString(),
-                            endTime = busi.END_TIME.ToString(),
-                            uploader = busi.UPLOADER,
-                            status = (int)busi.STATUS,
-                            queueNum = busi.QUEUE_NUM,
-                            IDum = busi.ID_NUM,
-                            address = busi.ADDRESS,
-                            serialNum = busi.SERIAL_NUM,
-                            fileRecvUser = busi.FILE_RECV_USER,
-                        }};
+                            return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+                        }
+                        busi.TRANSFER_STATUS = 0;
+
+                        return new ResultModel
+                        {
+                            StatusCode = "000000",
+                            Result = "",
+                            BussinessModel = new BusinessModel
+                                {
+                                    ID = (int)busi.ID,
+                                    processUser = busi.PROCESS_USER,
+                                    type = (int)busi.TYPE,
+                                    name = busi.NAME,
+                                    startTime = busi.START_TIME.ToString(),
+                                    endTime = busi.END_TIME.ToString(),
+                                    uploader = busi.UPLOADER,
+                                    status = (int)busi.STATUS,
+                                    queueNum = busi.QUEUE_NUM,
+                                    IDum = busi.ID_NUM,
+                                    address = busi.ADDRESS,
+                                    serialNum = busi.SERIAL_NUM,
+                                    fileRecvUser = busi.FILE_RECV_USER,
+                                }
+                        };
                         break;
                     default:
 
@@ -145,9 +152,13 @@ namespace CDMservers.Controllers
                     return new CommonResult { StatusCode = "000003", Result = "请求错误，请检查输入参数！" };
                 }
                 var today = DateTime.Now;
-                return new CommonResult { StatusCode = "000000", Result = string.Format("{0}{1}{2}{3}{4}",((int)param.CountyCode).ToString("D2"),
-                    today.Year, today.Month.ToString("D2"), today.Day.ToString("D2"),
-                    InternalService.GetTabulationOrdinal(param).ToString("D4")) };
+                return new CommonResult
+                {
+                    StatusCode = "000000",
+                    Result = string.Format("{0}{1}{2}{3}{4}", ((int)param.CountyCode).ToString("D2"),
+                        today.Year, today.Month.ToString("D2"), today.Day.ToString("D2"),
+                        InternalService.GetTabulationOrdinal(param).ToString("D4"))
+                };
             }
             catch (Exception ex)
             {
@@ -167,17 +178,13 @@ namespace CDMservers.Controllers
                 }
                 await Task.Run(async () =>
                 {
-                     await MessagePush.PushVoiceMessage(new CdmMessage
-                        {
-                            ClientType = ClientType.Voice,
-                            Content = param.VoiceContent,
-                            CountyCode = param.CountyCode,
-                            VoiceType = VoiceType.PlayOver
-                        });
-                      
-                    
-                  
-                  
+                    await MessagePush.PushVoiceMessage(new CdmMessage
+                       {
+                           ClientType = ClientType.Voice,
+                           Content = param.VoiceContent,
+                           CountyCode = param.CountyCode,
+                           VoiceType = VoiceType.PlayOver
+                       });
                 });
                 return new CommonResult
                 {

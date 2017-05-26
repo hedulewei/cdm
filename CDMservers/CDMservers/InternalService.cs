@@ -34,7 +34,9 @@ namespace CDMservers
 
             QueueLock.Add("laiyang", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars11" }, { BusinessCategory.Drivers, "drivers11" }, { BusinessCategory.Archives, "archives11" } });
             QueueLock.Add("changdao", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars12" }, { BusinessCategory.Drivers, "drivers12" }, { BusinessCategory.Archives, "archives12" } });
-            for(int i=0;i<12;i++)
+            QueueLock.Add("dacheng", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars13" }, { BusinessCategory.Drivers, "drivers13" }, { BusinessCategory.Archives, "archives13" } });
+            QueueLock.Add("shisuo", new Dictionary<BusinessCategory, string> { { BusinessCategory.Cars, "cars14" }, { BusinessCategory.Drivers, "drivers14" }, { BusinessCategory.Archives, "archives14" } });
+            for (int i = 0; i < 14; i++)
            TabulationOrdinalLock.Add((CountyCode)i,new Mutex() );
         }
        
@@ -128,7 +130,7 @@ namespace CDMservers
         public static int GetOrdinal(BusinessModel input)
         {
             var category = input.businessCategory;
-            var countycode = input.countyCode;
+            var countycode = input.countyCode.ToLower();
             var currentdate = DateTime.Now.Date;
             var scurrentdate = string.Format("{0}/{1}/{2}", currentdate.Year, currentdate.Month, currentdate.Day);
             //   Log.Info("000");

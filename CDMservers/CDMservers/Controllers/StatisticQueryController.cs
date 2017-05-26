@@ -51,7 +51,7 @@ namespace CDMservers.Controllers
                 var startdate = DateTime.Parse(param.StartTime);
                 var endtime = DateTime.Parse(param.EndTime);
 
-                switch (param.CountyCode)
+                switch (param.CountyCode.ToLower())
                 {
                     //case "changdao":
                    
@@ -98,6 +98,8 @@ namespace CDMservers.Controllers
                    
                     //    break;
                     case "zhifu":
+                    case "shisuo":
+                    case "dacheng":
                         retlist.AddRange(from oneUsers in userlist
                                          let count = _db.ZHIFUBUSINESS.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
                                          let processcount = _db.ZHIFUBUSINESS.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)

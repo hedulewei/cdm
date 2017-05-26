@@ -158,7 +158,7 @@ namespace CDMservers.Controllers
                 }
                 InputLog(param);
                
-                    switch (param.countyCode)
+                    switch (param.countyCode.ToLower())
                     {
                         //case "qixia":
                         //    return QixiauBusinessInfo( param);
@@ -186,6 +186,8 @@ namespace CDMservers.Controllers
                         //case "fushan":
                         //    return FushanBusinessInfo( param);
                         case "zhifu":
+                        case "shisuo":
+                        case "dacheng":
                         default:
                             return ZhifuBusinessInfo(param);
                         
@@ -655,9 +657,11 @@ namespace CDMservers.Controllers
                 //}
                 param.status = (int)BusinessStatus.Upload;
                
-                switch (param.countyCode)
+                switch (param.countyCode.ToLower())
                 {
                     case "zhifu":
+                    case "shisuo":
+                    case "dacheng":
                       default:
                             cd.ZHIFUBUSINESS.Add(new ZHIFUBUSINESS
                             {
