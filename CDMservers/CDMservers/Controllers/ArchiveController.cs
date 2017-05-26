@@ -16,7 +16,7 @@ namespace CDMservers.Controllers
 {
     public class ArchiveController : ApiController
     {
-        private Model15242 db = new Model15242();
+        private Model1525 db = new Model1525();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void Dispose(bool disposing)

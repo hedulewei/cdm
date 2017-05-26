@@ -59,9 +59,12 @@ namespace CDMservers.Controllers
             using (var oracleConnectionconn = new OracleConnection(CdmConfiguration.DataSource))
             {
                 oracleConnectionconn.Open();//打开指定的连接  
-                OracleCommand com = oracleConnectionconn.CreateCommand();
-                com.CommandText = string.Format("SELECT name,address from corporateinfo where code='{0}'", input.IDum);
-                OracleDataReader odr = com.ExecuteReader();
+                OracleDataReader odr;
+                using (OracleCommand com = oracleConnectionconn.CreateCommand())
+                {
+                    com.CommandText = string.Format("SELECT name,address from corporateinfo where code='{0}'", input.IDum);
+                    odr = com.ExecuteReader();
+                }
                 var count = new BusinessModel();
                 while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了                    
                 {
@@ -103,26 +106,25 @@ namespace CDMservers.Controllers
             using (var oracleConnectionconn = new OracleConnection(CdmConfiguration.DataSource))
             {
                 oracleConnectionconn.Open();//打开指定的连接  
-                OracleCommand com = oracleConnectionconn.CreateCommand();
-                com.CommandText = string.Format("SELECT count(code) from corporateinfo where code='{0}'", input.IDum);
-                OracleDataReader odr = com.ExecuteReader();
-                var count = 0;
-                while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了                    
+                using (OracleCommand com = oracleConnectionconn.CreateCommand())
                 {
-                    count = odr.GetInt32(0);
-                }
-                odr.Close();
-                if (count < 1)
-                {
-                    Log.Info("insert aaa=");
-                    com.CommandText = string.Format("insert into corporateinfo (code,name,address) values('{0}','{1}','{2}')",
-                        input.IDum, input.name, input.address);//写好想执行的Sql语句   
-                    Log.Info("insert bbb=");
-                    Log.Info("insert CommandText=" + com.CommandText);
-                    return com.ExecuteNonQuery();
-                }
-                else
-                {
+                    com.CommandText = string.Format("SELECT count(code) from corporateinfo where code='{0}'", input.IDum);
+                    OracleDataReader odr = com.ExecuteReader();
+                    var count = 0;
+                    while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了                    
+                    {
+                        count = odr.GetInt32(0);
+                    }
+                    odr.Close();
+                    if (count < 1)
+                    {
+                        Log.Info("insert aaa=");
+                        com.CommandText = string.Format("insert into corporateinfo (code,name,address) values('{0}','{1}','{2}')",
+                            input.IDum, input.name, input.address);//写好想执行的Sql语句   
+                        Log.Info("insert bbb=");
+                        Log.Info("insert CommandText=" + com.CommandText);
+                        return com.ExecuteNonQuery();
+                    }
                     Log.Info("update aaa=");
                     com.CommandText = string.Format("update corporateinfo set name='{0}',address='{1}' where code='{2}'",
                         input.name, input.address, input.IDum);//写好想执行的Sql语句   
@@ -163,9 +165,12 @@ namespace CDMservers.Controllers
             using (var oracleConnectionconn = new OracleConnection(CdmConfiguration.DataSource))
             {
                 oracleConnectionconn.Open();//打开指定的连接  
-                OracleCommand com = oracleConnectionconn.CreateCommand();
-                com.CommandText = string.Format("SELECT mobile from population where idnum='{0}'", input.IDum);
-                OracleDataReader odr = com.ExecuteReader();
+                OracleDataReader odr;
+                using (OracleCommand com = oracleConnectionconn.CreateCommand())
+                {
+                    com.CommandText = string.Format("SELECT mobile from population where idnum='{0}'", input.IDum);
+                    odr = com.ExecuteReader();
+                }
                 var count = string.Empty;
                 while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了                    
                 {
@@ -206,38 +211,39 @@ namespace CDMservers.Controllers
             using (var oracleConnectionconn = new OracleConnection(CdmConfiguration.DataSource))
             {
                 oracleConnectionconn.Open();//打开指定的连接  
-                OracleCommand com = oracleConnectionconn.CreateCommand();
-                com.CommandText = string.Format("SELECT count(idnum) from population where idnum='{0}'", input.IDum);
-                OracleDataReader odr = com.ExecuteReader();
-                var count = 0;
-                while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了                    
+                using (OracleCommand com = oracleConnectionconn.CreateCommand())
                 {
-                    count = odr.GetInt32(0);
+                    com.CommandText = string.Format("SELECT count(idnum) from population where idnum='{0}'", input.IDum);
+                    OracleDataReader odr = com.ExecuteReader();
+                    var count = 0;
+                    while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了                    
+                    {
+                        count = odr.GetInt32(0);
+                    }
+                    odr.Close();
+                    if (count < 1)
+                    {
+                        Log.Info("insert aaa=");
+                        com.CommandText = string.Format("insert into population (name,sex,nation,born,address,postcode,idnum,mobile) values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')",
+                            input.name, input.Gender, input.Nationality, input.Birthday, input.address, input.ZipCode, input.IDum, input.phoneNum);//写好想执行的Sql语句   
+                        Log.Info("insert bbb=");
+                        Log.Info("insert CommandText=" + com.CommandText);
+                        var ret= com.ExecuteNonQuery();
+                        oracleConnectionconn.Close();
+                        return ret;
+                    }
+                    else
+                    {
+                        Log.Info("update aaa=");
+                        com.CommandText = string.Format("update population set name='{0}',sex='{1}',nation='{2}',born='{3}',address='{4}',postcode='{5}',mobile='{7}' where idnum='{6}'",
+                            input.name, input.Gender, input.Nationality, input.Birthday, input.address, input.ZipCode, input.IDum, input.phoneNum);//写好想执行的Sql语句   
+                        Log.Info("update bbb=");
+                        Log.Info("update CommandText=" + com.CommandText);
+                        var ret = com.ExecuteNonQuery();
+                        oracleConnectionconn.Close();
+                        return ret;
+                    }
                 }
-                odr.Close();
-                if (count < 1)
-                {
-                    Log.Info("insert aaa=");
-                    com.CommandText = string.Format("insert into population (name,sex,nation,born,address,postcode,idnum,mobile) values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')",
-                        input.name, input.Gender, input.Nationality, input.Birthday, input.address, input.ZipCode, input.IDum, input.phoneNum);//写好想执行的Sql语句   
-                    Log.Info("insert bbb=");
-                    Log.Info("insert CommandText=" + com.CommandText);
-                    var ret= com.ExecuteNonQuery();
-                    oracleConnectionconn.Close();
-                    return ret;
-                }
-                else
-                {
-                    Log.Info("update aaa=");
-                    com.CommandText = string.Format("update population set name='{0}',sex='{1}',nation='{2}',born='{3}',address='{4}',postcode='{5}',mobile='{7}' where idnum='{6}'",
-                        input.name, input.Gender, input.Nationality, input.Birthday, input.address, input.ZipCode, input.IDum, input.phoneNum);//写好想执行的Sql语句   
-                    Log.Info("update bbb=");
-                    Log.Info("update CommandText=" + com.CommandText);
-                    var ret = com.ExecuteNonQuery();
-                    oracleConnectionconn.Close();
-                    return ret;
-                }
-               
             }
         }
         [Route("GET_QUEUE_NUM")]

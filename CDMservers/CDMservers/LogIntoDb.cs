@@ -10,7 +10,7 @@ namespace CDMservers
 {
     public static class LogIntoDb
     {
-        public static void Log(Model15242 db, string username, string keyword, string operation)
+        public static void Log(Model1525 db, string username, string keyword, string operation)
         {
             db.VITALLOG.Add(new VITALLOG
             {

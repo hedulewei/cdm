@@ -19,7 +19,7 @@ namespace CDMservers.Controllers
 {
     public class PaymentController : ApiController
     {
-        private readonly Model15242 _db = new Model15242();
+        private readonly Model1525 _db = new Model1525();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void Dispose(bool disposing)

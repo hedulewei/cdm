@@ -293,7 +293,7 @@
     <Compile Include="Models\laiyangbusiness.cs" />
     <Compile Include="Models\laizhoubusiness.cs" />
     <Compile Include="Models\longkoubusiness.cs" />
-    <Compile Include="Models\Model15242.cs" />
+    <Compile Include="Models\Model1525.cs" />
     <Compile Include="Models\mupingbusiness.cs" />
     <Compile Include="Models\NewDblog.cs" />
     <Compile Include="Models\penglaibusiness.cs" />

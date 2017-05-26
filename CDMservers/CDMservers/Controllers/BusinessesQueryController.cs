@@ -25,7 +25,7 @@ namespace CDMservers.Controllers
 {
     public class BusinessesQueryController : ApiController
     {
-        private readonly Model15242 cd = new Model15242();
+        private readonly Model1525 cd = new Model1525();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);

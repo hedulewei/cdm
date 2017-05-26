@@ -23,7 +23,7 @@ namespace CDMservers.Controllers
     public class BusinessAcceptController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private Model15242 cd = new Model15242();
+        private Model1525 cd = new Model1525();
         private readonly UserDbc _dbuUserDbc = new UserDbc();
          private static Dictionary<string, Dictionary<string, string>> queueLock =
             new Dictionary<string, Dictionary<string, string>>();

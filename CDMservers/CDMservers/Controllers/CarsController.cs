@@ -27,7 +27,7 @@ namespace CDMservers.Controllers
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly UserDbc _dbUserDbc = new UserDbc();
         private readonly NewDblog _dbLog = new NewDblog();
-        private readonly Model15242 cd = new Model15242();
+        private readonly Model1525 cd = new Model1525();
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -43,10 +43,13 @@ namespace CDMservers.Controllers
             using (var OracleConnectionconn = new OracleConnection(CdmConfiguration.DataSource))
             {
                 OracleConnectionconn.Open();//打开指定的连接  
-                OracleCommand com = OracleConnectionconn.CreateCommand();
-                com.CommandText = string.Format("SELECT carinfoid.nextval FROM dual");//写好想执行的Sql语句 
-              //  Log.Info("CommandText=" + com.CommandText);
-                OracleDataReader odr = com.ExecuteReader();
+                OracleDataReader odr;
+                using (var com = OracleConnectionconn.CreateCommand())
+                {
+                    com.CommandText = string.Format("SELECT carinfoid.nextval FROM dual");//写好想执行的Sql语句 
+                    //  Log.Info("CommandText=" + com.CommandText);
+                    odr = com.ExecuteReader();
+                }
                 var ordinal = -1;
                 while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了                    
                 {

@@ -9,7 +9,7 @@ namespace CDMservers.Models
     [Table("CITY.CORPORATEINFO")]
     public partial class CORPORATEINFO
     {
-        [Key]
+        [Required]
         [StringLength(50)]
         public string CODE { get; set; }
 
@@ -22,5 +22,7 @@ namespace CDMservers.Models
 
         [StringLength(50)]
         public string PHONENUMBER { get; set; }
+
+        public decimal ID { get; set; }
     }
 }
