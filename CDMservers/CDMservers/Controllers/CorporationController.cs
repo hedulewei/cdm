@@ -90,7 +90,8 @@ namespace CDMservers.Controllers
                 if (busi == null)
                 {
                     _db.CORPORATEINFO.Add(new CORPORATEINFO
-                    {ID=InternalService.GetCorpInforId(),
+                    {
+                        ID=InternalService.GetCorpInforId(),
                         ADDRESS = param.Address,
                         PHONENUMBER = param.PhoneNumber,
                         NAME = param.Name,
