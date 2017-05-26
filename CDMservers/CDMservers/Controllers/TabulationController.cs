@@ -98,7 +98,7 @@ namespace CDMservers.Controllers
                     case CountyCode.ZhiFu:
                     case CountyCode.DaCheng:
                     case CountyCode.ShiSuo:
-                        var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal);
+                        var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal&&q.STATUS==9);
                         if (busi == null)
                         {
                             return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
@@ -115,8 +115,8 @@ namespace CDMservers.Controllers
                                     processUser = busi.PROCESS_USER,
                                     type = (int)busi.TYPE,
                                     name = busi.NAME,
-                                    startTime = busi.START_TIME.ToString(),
-                                    endTime = busi.END_TIME.ToString(),
+                                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
                                     uploader = busi.UPLOADER,
                                     status = (int)busi.STATUS,
                                     queueNum = busi.QUEUE_NUM,

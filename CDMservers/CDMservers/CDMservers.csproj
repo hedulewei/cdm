@@ -258,6 +258,7 @@
     <Compile Include="Cdmhub.cs" />
     <Compile Include="CdmConfiguration.cs" />
     <Compile Include="Controllers\ArchiveController.cs" />
+    <Compile Include="Controllers\AutoController.cs" />
     <Compile Include="Controllers\BusinessAcceptController.cs" />
     <Compile Include="Controllers\BusinessesQueryController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
