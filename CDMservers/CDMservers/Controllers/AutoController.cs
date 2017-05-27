@@ -34,7 +34,8 @@ namespace CDMservers.Controllers
             }
             base.Dispose(disposing);
         }
-        // GET: api/Auto
+       
+
         [Route("TabulationUpload")]
         [HttpPost]
         public  ResultModel TabulationUpload([FromBody] BusinessModel param)

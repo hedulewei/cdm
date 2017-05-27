@@ -51,439 +51,30 @@ namespace CDMservers.Controllers
                 }
               //  Log.Info("BusinessesPictureQuery input:" + JsonConvert.SerializeObject(param));
                 LogIntoDb.Log(_dbLog, param.userName, param.type.ToString(), JsonConvert.SerializeObject(param));
-                //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
-                //{
-                //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
-                //}
-                var zipfilePath = string.Empty;
-                var zipfileContent = new byte[1];
+               
                 var tempfile = Path.GetTempFileName()+".zip";
                 switch (param.countyCode.ToLower())
                 {
-                    //case "changdao":
-                    //    var busichangdao = cd.changdaobusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busichangdao == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
+                    case "changdao": return ChangdaoPicture(param, tempfile);
+                    case "zhaoyuan": return ZhaoyuanPicture(param, tempfile);
+                    case "penglai": return PenglaiPicture(param, tempfile);
+                    case "laizhou": return LaizhouPicture(param, tempfile);
+                    case "laiyang": return LaiyangPicture(param, tempfile);
 
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busichangdao.START_TIME, busichangdao.ID);
-                    //    //  Log.Info("Configuration fpath is:" + fpath);
-                       
-                    //    using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busichangdao.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busichangdao.ID,
-                    //            name = busichangdao.NAME,
-                    //            IDum = busichangdao.ID_NUM,
-                    //            queueNum = busichangdao.QUEUE_NUM,
-                    //            address = busichangdao.ADDRESS,
-                    //            phoneNum = busichangdao.PHONE_NUM,
-                    //            attention = busichangdao.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
+                    case "longkou": return LongkouPicture(param, tempfile);
+                    case "muping": return MupingPicture(param, tempfile);
+                    case "laishan": return LaishanPicture(param, tempfile);
+                    case "qixia": return QixiaPicture(param, tempfile);
+                    case "fushan": return FushanPicture(param, tempfile);
 
-                    //    break;
-                    //case "zhaoyuan":
-                    //    var busizhaoyuan = cd.zhaoyuanbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busizhaoyuan == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busizhaoyuan.START_TIME, busizhaoyuan.ID);
-                    //    using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busizhaoyuan.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busizhaoyuan.ID,
-                    //            name = busizhaoyuan.NAME,
-                    //            IDum = busizhaoyuan.ID_NUM,
-                    //            queueNum = busizhaoyuan.QUEUE_NUM,
-                    //            address = busizhaoyuan.ADDRESS,
-                    //            phoneNum = busizhaoyuan.PHONE_NUM,
-                    //            attention = busizhaoyuan.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "penglai":
-                    //    var busipenglai = cd.penglaibusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busipenglai == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busipenglai.START_TIME, busipenglai.ID);
-                    //     using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busipenglai.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busipenglai.ID,
-                    //            name = busipenglai.NAME,
-                    //            IDum = busipenglai.ID_NUM,
-                    //            queueNum = busipenglai.QUEUE_NUM,
-                    //            address = busipenglai.ADDRESS,
-                    //            phoneNum = busipenglai.PHONE_NUM,
-                    //            attention = busipenglai.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "laizhou":
-                    //    var busilaizhou = cd.laizhoubusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busilaizhou == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaizhou.START_TIME, busilaizhou.ID);
-                    //     using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busilaizhou.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busilaizhou.ID,
-                    //            name = busilaizhou.NAME,
-                    //            IDum = busilaizhou.ID_NUM,
-                    //            queueNum = busilaizhou.QUEUE_NUM,
-                    //            address = busilaizhou.ADDRESS,
-                    //            phoneNum = busilaizhou.PHONE_NUM,
-                    //            attention = busilaizhou.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "laiyang":
-                    //    var busilaiyang = cd.laiyangbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busilaiyang == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaiyang.START_TIME, busilaiyang.ID);
-                    //     using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busilaiyang.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busilaiyang.ID,
-                    //            name = busilaiyang.NAME,
-                    //            IDum = busilaiyang.ID_NUM,
-                    //            queueNum = busilaiyang.QUEUE_NUM,
-                    //            address = busilaiyang.ADDRESS,
-                    //            phoneNum = busilaiyang.PHONE_NUM,
-                    //            attention = busilaiyang.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "longkou":
-                    //    var busilongkou = cd.longkoubusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busilongkou == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilongkou.START_TIME, busilongkou.ID);
-                    //      using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busilongkou.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busilongkou.ID,
-                    //            name = busilongkou.NAME,
-                    //            IDum = busilongkou.ID_NUM,
-                    //            queueNum = busilongkou.QUEUE_NUM,
-                    //            address = busilongkou.ADDRESS,
-                    //            phoneNum = busilongkou.PHONE_NUM,
-                    //            attention = busilongkou.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "muping":
-                    //    var busimuping = cd.mupingbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busimuping == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busimuping.START_TIME, busimuping.ID);
-                    //    using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busimuping.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busimuping.ID,
-                    //            name = busimuping.NAME,
-                    //            IDum = busimuping.ID_NUM,
-                    //            queueNum = busimuping.QUEUE_NUM,
-                    //            address = busimuping.ADDRESS,
-                    //            phoneNum = busimuping.PHONE_NUM,
-                    //            attention = busimuping.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "laishan":
-                    //    var busilaishan = cd.laishanbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busilaishan == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaishan.START_TIME, busilaishan.ID);
-                    //     using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busilaishan.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busilaishan.ID,
-                    //            name = busilaishan.NAME,
-                    //            IDum = busilaishan.ID_NUM,
-                    //            queueNum = busilaishan.QUEUE_NUM,
-                    //            address = busilaishan.ADDRESS,
-                    //            phoneNum = busilaishan.PHONE_NUM,
-                    //            attention = busilaishan.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "qixia":
-                    //    var busiqixia = cd.qixiabusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busiqixia == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busiqixia.START_TIME, busiqixia.ID);
-                    //      using (var newzip=new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busiqixia.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busiqixia.ID,
-                    //            name = busiqixia.NAME,
-                    //            IDum = busiqixia.ID_NUM,
-                    //            queueNum = busiqixia.QUEUE_NUM,
-                    //            address = busiqixia.ADDRESS,
-                    //            phoneNum = busiqixia.PHONE_NUM,
-                    //            attention = busiqixia.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "fushan":
-                    //    var busifushan = cd.fushanbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busifushan == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busifushan.START_TIME, busifushan.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busifushan.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busifushan.ID,
-                    //            name = busifushan.NAME,
-                    //            IDum = busifushan.ID_NUM,
-                    //            queueNum = busifushan.QUEUE_NUM,
-                    //            address = busifushan.ADDRESS,
-                    //            phoneNum = busifushan.PHONE_NUM,
-                    //            attention = busifushan.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
+                    case "haiyang": return HaiyangPicture(param, tempfile);
                     case "zhifu":
                     case "shisuo":
                     case "dacheng":
-                        var busizhifu = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.ID == param.ID);
-                        if (busizhifu == null)
-                        {
-                            return BusinessNotFound();
-                        }
-
-                        zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busizhifu.START_TIME.Year, busizhifu.START_TIME.Month, busizhifu.START_TIME.Day, busizhifu.ID);
-                        Log.InfoFormat("zipfilePath--{0}", zipfilePath);
-                        using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
-                        {
-                            newzip.AddDirectory(zipfilePath);
-                            newzip.Save(tempfile);
-                        }
-                        zipfileContent = File.ReadAllBytes(tempfile);
-                        return new ResultModel
-                        {
-                            StatusCode = "000000",
-                            BussinessModel = new BusinessModel
-                            {
-                                type = int.Parse(busizhifu.TYPE.ToString(CultureInfo.InvariantCulture)),
-                                ID = (int)busizhifu.ID,
-                                name = busizhifu.NAME,
-                                IDum = busizhifu.ID_NUM,
-                                queueNum = busizhifu.QUEUE_NUM,
-                                address = busizhifu.ADDRESS,
-                                phoneNum = busizhifu.PHONE_NUM,
-                                attention = busizhifu.ATTENTION,
-                                zipFile = zipfileContent
-                            }
-                        };
-
-                        break;
-                    //case "haiyang":
-                    //    var busihaiyang = cd.haiyangbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busihaiyang == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-                    //    zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busihaiyang.START_TIME.Year, busihaiyang.START_TIME.Month, busihaiyang.START_TIME.Day, busihaiyang.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //        return new ResultModel
-                    //        {
-                    //            StatusCode = "000000",
-                    //            BussinessModel = new BusinessModel
-                    //            {
-                    //                type = int.Parse(busihaiyang.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //                ID = (int)busihaiyang.ID,
-                    //                name = busihaiyang.NAME,
-                    //                IDum = busihaiyang.ID_NUM,
-                    //                queueNum = busihaiyang.QUEUE_NUM,
-                    //                address = busihaiyang.ADDRESS,
-                    //                phoneNum = busihaiyang.PHONE_NUM,
-                    //                attention = busihaiyang.ATTENTION,
-                    //                zipFile = zipfileContent
-                    //            }
-                    //        };
-                        
-                    //    break;
+                        return ZhifuPicture(param,tempfile);
+                      
                     default:
-                      //  if(db.Haiyangbusiness.Count(c=>c.SERIAL_NUM==param.serialNum)<1)
-
-                        var busi = cd.BUSSINESS.FirstOrDefault(c => c.ID == param.ID);
-                        if (busi == null)
-                        return new ResultModel
-                        {
-                            StatusCode = "000009",
-                            Result = "没有找到相关业务 ！"
-                        };
-
-                        zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busi.START_TIME.Year, busi.START_TIME.Month, busi.START_TIME.Day, busi.ID);
-                       using (var newzip = new ZipFile())
-                        {
-                            newzip.AddDirectory(zipfilePath);
-                            newzip.Save(tempfile);
-                        }
-                        zipfileContent = File.ReadAllBytes(tempfile);
-                            return new ResultModel
-                            {
-                                StatusCode = "000000",
-                                BussinessModel = new BusinessModel
-                                {
-                                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-                                    ID =(int) busi.ID,
-                                    name = busi.NAME,
-                                    IDum = busi.ID_NUM,
-                                    queueNum = busi.QUEUE_NUM,
-                                    address = busi.ADDRESS,
-                                    phoneNum = busi.PHONE_NUM,
-                                    attention = busi.ATTENTION,
-                                    zipFile = zipfileContent
-                                }
-                            };
-                        
-                        break;
+                        return new ResultModel { StatusCode = "000016", Result = "没有该县区标识" + param.countyCode };
                 }
             
             }
@@ -493,6 +84,414 @@ namespace CDMservers.Controllers
                 return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
             
+        }
+        private ResultModel ChangdaoPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_CHANGDAO.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel ZhaoyuanPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_ZHAOYUAN.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel PenglaiPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_PENGLAI.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel LaizhouPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_LAIZHOU.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel LaiyangPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_LAIYANG.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel LongkouPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_LONGKOU.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel MupingPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_MUPING.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel LaishanPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_LAISHAN.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel QixiaPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_QIXIA.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel FushanPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_FUSHAN.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel HaiyangPicture(BusinessModel param, string tempfile)
+        {
+            var busiforpic = cd.BUSINESS_HAIYANG.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+            var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+            var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
+        }
+        private ResultModel ZhifuPicture(BusinessModel param,string tempfile)
+        {
+            var busiforpic = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.ID == param.ID);
+            if (busiforpic == null)
+            {
+                return BusinessNotFound();
+            }
+
+           var zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busiforpic.START_TIME.Year, busiforpic.START_TIME.Month, busiforpic.START_TIME.Day, busiforpic.ID);
+            Log.InfoFormat("zipfilePath--{0}", zipfilePath);
+            using (var newzip = new ZipFile(System.Text.Encoding.UTF8))
+            {
+                newzip.AddDirectory(zipfilePath);
+                newzip.Save(tempfile);
+            }
+           var zipfileContent = File.ReadAllBytes(tempfile);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busiforpic.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)busiforpic.ID,
+                    name = busiforpic.NAME,
+                    IDum = busiforpic.ID_NUM,
+                    queueNum = busiforpic.QUEUE_NUM,
+                    address = busiforpic.ADDRESS,
+                    phoneNum = busiforpic.PHONE_NUM,
+                    attention = busiforpic.ATTENTION,
+                    zipFile = zipfileContent
+                }
+            };
+
         }
 
         private ResultModel BusinessNotFound()
@@ -523,56 +522,25 @@ namespace CDMservers.Controllers
 
                 switch (param.countyCode.ToLower())
                 {
+                    case "changdao": return ChangdaoBusinessInfo(param);
+                    case "zhaoyuan": return ZhaoyuanBusinessInfo(param);
+                    case "penglai": return PenglaiBusinessInfo(param);
+                    case "laizhou": return LaizhouBusinessInfo(param);
+                    case "laiyang": return LaiyangBusinessInfo(param);
+
+                    case "longkou": return LongkouBusinessInfo(param);
+                    case "muping": return MupingBusinessInfo(param);
+                    case "laishan": return LaishanBusinessInfo(param);
+                    case "qixia": return QixiaBusinessInfo(param);
+                    case "fushan": return FushanBusinessInfo(param);
+
+                    case "haiyang": return HaiyangBusinessInfo(param);
                     case "shisuo":
                     case "dacheng":
                     case "zhifu":
-                        default:
                         return ZhifuBusinessInfo(param);
-                        break;
-                    //case "qixia":
-                    //    return QixiaBusinessInfo(param);
-                    //case "laishan":
-                    //    return LaishanBusinessInfo(param);
-                    //case "muping":
-                    //    return MupingBusinessInfo(param);
-                    //case "longkou":
-                    //    return LongkouBusinessInfo(param);
-                    //case "laiyang":
-                    //    return LaiyangBusinessInfo(param);
-
-                    //case "laizhou":
-                    //    return LaizhouBusinessInfo(param);
-                    //case "penglai":
-                    //    return PenglaiBusinessInfo(param);
-                    //case "zhaoyuan":
-                    //    return ZhaoyuanBusinessInfo(param);
-                    //case "changdao":
-                    //    return ChangdaoBusinessInfo(param);
-
-
-                    //case "haiyang":
-                    //    return HaiyangBusinessInfo(param);
-                    //case "fushan":
-                    //    return FushanBusinessInfo(param);
-                    //default:
-                    //    // return new BusinessListResult { StatusCode = "000000", Result = "default" };
-                    //    var ret = AllBusinessInfo(param);
-                    //    ret.BussinessList.AddRange(FushanBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(HaiyangBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(ZhifuBusinessInfo(param).BussinessList);
-
-                    //    ret.BussinessList.AddRange(ChangdaoBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(ZhaoyuanBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(PenglaiBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(LaizhouBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(LaiyangBusinessInfo(param).BussinessList);
-
-                    //    ret.BussinessList.AddRange(LongkouBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(MupingBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(LaishanBusinessInfo(param).BussinessList);
-                    //    ret.BussinessList.AddRange(QixiaBusinessInfo(param).BussinessList);
-                    //    return ret;
-                    //    break;
+                        default:
+                        return new BusinessListResult { StatusCode = "000016", Result = "没有该县区标识" + param.countyCode };
                 }
 
             }
@@ -602,85 +570,10 @@ namespace CDMservers.Controllers
             }
         }
 
-        //private BusinessListResult HaiyangBusinessInfo(BusinessModel param)
-        //{
-
-        //    IQueryable<haiyangbusiness> busi = cd.haiyangbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //        //  && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.haiyangbusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
-
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (haiyangbusiness hy in busi)
-        //    {
-
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            ID = (int)hy.ID,
-        //            name = hy.NAME,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
-
-        //    return ret;
-        //}
-        private BusinessListResult ZhifuBusinessInfo( BusinessModel param)
+        private BusinessListResult ChangdaoBusinessInfo(BusinessModel param)
         {
-            IQueryable<ZHIFUBUSINESS> busi = cd.ZHIFUBUSINESS.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-               // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+            var busi = cd.BUSINESS_CHANGDAO.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
                 // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
                 //   && (param.type == -1 || c.TYPE == param.type)
                     && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
@@ -692,12 +585,12 @@ namespace CDMservers.Controllers
                             && (param.status == -1 || c.STATUS == param.status)
                 //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
                 );
-          //  BusinessCategory businessCategory;
-            Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
-            if (Enum.IsDefined(typeof(BusinessCategory),param.businessCategory))
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
             {
-                Log.InfoFormat(" IsDefined ok? {0}", "in ok");
-                var ttt =param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
                 busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
             }
             if (!string.IsNullOrEmpty(param.startTime))
@@ -718,7 +611,7 @@ namespace CDMservers.Controllers
             busi = busi.Take(100);
 
             var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-            foreach (ZHIFUBUSINESS hy in busi)
+            foreach (var hy in busi)
             {
                 ret.BussinessList.Add(new BusinessModel
                 {
@@ -727,9 +620,9 @@ namespace CDMservers.Controllers
                     name = hy.NAME,
                     IDum = hy.ID_NUM,
                     queueNum = hy.QUEUE_NUM,
-                    startTime = hy.START_TIME.ToString(),
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
                     serialNum = hy.SERIAL_NUM,
-                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
                     userName = hy.NAME,
                     address = hy.ADDRESS,
                     phoneNum = hy.PHONE_NUM,
@@ -753,809 +646,843 @@ namespace CDMservers.Controllers
 
             return ret;
         }
-        //private BusinessListResult AllBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<BUSSINESS> busi = cd.BUSSINESS.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //        //   && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.BUSSINESS.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+        private BusinessListResult ZhaoyuanBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_ZHAOYUAN.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (BUSSINESS hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            IDum = hy.ID_NUM,
-        //            ID = (int)hy.ID,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
 
-        //    return ret;
-        //}
-        //private BusinessListResult ChangdaoBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<changdaobusiness> busi = cd.changdaobusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //         //  && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.changdaobusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (changdaobusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+            return ret;
+        }
+        private BusinessListResult PenglaiBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_PENGLAI.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
 
-        //    return ret;
-        //}
-        //private BusinessListResult ZhaoyuanBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<zhaoyuanbusiness> busi = cd.zhaoyuanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //       //    && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.zhaoyuanbusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (zhaoyuanbusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
 
-        //    return ret;
-        //}
-        //private BusinessListResult PenglaiBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<penglaibusiness> busi = cd.penglaibusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //        //   && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.penglaibusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+            return ret;
+        }
+        private BusinessListResult LaizhouBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_LAIZHOU.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (penglaibusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
 
-        //    return ret;
-        //}
-        //private BusinessListResult LaizhouBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<laizhoubusiness> busi = cd.laizhoubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //         //  && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.laizhoubusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (laizhoubusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+            return ret;
+        }
+        private BusinessListResult LaiyangBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_LAIYANG.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
 
-        //    return ret;
-        //}
-        //private BusinessListResult LaiyangBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<laiyangbusiness> busi = cd.laiyangbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //         //  && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.laiyangbusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (laiyangbusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
 
-        //    return ret;
-        //}
-        //private BusinessListResult LongkouBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<longkoubusiness> busi = cd.longkoubusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //         //  && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.longkoubusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+            return ret;
+        }
+        private BusinessListResult LongkouBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_LONGKOU.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (longkoubusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
 
-        //    return ret;
-        //}
-        //private BusinessListResult MupingBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<mupingbusiness> busi = cd.mupingbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //         //  && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.mupingbusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (mupingbusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            IDum = hy.ID_NUM,
-        //            ID = (int)hy.ID,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+            return ret;
+        }
+        private BusinessListResult MupingBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_MUPING.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
 
-        //    return ret;
-        //}
-        //private BusinessListResult LaishanBusinessInfo(BusinessModel param)
-        //{
-        //    IQueryable<laishanbusiness> busi = cd.laishanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //         //  && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.laishanbusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (laishanbusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
 
-        //    return ret;
-        //}
-        //private BusinessListResult QixiaBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<qixiabusiness> busi = cd.qixiabusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //         //  && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.qixiabusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+            return ret;
+        }
+        private BusinessListResult LaishanBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_LAISHAN.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (qixiabusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
 
-        //    return ret;
-        //}
-        //private BusinessListResult FushanBusinessInfo( BusinessModel param)
-        //{
-        //    IQueryable<fushanbusiness> busi = cd.fushanbusiness.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
-        //        //&& (param.startTime == string.Empty || c.START_TIME.CompareTo(param.startTime) >= 0)
-        //        // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
-        //        //   && (param.type == -1 || c.TYPE == param.type)
-        //            && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
-        //             && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
-        //               && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
-        //                 && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
-        //                   && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
-        //                    && (param.status == -1 || c.STATUS == param.status)
-        //        //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
-        //        );
-        //    if (!string.IsNullOrEmpty(param.businessCategory))
-        //    {
-        //        var id = "4";
-        //        switch (param.businessCategory)
-        //        {
-        //            case "cars":
-        //                id = "0";
-        //                break;
-        //            case "drivers":
-        //                id = "1";
-        //                break;
-        //        }
-        //        busi = busi.Where(c => c.QUEUE_NUM.StartsWith(id));
-        //    }
-        //    if (!string.IsNullOrEmpty(param.startTime))
-        //    {
-        //        var stime = DateTime.Parse(param.startTime);
-        //        busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
-        //    }
-        //    if (!string.IsNullOrEmpty(param.endTime))
-        //    {
-        //        var stime = DateTime.Parse(param.endTime);
-        //        busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
-        //    }
-        //    if (param.transferStatus != string.Empty)
-        //    {
-        //        var aa = decimal.Parse(param.transferStatus);
-        //        busi = cd.fushanbusiness.Where(c => c.TRANSFER_STATUS == aa);
-        //    }
-        //    busi = busi.Take(100);
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
 
-        //    var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
-        //    foreach (fushanbusiness hy in busi)
-        //    {
-        //        ret.BussinessList.Add(new BusinessModel
-        //        {
-        //            type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = hy.NAME,
-        //            ID = (int)hy.ID,
-        //            IDum = hy.ID_NUM,
-        //            queueNum = hy.QUEUE_NUM,
-        //            startTime = hy.START_TIME.ToString(),
-        //            serialNum = hy.SERIAL_NUM,
-        //            endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString() : string.Empty,
-        //            userName = hy.NAME,
-        //            address = hy.ADDRESS,
-        //            phoneNum = hy.PHONE_NUM,
-        //            attention = hy.ATTENTION,
-        //            processUser = hy.PROCESS_USER,
-        //            status = (int)hy.STATUS,
-        //            transferStatus = hy.TRANSFER_STATUS.ToString(),
-        //            countyCode = hy.COUNTYCODE,
-        //            postAddr = hy.POSTADDR,
-        //            postPhone = hy.POSTPHONE,
-        //        });
-        //    }
+            return ret;
+        }
+        private BusinessListResult QixiaBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_QIXIA.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
 
-        //    return ret;
-        //}
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
+
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
+
+            return ret;
+        }
+        private BusinessListResult FushanBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_FUSHAN.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
+
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
+
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
+
+            return ret;
+        }
+        private BusinessListResult HaiyangBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_HAIYANG.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+                // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+            //  BusinessCategory businessCategory;
+            //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory), param.businessCategory))
+            {
+                // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt = param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
+
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
+
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
+
+            return ret;
+        }
+        private BusinessListResult ZhifuBusinessInfo( BusinessModel param)
+        {
+            var busi = cd.ZHIFUBUSINESS.Where(c => (param.countyCode == string.Empty || c.COUNTYCODE == param.countyCode)
+               // && (param.startTime == string.Empty || c.START_TIME.CompareTo(DateTime.Parse(param.startTime)) >= 0)
+                // && (param.endTime == string.Empty || c.END_TIME.CompareTo(param.endTime) <= 0)
+                //   && (param.type == -1 || c.TYPE == param.type)
+                    && (param.queueNum == string.Empty || c.QUEUE_NUM == param.queueNum)
+                     && (param.serialNum == string.Empty || c.SERIAL_NUM == param.serialNum)
+                       && (param.IDum == string.Empty || c.ID_NUM == param.IDum)
+                         && (param.BusinessUser == string.Empty || c.NAME == param.BusinessUser)
+                           && (param.processUser == string.Empty || c.PROCESS_USER == param.processUser)
+                            && (param.fileRecvUser == string.Empty || c.FILE_RECV_USER == param.fileRecvUser)
+                            && (param.status == -1 || c.STATUS == param.status)
+                //    && (param.transferStatus ==string.Empty || c.TRANSFER_STATUS == decimal.Parse(param.transferStatus))
+                );
+          //  BusinessCategory businessCategory;
+          //  Log.InfoFormat("before try {0}", param.businessCategory.ToString(CultureInfo.InvariantCulture));
+            if (Enum.IsDefined(typeof(BusinessCategory),param.businessCategory))
+            {
+               // Log.InfoFormat(" IsDefined ok? {0}", "in ok");
+                var ttt =param.businessCategory.ToString(CultureInfo.InvariantCulture);
+                busi = busi.Where(c => c.QUEUE_NUM.StartsWith(ttt));
+            }
+            if (!string.IsNullOrEmpty(param.startTime))
+            {
+                var stime = DateTime.Parse(param.startTime);
+                busi = busi.Where(c => c.START_TIME.CompareTo(stime) >= 0);
+            }
+            if (!string.IsNullOrEmpty(param.endTime))
+            {
+                var stime = DateTime.Parse(param.endTime);
+                busi = busi.Where(c => c.END_TIME.CompareTo(stime) <= 0);
+            }
+            if (param.transferStatus != string.Empty)
+            {
+                var aa = decimal.Parse(param.transferStatus);
+                busi = busi.Where(c => c.TRANSFER_STATUS == aa);
+            }
+            busi = busi.Take(100);
+
+            var ret = new BusinessListResult { StatusCode = "000000", Result = "ok" };
+            foreach (var hy in busi)
+            {
+                ret.BussinessList.Add(new BusinessModel
+                {
+                    type = int.Parse(hy.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    ID = (int)hy.ID,
+                    name = hy.NAME,
+                    IDum = hy.ID_NUM,
+                    queueNum = hy.QUEUE_NUM,
+                    startTime = hy.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    serialNum = hy.SERIAL_NUM,
+                    endTime = (int)hy.STATUS == (int)BusinessStatus.Fee || (int)hy.STATUS == (int)BusinessStatus.Paid || (int)hy.STATUS == (int)BusinessStatus.License ? hy.END_TIME.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    userName = hy.NAME,
+                    address = hy.ADDRESS,
+                    phoneNum = hy.PHONE_NUM,
+                    attention = hy.ATTENTION,
+                    processUser = hy.PROCESS_USER,
+                    status = (int)hy.STATUS,
+                    transferStatus = hy.TRANSFER_STATUS.ToString(),
+                    countyCode = hy.COUNTYCODE,
+                    postAddr = hy.POSTADDR,
+                    postPhone = hy.POSTPHONE,
+                    texNum = hy.TAX_NUM,
+                    texType = hy.TAX_TYPE,
+                    originNum = hy.ORIGIN_NUM,
+                    originType = hy.ORIGIN_TYPE,
+                    carNum = hy.CAR_NUM,
+
+                    uploader = hy.UPLOADER,
+                    rejectReason = hy.REJECT_REASON,
+                });
+            }
+
+            return ret;
+        }
+      
      
     }
 }

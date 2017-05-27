@@ -53,50 +53,75 @@ namespace CDMservers.Controllers
 
                 switch (param.CountyCode.ToLower())
                 {
-                    //case "changdao":
-                   
+                    case "changdao": retlist.AddRange(from oneUsers in userlist
+                                                      let count = _db.BUSINESS_CHANGDAO.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                      let processcount = _db.BUSINESS_CHANGDAO.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                      let completecount = _db.BUSINESS_CHANGDAO.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                      select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
+                    case "zhaoyuan": retlist.AddRange(from oneUsers in userlist
+                                                      let count = _db.BUSINESS_ZHAOYUAN.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                      let processcount = _db.BUSINESS_ZHAOYUAN.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                      let completecount = _db.BUSINESS_ZHAOYUAN.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                      select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
+                    case "penglai": retlist.AddRange(from oneUsers in userlist
+                                                     let count = _db.BUSINESS_PENGLAI.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let processcount = _db.BUSINESS_PENGLAI.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let completecount = _db.BUSINESS_PENGLAI.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
+                    case "laizhou": retlist.AddRange(from oneUsers in userlist
+                                                     let count = _db.BUSINESS_LAIZHOU.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let processcount = _db.BUSINESS_LAIZHOU.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let completecount = _db.BUSINESS_LAIZHOU.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
+                    case "laiyang":
+                           retlist.AddRange(from oneUsers in userlist
+                                         let count = _db.BUSINESS_LAIYANG.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                            let processcount = _db.BUSINESS_LAIYANG.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                            let completecount = _db.BUSINESS_LAIYANG.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                         select new OneUserVolume {UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount});
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "",Volumes = retlist};
 
-                    //    break;
-                    //case "zhaoyuan":
-                  
-
-                    //    break;
-                    //case "penglai":
-                  
-
-                    //    break;
-                    //case "laizhou":
-                   
-
-                    //    break;
-                    //case "laiyang":
-                    
-
-                    //    break;
-                    //case "longkou":
-                  
-
-                    //    break;
-                    //case "muping":
-                   
-
-                    //    break;
-                    //case "laishan":
-                   
-
-                    //    break;
-                    //case "qixia":
-                   
-
-                    //    break;
-                    //case "fushan":
-                  
-
-                    //    break;
-                   
-                    //case "haiyang":
-                   
-                    //    break;
+                    case "longkou": retlist.AddRange(from oneUsers in userlist
+                                                     let count = _db.BUSINESS_LONGKOU.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let processcount = _db.BUSINESS_LONGKOU.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let completecount = _db.BUSINESS_LONGKOU.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
+                    case "muping": retlist.AddRange(from oneUsers in userlist
+                                                    let count = _db.BUSINESS_MUPING.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                    let processcount = _db.BUSINESS_MUPING.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                    let completecount = _db.BUSINESS_MUPING.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                    select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
+                    case "laishan": retlist.AddRange(from oneUsers in userlist
+                                                     let count = _db.BUSINESS_LAISHAN.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let processcount = _db.BUSINESS_LAISHAN.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let completecount = _db.BUSINESS_LAISHAN.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
+                    case "qixia": retlist.AddRange(from oneUsers in userlist
+                                                   let count = _db.BUSINESS_QIXIA.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                   let processcount = _db.BUSINESS_QIXIA.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                   let completecount = _db.BUSINESS_QIXIA.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                   select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
+                    case "fushan":
+                           retlist.AddRange(from oneUsers in userlist
+                                         let count = _db.BUSINESS_FUSHAN.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                            let processcount = _db.BUSINESS_FUSHAN.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                            let completecount = _db.BUSINESS_FUSHAN.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                         select new OneUserVolume {UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount});
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "",Volumes = retlist};
+                    case "haiyang": retlist.AddRange(from oneUsers in userlist
+                                                     let count = _db.BUSINESS_HAIYANG.Count(q => q.UPLOADER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let processcount = _db.BUSINESS_HAIYANG.Count(q => q.PROCESS_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     let completecount = _db.BUSINESS_HAIYANG.Count(q => q.COMPLETE_PAY_USER == oneUsers.USERNAME && q.START_TIME.CompareTo(startdate) >= 0 && q.END_TIME.CompareTo(endtime) <= 0)
+                                                     select new OneUserVolume { UserName = oneUsers.USERNAME, UploadVolume = count, ProcessVolume = processcount, CompletePayVolume = completecount });
+                        return new BusinessVolumeQueryResult { StatusCode = "000000", Result = "", Volumes = retlist };
                     case "zhifu":
                     case "shisuo":
                     case "dacheng":

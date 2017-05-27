@@ -20,6 +20,7 @@ namespace VoicePlay
         private static HubConnection Connection { get; set; }
       //  private Thread _tCheckSignalr;
         private static Mutex _lockvoiceMutex = new Mutex();
+        private static string traceFile;
         public void Dispose()
         {
             if (Connection != null)
@@ -36,6 +37,7 @@ namespace VoicePlay
         static void Main(string[] args)
         {
             //var traceFile = GetTraceFile();
+            traceFile = GetTraceFile();
             //Trace.AutoFlush = true;
             //Trace.Listeners.Clear();
             //Trace.Listeners.Add(new TextWriterTraceListener(traceFile));
@@ -49,13 +51,13 @@ namespace VoicePlay
             //_tCheckSignalr = new Thread(new ThreadStart(CheckSignalr));
             //_tCheckSignalr.Start();
         }
-        //private static string GetTraceFile()
-        //{
-        //    var basePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        //    var date = DateTime.Now.Date.ToString("yy-MM-dd");
-        //    var traceFile = basePath + "\\CdmVoiceLog" + date + ".txt";
-        //    return traceFile;
-        //}
+        private static string GetTraceFile()
+        {
+            var basePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var date = DateTime.Now.Date.ToString("yy-MM-dd");
+            var traceFile = basePath + "\\CdmVoiceLog" + date + ".txt";
+            return traceFile;
+        }
 
         private static void CheckSignalr()
         {
@@ -176,9 +178,21 @@ namespace VoicePlay
         private static void TraceLog(string format)
         {
            // Trace.TraceInformation("{0}--{1}", DateTime.Now, format);
-            Console.WriteLine("{0}--{1}", DateTime.Now, format);
+         //   Console.WriteLine("{0}--{1}", DateTime.Now, format);
+            WritelogStatic(format);
         }
-
+        static void WritelogStatic(string logtext)
+        {
+            try
+            {
+                using (var sw = System.IO.File.AppendText(traceFile))
+                {
+                    sw.WriteLine(DateTime.Now.ToLocalTime() + "---" + logtext);
+                    sw.Close();
+                }
+            }
+            catch (Exception) { }
+        }
         private static string GetAppConfig(string key)
         {
             return ConfigurationManager.AppSettings[key]; ;

@@ -44,89 +44,27 @@ namespace CDMservers.Controllers
                 }
                 Log.Info("TabulationQuery input:" + JsonConvert.SerializeObject(param));
                 LogIntoDb.Log(db, param.UserName, "TabulationQuery", JsonConvert.SerializeObject(param));
-                //if (!PermissionCheck.CheckLevelPermission(param, _dbuUserDbc))
-                //{
-                //    return new ResultModel { StatusCode = "000007", Result = "没有权限" };
-                //}
-
+              
                 switch (param.CountyCode)
                 {
-                    //case "changdao":
+                    case CountyCode.LaiShan: return Laishan_TabulationQuery(param);
+                    case CountyCode.LaiYang: return LaiyangTabulationQuery(param);
+                    case CountyCode.LaiZhou: return LaizhouTabulationQuery(param);
+                    case CountyCode.LongKou: return LongkouTabulationQuery(param);
+                    case CountyCode.PengLai: return PenglaiTabulationQuery(param);
 
+                    case CountyCode.FuShan: return FushanTabulationQuery(param);
+                    case CountyCode.QiXia: return QixiaTabulationQuery(param);
+                    case CountyCode.HaiYang: return HaiyangTabulationQuery(param);
+                    case CountyCode.MuPing: return MupingTabulationQuery(param);
+                    case CountyCode.ChangDao: return ChangdaoTabulationQuery(param);
 
-                    //    break;
-                    //case "zhaoyuan":
+                    case CountyCode.ZhaoYuan: return ZhaoyuanTabulationQuery(param);
 
-
-                    //    break;
-                    //case "penglai":
-
-
-                    //    break;
-                    //case "laizhou":
-
-
-                    //    break;
-                    //case "laiyang":
-
-
-                    //    break;
-                    //case "longkou":
-
-
-                    //    break;
-                    //case "muping":
-
-
-                    //    break;
-                    //case "laishan":
-
-
-                    //    break;
-                    //case "qixia":
-
-
-                    //    break;
-                    //case "fushan":
-
-
-                    //    break;
-
-                    //case "haiyang":
-
-                    //    break;
                     case CountyCode.ZhiFu:
-                    case CountyCode.DaCheng:
+                    case CountyCode.DaCheng: 
                     case CountyCode.ShiSuo:
-                        var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal&&q.STATUS==9);
-                        if (busi == null)
-                        {
-                            return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
-                        }
-                        busi.TRANSFER_STATUS = 0;
-
-                        return new ResultModel
-                        {
-                            StatusCode = "000000",
-                            Result = "",
-                            BussinessModel = new BusinessModel
-                                {
-                                    ID = (int)busi.ID,
-                                    processUser = busi.PROCESS_USER,
-                                    type = (int)busi.TYPE,
-                                    name = busi.NAME,
-                                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
-                                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
-                                    uploader = busi.UPLOADER,
-                                    status = (int)busi.STATUS,
-                                    queueNum = busi.QUEUE_NUM,
-                                    IDum = busi.ID_NUM,
-                                    address = busi.ADDRESS,
-                                    serialNum = busi.SERIAL_NUM,
-                                    fileRecvUser = busi.FILE_RECV_USER,
-                                }
-                        };
-                        break;
+                        return ZhifuTabulationQuery( param);
                     default:
 
                         return new ResultModel { StatusCode = "000016", Result = "没有该县区标识" + param.CountyCode };
@@ -140,6 +78,368 @@ namespace CDMservers.Controllers
                 return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
 
+        }
+
+      
+        private ResultModel Laishan_TabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_LAISHAN.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel LaiyangTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_LAIYANG.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel LaizhouTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_LAIZHOU.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel LongkouTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_LONGKOU.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel PenglaiTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_PENGLAI.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel FushanTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_FUSHAN.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel QixiaTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_QIXIA.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel HaiyangTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_HAIYANG.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel MupingTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_MUPING.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel ChangdaoTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_CHANGDAO.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel ZhaoyuanTabulationQuery(TabulationQuery param)
+        {
+            var busi = db.BUSINESS_ZHAOYUAN.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
+        }
+        private ResultModel ZhifuTabulationQuery( TabulationQuery param)
+        {
+            var busi = db.ZHIFUBUSINESS.FirstOrDefault(q => q.UNLOAD_TASK_NUM == param.TabulationOrdinal && q.STATUS == 9);
+            if (busi == null)
+            {
+                return new ResultModel { StatusCode = "000009", Result = string.Format("没有找到相关业务 ！{0}", param.TabulationOrdinal), };
+            }
+            
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                Result = "",
+                BussinessModel = new BusinessModel
+                {
+                    ID = (int)busi.ID,
+                    processUser = busi.PROCESS_USER,
+                    type = (int)busi.TYPE,
+                    name = busi.NAME,
+                    startTime = busi.START_TIME.ToString(CultureInfo.InvariantCulture),
+                    endTime = busi.END_TIME.ToString(CultureInfo.InvariantCulture),
+                    uploader = busi.UPLOADER,
+                    status = (int)busi.STATUS,
+                    queueNum = busi.QUEUE_NUM,
+                    IDum = busi.ID_NUM,
+                    address = busi.ADDRESS,
+                    serialNum = busi.SERIAL_NUM,
+                    fileRecvUser = busi.FILE_RECV_USER,
+                }
+            };
         }
         [Route("GetTabulationOrdinal")]
         [HttpPost]

@@ -88,405 +88,29 @@ namespace CDMservers.Controllers
                 //}
 
 
-                switch (param.countyCode)
+                switch (param.countyCode.ToLower())
                 {
-                    //case "changdao":
-                    //    var busichangdao = cd.changdaobusiness.FirstOrDefault(c => c.STATUS==param.status);
-                    //    if (busichangdao == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
+                    case "changdao": return ChangdaoDestroy(param);
+                    case "zhaoyuan": return ZhaoyuanDestroy(param);
+                    case "penglai": return PenglaiDestroy(param);
+                    case "laizhou": return LaizhouDestroy(param);
+                    case "laiyang": return LaiyangDestroy(param);
 
+                    case "longkou": return LongkouDestroy(param);
+                    case "muping": return MupingDestroy(param);
+                    case "laishan": return LaishanDestroy(param);
+                    case "qixia": return QixiaDestroy(param);
+                    case "fushan": return FushanDestroy(param);
 
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busichangdao.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busichangdao.ID,
-                    //            name = busichangdao.NAME,
-                    //            IDum = busichangdao.ID_NUM,
-                    //            serialNum = busichangdao.SERIAL_NUM,
-                    //            queueNum = busichangdao.QUEUE_NUM,
-                    //            address = busichangdao.ADDRESS,
-                    //            phoneNum = busichangdao.PHONE_NUM,
-                    //            attention = busichangdao.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "zhaoyuan":
-                    //    var busizhaoyuan = cd.zhaoyuanbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busizhaoyuan == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busizhaoyuan.START_TIME, busizhaoyuan.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busizhaoyuan.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busizhaoyuan.ID,
-                    //            name = busizhaoyuan.NAME,
-                    //            IDum = busizhaoyuan.ID_NUM,
-                    //            queueNum = busizhaoyuan.QUEUE_NUM,
-                    //            address = busizhaoyuan.ADDRESS,
-                    //            phoneNum = busizhaoyuan.PHONE_NUM,
-                    //            attention = busizhaoyuan.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "penglai":
-                    //    var busipenglai = cd.penglaibusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busipenglai == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busipenglai.START_TIME, busipenglai.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busipenglai.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busipenglai.ID,
-                    //            name = busipenglai.NAME,
-                    //            IDum = busipenglai.ID_NUM,
-                    //            queueNum = busipenglai.QUEUE_NUM,
-                    //            address = busipenglai.ADDRESS,
-                    //            phoneNum = busipenglai.PHONE_NUM,
-                    //            attention = busipenglai.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "laizhou":
-                    //    var busilaizhou = cd.laizhoubusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busilaizhou == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaizhou.START_TIME, busilaizhou.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busilaizhou.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busilaizhou.ID,
-                    //            name = busilaizhou.NAME,
-                    //            IDum = busilaizhou.ID_NUM,
-                    //            queueNum = busilaizhou.QUEUE_NUM,
-                    //            address = busilaizhou.ADDRESS,
-                    //            phoneNum = busilaizhou.PHONE_NUM,
-                    //            attention = busilaizhou.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "laiyang":
-                    //    var busilaiyang = cd.laiyangbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busilaiyang == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaiyang.START_TIME, busilaiyang.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busilaiyang.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busilaiyang.ID,
-                    //            name = busilaiyang.NAME,
-                    //            IDum = busilaiyang.ID_NUM,
-                    //            queueNum = busilaiyang.QUEUE_NUM,
-                    //            address = busilaiyang.ADDRESS,
-                    //            phoneNum = busilaiyang.PHONE_NUM,
-                    //            attention = busilaiyang.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "longkou":
-                    //    var busilongkou = cd.longkoubusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busilongkou == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilongkou.START_TIME, busilongkou.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busilongkou.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busilongkou.ID,
-                    //            name = busilongkou.NAME,
-                    //            IDum = busilongkou.ID_NUM,
-                    //            queueNum = busilongkou.QUEUE_NUM,
-                    //            address = busilongkou.ADDRESS,
-                    //            phoneNum = busilongkou.PHONE_NUM,
-                    //            attention = busilongkou.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "muping":
-                    //    var busimuping = cd.mupingbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busimuping == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busimuping.START_TIME, busimuping.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busimuping.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busimuping.ID,
-                    //            name = busimuping.NAME,
-                    //            IDum = busimuping.ID_NUM,
-                    //            queueNum = busimuping.QUEUE_NUM,
-                    //            address = busimuping.ADDRESS,
-                    //            phoneNum = busimuping.PHONE_NUM,
-                    //            attention = busimuping.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "laishan":
-                    //    var busilaishan = cd.laishanbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busilaishan == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busilaishan.START_TIME, busilaishan.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busilaishan.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busilaishan.ID,
-                    //            name = busilaishan.NAME,
-                    //            IDum = busilaishan.ID_NUM,
-                    //            queueNum = busilaishan.QUEUE_NUM,
-                    //            address = busilaishan.ADDRESS,
-                    //            phoneNum = busilaishan.PHONE_NUM,
-                    //            attention = busilaishan.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "qixia":
-                    //    var busiqixia = cd.qixiabusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busiqixia == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busiqixia.START_TIME, busiqixia.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busiqixia.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busiqixia.ID,
-                    //            name = busiqixia.NAME,
-                    //            IDum = busiqixia.ID_NUM,
-                    //            queueNum = busiqixia.QUEUE_NUM,
-                    //            address = busiqixia.ADDRESS,
-                    //            phoneNum = busiqixia.PHONE_NUM,
-                    //            attention = busiqixia.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
-                    //case "fushan":
-                    //    var busifushan = cd.fushanbusiness.FirstOrDefault(c => c.ID == param.ID);
-                    //    if (busifushan == null)
-                    //    {
-                    //        return BusinessNotFound();
-                    //    }
-
-                    //    zipfilePath = string.Format("{0}{1}\\{2}\\{3}", CdmConfiguration.FileRootPath, param.countyCode, busifushan.START_TIME, busifushan.ID);
-                    //    using (var newzip = new ZipFile())
-                    //    {
-                    //        newzip.AddDirectory(zipfilePath);
-                    //        newzip.Save(tempfile);
-                    //    }
-                    //    zipfileContent = File.ReadAllBytes(tempfile);
-                    //    return new ResultModel
-                    //    {
-                    //        StatusCode = "000000",
-                    //        BussinessModel = new BusinessModel
-                    //        {
-                    //            type = int.Parse(busifushan.TYPE.ToString(CultureInfo.InvariantCulture)),
-                    //            ID = (int)busifushan.ID,
-                    //            name = busifushan.NAME,
-                    //            IDum = busifushan.ID_NUM,
-                    //            queueNum = busifushan.QUEUE_NUM,
-                    //            address = busifushan.ADDRESS,
-                    //            phoneNum = busifushan.PHONE_NUM,
-                    //            attention = busifushan.ATTENTION,
-                    //            zipFile = zipfileContent
-                    //        }
-                    //    };
-
-                    //    break;
+                    case "haiyang": return HaiyangDestroy(param);
                     case "zhifu":
+                    case "shisuo":
+                    case "dacheng":
+                        return ZhifuDestroy(param);
                     default:
-                        var busizhifu = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.ID == param.ID);
-                        if (busizhifu == null)
-                        {
-                            return BusinessFinishNotFound();
-                        }
-                        busizhifu.STATUS = 6;
-                        cd.SaveChanges();
-                        return new ResultModel
-                        {
-                            StatusCode = "000000",
-                        };
-
-                        break;
-                        //case "haiyang":
-                        //    var busihaiyang = cd.haiyangbusiness.FirstOrDefault(c => c.ID == param.ID);
-                        //    if (busihaiyang == null)
-                        //    {
-                        //        return BusinessNotFound();
-                        //    }
-                        //    zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busihaiyang.START_TIME.Year, busihaiyang.START_TIME.Month, busihaiyang.START_TIME.Day, busihaiyang.ID);
-                        //    using (var newzip = new ZipFile())
-                        //    {
-                        //        newzip.AddDirectory(zipfilePath);
-                        //        newzip.Save(tempfile);
-                        //    }
-                        //    zipfileContent = File.ReadAllBytes(tempfile);
-                        //    return new ResultModel
-                        //    {
-                        //        StatusCode = "000000",
-                        //        BussinessModel = new BusinessModel
-                        //        {
-                        //            type = int.Parse(busihaiyang.TYPE.ToString(CultureInfo.InvariantCulture)),
-                        //            ID = (int)busihaiyang.ID,
-                        //            name = busihaiyang.NAME,
-                        //            IDum = busihaiyang.ID_NUM,
-                        //            queueNum = busihaiyang.QUEUE_NUM,
-                        //            address = busihaiyang.ADDRESS,
-                        //            phoneNum = busihaiyang.PHONE_NUM,
-                        //            attention = busihaiyang.ATTENTION,
-                        //            zipFile = zipfileContent
-                        //        }
-                        //    };
-
-                        //    break;
-                        // default:
-                        //  if(db.Haiyangbusiness.Count(c=>c.SERIAL_NUM==param.serialNum)<1)
-
-                        //var busi = cd.BUSSINESS.FirstOrDefault(c => c.ID == param.ID);
-                        //if (busi == null)
-                        //    return new ResultModel
-                        //    {
-                        //        StatusCode = "000009",
-                        //        Result = "没有找到相关业务 ！"
-                        //    };
-
-                        //zipfilePath = string.Format("{0}{1}\\{2}-{3}-{4}\\{5}", CdmConfiguration.FileRootPath, param.countyCode, busi.START_TIME.Year, busi.START_TIME.Month, busi.START_TIME.Day, busi.ID);
-                        //using (var newzip = new ZipFile())
-                        //{
-                        //    newzip.AddDirectory(zipfilePath);
-                        //    newzip.Save(tempfile);
-                        //}
-                        //zipfileContent = File.ReadAllBytes(tempfile);
-                        //return new ResultModel
-                        //{
-                        //    StatusCode = "000000",
-                        //    BussinessModel = new BusinessModel
-                        //    {
-                        //        type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-                        //        ID = (int)busi.ID,
-                        //        name = busi.NAME,
-                        //        IDum = busi.ID_NUM,
-                        //        queueNum = busi.QUEUE_NUM,
-                        //        address = busi.ADDRESS,
-                        //        phoneNum = busi.PHONE_NUM,
-                        //        attention = busi.ATTENTION,
-                        //        zipFile = zipfileContent
-                        //    }
-                        //};
-
-                        break;
+                       
+                        return new ResultModel { StatusCode = "000016", Result = "没有该县区标识" + param.countyCode };
+                       
                 }
 
             }
@@ -496,6 +120,175 @@ namespace CDMservers.Controllers
                 return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
 
+        }
+
+        private ResultModel ChangdaoDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_CHANGDAO.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel ZhaoyuanDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_ZHAOYUAN.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel PenglaiDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_PENGLAI.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel LaizhouDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_LAIZHOU.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel LaiyangDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_LAIYANG.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel LongkouDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_LONGKOU.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel MupingDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_MUPING.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel LaishanDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_LAISHAN.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel QixiaDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_QIXIA.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel FushanDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_FUSHAN.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel ZhifuDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
+        }
+        private ResultModel HaiyangDestroy(BusinessModel param)
+        {
+            var busidestroy = cd.BUSINESS_HAIYANG.FirstOrDefault(c => c.ID == param.ID);
+            if (busidestroy == null)
+            {
+                return BusinessFinishNotFound();
+            }
+            busidestroy.STATUS = 6;
+            cd.SaveChanges();
+            return new ResultModel
+            {
+                StatusCode = "000000",
+            };
         }
         [Route("UpdateTask")]
         [HttpPost]
@@ -936,77 +729,42 @@ namespace CDMservers.Controllers
                 }
                 Log.Info("AcquireTask input:" + JsonConvert.SerializeObject(param));
 
-                var lockvalue = queueLock[param.countyCode];
-
+                string lockcode;
                 switch (param.countyCode.ToLower())
                 {
-
                     case "shisuo":
                     case "dacheng":
                     case "zhifu":
-                    default:
-                        var pts = UserService.GetPermissionType(cd.USERS, param.userName);
-                        var found = false;
-                        
-                        BusinessModel ret = new BusinessModel();
-                        lock (lockvalue)
-                        {
-                            var currentTop100 = cd.ZHIFUBUSINESS.Where(c => c.STATUS == 1 && c.QUEUE_NUM != string.Empty).OrderBy(c => c.ID).Take(100);
-
-                            foreach (ZHIFUBUSINESS busizhifu in currentTop100)
-                            {
-                                if (pts.Contains((int)busizhifu.TYPE) && busizhifu.START_TIME.CompareTo(DateTime.Now.Date) >= 0)
-                                {
-                                    busizhifu.STATUS = 3;
-                                    busizhifu.PROCESS_USER = param.userName;
-                                    cd.SaveChanges();
-                                    ret = new BusinessModel
-                                    {
-                                        type = int.Parse(busizhifu.TYPE.ToString(CultureInfo.InvariantCulture)),
-                                        countyCode = busizhifu.COUNTYCODE,
-                                        ID = (int)busizhifu.ID,
-                                        name = busizhifu.NAME,
-                                        IDum = busizhifu.ID_NUM,
-                                        serialNum = busizhifu.SERIAL_NUM,
-
-                                        queueNum = busizhifu.QUEUE_NUM,
-                                        address = busizhifu.ADDRESS,
-                                        phoneNum = busizhifu.PHONE_NUM,
-                                        carNum = busizhifu.CAR_NUM,
-                                        texType = busizhifu.TAX_TYPE,
-
-                                        texNum = busizhifu.TAX_NUM,
-                                        originType = busizhifu.ORIGIN_TYPE,
-                                        originNum = busizhifu.ORIGIN_NUM,
-                                        attention = busizhifu.ATTENTION,
-
-                                        postAddr = busizhifu.POSTADDR,
-                                        postPhone = busizhifu.POSTPHONE,
-                                    };
-                                    found = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (!found)
-                            return BusinessNotFound();
-                        await Task.Run(async () =>
-                               {
-                                   await MessagePush.PushLedMessage(new CdmMessage
-                                   {
-                                       ClientType = ClientType.Led,
-                                       Content = param.queueNum,
-                                       CountyCode = param.countyCode,
-                                       LedMsgType = LedMsgType.Processing
-                                   });
-                               });
-
-                        return new ResultModel
-                        {
-                            StatusCode = "000000",
-                            BussinessModel = ret,
-                        };
+                        lockcode = "zhifu";
                         break;
+                    default:
+                        lockcode = param.countyCode;
+                        break;
+                }
+                var lockvalue = queueLock[lockcode];
+
+                switch (param.countyCode.ToLower())
+                {
+                    case "changdao": 
+                    case "zhaoyuan": 
+                    case "penglai": 
+                    case "laizhou":
+                    case "laiyang": 
+
+                    case "longkou": 
+                    case "muping":
+                    case "laishan": 
+                    case "qixia": 
+                    case "fushan": 
+
+                    case "haiyang": 
+                    case "shisuo":
+                    case "dacheng":
+                    case "zhifu":
+                        return await ZhifuAcquireTask(param,lockvalue);
+                    default:
+                      
+                        return new ResultModel { StatusCode = "000016", Result = "没有该县区标识" + param.countyCode };
 
 
                 }
@@ -1019,7 +777,69 @@ namespace CDMservers.Controllers
 
         }
 
+        private async Task<ResultModel> ZhifuAcquireTask(BusinessModel param,Dictionary<string, string> lockvalue)
+        {
+            var pts = UserService.GetPermissionType(cd.USERS, param.userName);
+            var found = false;
 
+            var ret = new BusinessModel();
+            lock (lockvalue)
+            {
+                var currentTop100 = cd.ZHIFUBUSINESS.Where(c => c.STATUS == 1 && c.QUEUE_NUM != string.Empty).OrderBy(c => c.ID).Take(100);
 
+                foreach (var busiacquire in currentTop100)
+                {
+                    if (pts.Contains((int)busiacquire.TYPE) && busiacquire.START_TIME.CompareTo(DateTime.Now.Date) >= 0)
+                    {
+                        busiacquire.STATUS = 3;
+                        busiacquire.PROCESS_USER = param.userName;
+                        cd.SaveChanges();
+                        ret = new BusinessModel
+                        {
+                            type = int.Parse(busiacquire.TYPE.ToString(CultureInfo.InvariantCulture)),
+                            countyCode = busiacquire.COUNTYCODE,
+                            ID = (int)busiacquire.ID,
+                            name = busiacquire.NAME,
+                            IDum = busiacquire.ID_NUM,
+                            serialNum = busiacquire.SERIAL_NUM,
+
+                            queueNum = busiacquire.QUEUE_NUM,
+                            address = busiacquire.ADDRESS,
+                            phoneNum = busiacquire.PHONE_NUM,
+                            carNum = busiacquire.CAR_NUM,
+                            texType = busiacquire.TAX_TYPE,
+
+                            texNum = busiacquire.TAX_NUM,
+                            originType = busiacquire.ORIGIN_TYPE,
+                            originNum = busiacquire.ORIGIN_NUM,
+                            attention = busiacquire.ATTENTION,
+
+                            postAddr = busiacquire.POSTADDR,
+                            postPhone = busiacquire.POSTPHONE,
+                        };
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found)
+                return BusinessNotFound();
+            await Task.Run(async () =>
+            {
+                await MessagePush.PushLedMessage(new CdmMessage
+                {
+                    ClientType = ClientType.Led,
+                    Content = param.queueNum,
+                    CountyCode = param.countyCode,
+                    LedMsgType = LedMsgType.Processing
+                });
+            });
+
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = ret,
+            };
+        }
     }
 }

@@ -6,8 +6,8 @@ namespace CDMservers.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CITY.laiyangbusiness")]
-    public partial class laiyangbusiness
+    [Table("CITY.BUSINESS_CHANGDAO")]
+    public partial class BUSINESS_CHANGDAO
     {
         public decimal ID { get; set; }
 
@@ -70,5 +70,22 @@ namespace CDMservers.Models
 
         [StringLength(200)]
         public string POSTADDR { get; set; }
+
+        public decimal? CHECK_FILE { get; set; }
+
+        [StringLength(20)]
+        public string CAR_NUM { get; set; }
+
+        [StringLength(20)]
+        public string TAX_TYPE { get; set; }
+
+        [StringLength(20)]
+        public string TAX_NUM { get; set; }
+
+        [StringLength(20)]
+        public string ORIGIN_TYPE { get; set; }
+
+        [StringLength(20)]
+        public string ORIGIN_NUM { get; set; }
     }
 }
