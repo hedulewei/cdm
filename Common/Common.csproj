@@ -83,6 +83,7 @@
     <Compile Include="CarInfoUpload.cs" />
     <Compile Include="CdmClient.cs" />
     <Compile Include="CdmMessage.cs" />
+    <Compile Include="ClientType.cs" />
     <Compile Include="CommonRequest.cs" />
     <Compile Include="CommonResult.cs" />
     <Compile Include="CountyCode.cs" />
@@ -90,7 +91,7 @@
     <Compile Include="Gender.cs" />
     <Compile Include="IdentityInforUploadRequest.cs" />
     <Compile Include="IndentityInforQuery.cs" />
-    <Compile Include="Models.cs" />
+    <Compile Include="LedMsgType.cs" />
     <Compile Include="OneUserVolume.cs" />
     <Compile Include="PhoneQueryResult.cs" />
     <Compile Include="PoliceUser.cs" />
@@ -102,10 +103,12 @@
     <Compile Include="TabulationQuery.cs" />
     <Compile Include="UploadPicture.cs" />
     <Compile Include="UploadPictureResult.cs" />
+    <Compile Include="UserRole.cs" />
     <Compile Include="UsersOfArchiveQueryResult.cs" />
     <Compile Include="UserTransaction.cs" />
     <Compile Include="UserTransactionType.cs" />
     <Compile Include="VoiceCallRequest.cs" />
+    <Compile Include="VoiceType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.snk" />
