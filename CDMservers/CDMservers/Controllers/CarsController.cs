@@ -163,38 +163,26 @@ namespace CDMservers.Controllers
                
                     switch (param.countyCode.ToLower())
                     {
-                        //case "qixia":
-                        //    return QixiauBusinessInfo( param);
-                        //case "laishan":
-                        //    return LaishanBusinessInfo( param);
-                        
-                        //case "muping":
-                        //    return MupingBusinessInfo( param);
-                        //case "longkou":
-                        //    return LongkouBusinessInfo( param);
+                        case "changdao": return ChangdaoBusinessInfo(param);
+                        case "zhaoyuan": return ZhaoyuanBusinessInfo(param);
+                        case "penglai": return PenglaiBusinessInfo(param);
+                        case "laizhou": return LaizhouBusinessInfo(param);
+                        case "laiyang": return LaiyangBusinessInfo(param);
 
-                        //case "laiyang":
-                        //    return LaiyangBusinessInfo( param);
-                        //case "laizhou":
-                        //    return LaizhouBusinessInfo( param);
-                        //case "penglai":
-                        //    return PenglaiBusinessInfo( param);
-                        //case "zhaoyuan":
-                        //    return ZhaoyuanBusinessInfo( param);
-                        //case "changdao":
-                        //    return ChangdaoBusinessInfo( param);
+                        case "longkou": return LongkouBusinessInfo(param);
+                        case "muping": return MupingBusinessInfo(param);
+                        case "laishan": return LaishanBusinessInfo(param);
+                        case "qixia": return QixiaBusinessInfo(param);
+                        case "fushan": return FushanBusinessInfo(param);
 
-                        //case "haiyang":
-                        //    return HaiyangBusinessInfo(param);
-                        //case "fushan":
-                        //    return FushanBusinessInfo( param);
+                        case "haiyang": return HaiyangBusinessInfo(param);
                         case "zhifu":
                         case "shisuo":
-                        case "dacheng":
+                        case "dacheng": return ZhifuBusinessInfo(param);
                         default:
-                            return ZhifuBusinessInfo(param);
-                        
-                        //    return AllBusinessInfo( param);
+                          
+
+                            return new ResultModel { StatusCode = "000016", Result = "没有该县区标识" + param.countyCode };
                     }
                 
             }
@@ -223,107 +211,10 @@ namespace CDMservers.Controllers
                 return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
         }
-        //private ResultModel AllBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.BUSSINESS.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        //    //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        //    //Log.Info("fpath is:" + fpath);
-        //    //var fcontent = File.ReadAllBytes(@fpath);
-        //    //Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //          //  zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel FushanBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.fushanbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
-
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        //    var fcontent = new byte[1];
-        //    try
-        //    {
-        //        var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        //        Log.Info("fpath is:" + fpath);
-        //         fcontent = File.ReadAllBytes(@fpath);
-        //        Log.Info("fcontent is:" + fcontent.Length);
-        //    }
-        //    catch (Exception ex)
-        //    {
-                
-        //    }
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //            zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel HaiyangBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.haiyangbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
-
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        //    //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        //    //Log.Info("fpath is:" + fpath);
-        //    //var fcontent = File.ReadAllBytes(@fpath);
-        //    //Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //          //  zipFile = fcontent
-        //        }
-        //    };
-        //}
-        private ResultModel ZhifuBusinessInfo( BusinessModel param)
+        private ResultModel ChangdaoBusinessInfo(BusinessModel param)
         {
-            var busi = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            var busi = cd.BUSINESS_CHANGDAO.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
             if (busi == null)
                 return new ResultModel
@@ -351,277 +242,337 @@ namespace CDMservers.Controllers
                 }
             };
         }
-        //private ResultModel QixiauBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.qixiabusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        // //   var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        // ////   Log.Info("fpath is:" + fpath);
-        // //   var fcontent = File.ReadAllBytes(@fpath);
-        // // //  Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //         //   zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel LaishanBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.laishanbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+        private ResultModel ZhaoyuanBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_ZHAOYUAN.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        //  //  var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        //  ////  Log.Info("fpath is:" + fpath);
-        //  //  var fcontent = File.ReadAllBytes(@fpath);
-        //  ////  Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //           // zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel MupingBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.mupingbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel PenglaiBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_PENGLAI.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        // //   var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        // ////   Log.Info("fpath is:" + fpath);
-        // //   var fcontent = File.ReadAllBytes(@fpath);
-        // // //  Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //           // zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel LongkouBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.longkoubusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel LaizhouBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_LAIZHOU.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        // //   var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        // ////   Log.Info("fpath is:" + fpath);
-        // //   var fcontent = File.ReadAllBytes(@fpath);
-        // ////   Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //          //  zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel LaiyangBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.laiyangbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel LaiyangBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_LAIYANG.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        //  //  var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        //  ////  Log.Info("fpath is:" + fpath);
-        //  //  var fcontent = File.ReadAllBytes(@fpath);
-        //  ////  Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //           // zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel LaizhouBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.laizhoubusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel LongkouBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_LONGKOU.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        // //   var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        // ////   Log.Info("fpath is:" + fpath);
-        // //   var fcontent = File.ReadAllBytes(@fpath);
-        // ////   Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //         //   zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel PenglaiBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.penglaibusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel MupingBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_MUPING.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        // //   var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        // ////   Log.Info("fpath is:" + fpath);
-        // //   var fcontent = File.ReadAllBytes(@fpath);
-        // ////   Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //         //   zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel ZhaoyuanBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.zhaoyuanbusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel LaishanBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_LAISHAN.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        // //   var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        // ////   Log.Info("fpath is:" + fpath);
-        // //   var fcontent = File.ReadAllBytes(@fpath);
-        // // //  Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //          //  zipFile = fcontent
-        //        }
-        //    };
-        //}
-        //private ResultModel ChangdaoBusinessInfo( BusinessModel param)
-        //{
-        //    var busi = cd.changdaobusiness.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel QixiaBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_QIXIA.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
-        //    if (busi == null)
-        //        return new ResultModel
-        //        {
-        //            StatusCode = "000006",
-        //            Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
-        //        };
-        //  //  var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
-        //  ////  Log.Info("fpath is:" + fpath);
-        //  //  var fcontent = File.ReadAllBytes(@fpath);
-        //  ////  Log.Info("fcontent is:" + fcontent.Length);
-        //    return new ResultModel
-        //    {
-        //        StatusCode = "000000",
-        //        BussinessModel = new BusinessModel
-        //        {
-        //            type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
-        //            name = busi.NAME,
-        //            IDum = busi.ID_NUM,
-        //            queueNum = busi.QUEUE_NUM,
-        //            address = busi.ADDRESS,
-        //            phoneNum = busi.PHONE_NUM,
-        //            attention = busi.ATTENTION,
-        //          //  zipFile = fcontent
-        //        }
-        //    };
-        //}
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel FushanBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_FUSHAN.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
 
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel HaiyangBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.BUSINESS_HAIYANG.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
+        private ResultModel ZhifuBusinessInfo(BusinessModel param)
+        {
+            var busi = cd.ZHIFUBUSINESS.FirstOrDefault(c => c.UNLOAD_TASK_NUM == param.unloadTaskNum);
+
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000006",
+                    Result = "没有相关业务信息，请检查 上传任务代码：" + param.unloadTaskNum
+                };
+            //var fpath = (CdmConfiguration.FileRootPath + param.countyCode + "\\" + busi.START_TIME + "\\" + busi.ID);
+            //Log.Info("fpath is:" + fpath);
+            //var fcontent = File.ReadAllBytes(@fpath);
+            //Log.Info("fcontent is:" + fcontent.Length);
+            return new ResultModel
+            {
+                StatusCode = "000000",
+                BussinessModel = new BusinessModel
+                {
+                    type = int.Parse(busi.TYPE.ToString(CultureInfo.InvariantCulture)),
+                    name = busi.NAME,
+                    IDum = busi.ID_NUM,
+                    queueNum = busi.QUEUE_NUM,
+                    address = busi.ADDRESS,
+                    phoneNum = busi.PHONE_NUM,
+                    attention = busi.ATTENTION,
+                    //  zipFile = fcontent
+                }
+            };
+        }
 
         [Route("PostBusinessFormInfo")]
         [HttpPost]
@@ -662,38 +613,27 @@ namespace CDMservers.Controllers
                
                 switch (param.countyCode.ToLower())
                 {
+                    case "changdao":  ChangdaoPostFormInfo(param, id); break;
+                    case "zhaoyuan":  ZhaoyuanPostFormInfo(param, id); break;
+                    case "penglai":  PenglaiPostFormInfo(param, id); break;
+                    case "laizhou":  LaizhouPostFormInfo(param, id); break;
+                    case "laiyang":  LaiyangPostFormInfo(param, id); break;
+
+                    case "longkou":  LongkouPostFormInfo(param, id); break;
+                    case "muping":  MupingPostFormInfo(param, id); break;
+                    case "laishan":  LaishanPostFormInfo(param, id); break;
+                    case "qixia":  QixiaPostFormInfo(param, id); break;
+                    case "fushan":  FushanPostFormInfo(param, id); break;
+
+                    case "haiyang":  HaiyangPostFormInfo(param, id); break;
                     case "zhifu":
                     case "shisuo":
                     case "dacheng":
-                      default:
-                            cd.ZHIFUBUSINESS.Add(new ZHIFUBUSINESS
-                            {
-                                ID = id,
-                                COUNTYCODE = param.countyCode,
-                                UNLOAD_TASK_NUM = param.unloadTaskNum,
-                                START_TIME = DateTime.Now,
-                                END_TIME = DateTime.Now,
-                                STATUS = param.status,
-                                TYPE = param.type,
-                                NAME = param.name,
-                                ID_NUM = param.IDum,
-                                QUEUE_NUM = param.queueNum,
-                                UPLOADER = param.userName,
-                                ADDRESS = param.address,
-                                PHONE_NUM = param.phoneNum,
-                                ATTENTION = param.attention,
-                                POSTADDR = param.postAddr,
-                                POSTPHONE = param.postPhone,
-                                CAR_NUM = param.carNum,
-                                TAX_NUM = param.texNum,
-                                TAX_TYPE = param.texType,
-                                ORIGIN_NUM = param.originNum,
-                                ORIGIN_TYPE = param.originType,
-                                TRANSFER_STATUS = 0,
-                            });
-                            cd.SaveChanges();
-                       
+                         ZhifuPostFormInfo(param,id);
                         break;
+                      default:
+
+                        return new ResultModel { StatusCode = "000016", Result = "没有该县区标识" + param.countyCode };
                 
                 }
 
@@ -779,7 +719,366 @@ namespace CDMservers.Controllers
             }
         }
 
-     
+        private void ChangdaoPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_CHANGDAO.Add(new BUSINESS_CHANGDAO
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void ZhaoyuanPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_ZHAOYUAN.Add(new BUSINESS_ZHAOYUAN
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void PenglaiPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_PENGLAI.Add(new BUSINESS_PENGLAI
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void LaizhouPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_LAIZHOU.Add(new BUSINESS_LAIZHOU
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void LaiyangPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_LAIYANG.Add(new BUSINESS_LAIYANG
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void LongkouPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_LONGKOU.Add(new BUSINESS_LONGKOU
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void MupingPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_MUPING.Add(new BUSINESS_MUPING
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void LaishanPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_LAISHAN.Add(new BUSINESS_LAISHAN
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void QixiaPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_QIXIA.Add(new BUSINESS_QIXIA
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void FushanPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_FUSHAN.Add(new BUSINESS_FUSHAN
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void HaiyangPostFormInfo(BusinessModel param, int id)
+        {
+            cd.BUSINESS_HAIYANG.Add(new BUSINESS_HAIYANG
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
+        private void ZhifuPostFormInfo(BusinessModel param, int id)
+        {
+            cd.ZHIFUBUSINESS.Add(new ZHIFUBUSINESS
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = param.status,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+        }
+
         private void InputLog(BusinessModel input)
         {
             Log.Info("input json string:" + JsonConvert.SerializeObject(input));

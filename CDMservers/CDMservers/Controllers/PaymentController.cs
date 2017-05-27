@@ -50,69 +50,26 @@ namespace CDMservers.Controllers
 
                 switch (param.countyCode.ToLower())
                 {
-                    //case "changdao":
+                    case "changdao": return ChangdaoPayment(param);
+                    case "zhaoyuan": return ZhaoyuanPayment(param);
+                    case "penglai": return PenglaiPayment(param);
+                    case "laizhou": return LaizhouPayment(param);
+                    case "laiyang": return LaiyangPayment(param);
 
+                    case "longkou": return LongkouPayment(param);
+                    case "muping": return MupingPayment(param);
+                    case "laishan": return LaishanPayment(param);
+                    case "qixia": return QixiaPayment(param);
+                    case "fushan": return FushanPayment(param);
 
-                    //    break;
-                    //case "zhaoyuan":
-
-
-                    //    break;
-                    //case "penglai":
-
-
-                    //    break;
-                    //case "laizhou":
-
-
-                    //    break;
-                    //case "laiyang":
-
-
-                    //    break;
-                    //case "longkou":
-
-
-                    //    break;
-                    //case "muping":
-
-
-                    //    break;
-                    //case "laishan":
-
-
-                    //    break;
-                    //case "qixia":
-
-
-                    //    break;
-                    //case "fushan":
-
-
-                    //    break;
-
-                    //case "haiyang":
-
-                    //    break;
+                    case "haiyang": return HaiyangPayment(param);
                     case "zhifu":
                     case "shisuo":
                     case "dacheng":
-                        var busi = _db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == param.ID);
-                        if (busi == null)
-                            return new ResultModel
-                            {
-                                StatusCode = "000009",
-                                Result = "没有找到相关业务 ！"
-                            };
-                        busi.STATUS = (int)BusinessStatus.Paid;
-                        busi.COMPLETE_PAY_USER = param.userName;
-                        _db.SaveChanges();
-                        return new ResultModel { StatusCode = "000000", Result = "" };
-                        break;
+                        return ZhifuPayment(param);
+                       
                     default:
-
-                        return new ResultModel { StatusCode = "000000", Result = "" };
-                        break;
+                        return new ResultModel { StatusCode = "000016", Result = "没有该县区标识" + param.countyCode };
                 }
 
             }
@@ -122,6 +79,185 @@ namespace CDMservers.Controllers
                 return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
 
+        }
+        private ResultModel ChangdaoPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_CHANGDAO.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel ZhaoyuanPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_ZHAOYUAN.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel PenglaiPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_PENGLAI.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel LaizhouPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_LAIZHOU.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel LaiyangPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_LAIYANG.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel LongkouPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_LONGKOU.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel MupingPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_MUPING.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel LaishanPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_LAISHAN.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel QixiaPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_QIXIA.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel FushanPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_FUSHAN.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+
+        private ResultModel HaiyangPayment(BusinessModel param)
+        {
+            var busi = _db.BUSINESS_HAIYANG.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
+        }
+     
+        private ResultModel ZhifuPayment(BusinessModel param)
+        {
+            var busi = _db.ZHIFUBUSINESS.FirstOrDefault(q => q.ID == param.ID);
+            if (busi == null)
+                return new ResultModel
+                {
+                    StatusCode = "000009",
+                    Result = "没有找到相关业务 ！"
+                };
+            busi.STATUS = (int)BusinessStatus.Paid;
+            busi.COMPLETE_PAY_USER = param.userName;
+            _db.SaveChanges();
+            return new ResultModel { StatusCode = "000000", Result = "" };
         }
      
     }

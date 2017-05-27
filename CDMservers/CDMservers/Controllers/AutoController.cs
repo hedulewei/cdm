@@ -53,42 +53,29 @@ namespace CDMservers.Controllers
              
                 switch (param.countyCode.ToLower())
                 {
+                    case "changdao": return ChangdaoTabulationUpload(param,id);
+                    case "zhaoyuan": return ZhaoyuanTabulationUpload(param,id);
+                    case "penglai": return PenglaiTabulationUpload(param,id);
+                    case "laizhou": return LaizhouTabulationUpload(param,id);
+                    case "laiyang": return LaiyangTabulationUpload(param,id);
+
+                    case "longkou": return LongkouTabulationUpload(param,id);
+                    case "muping": return MupingTabulationUpload(param,id);
+                    case "laishan": return LaishanTabulationUpload(param,id);
+                    case "qixia": return QixiaTabulationUpload(param,id);
+                    case "fushan": return FushanTabulationUpload(param,id);
+
+                    case "haiyang": return HaiyangTabulationUpload(param,id);
                     case "zhifu":
                     case "shisuo":
                     case "dacheng":
+                        return ZhifuTabulationUpload(param,id);
                     default:
-                        cd.ZHIFUBUSINESS.Add(new ZHIFUBUSINESS
-                        {
-                            ID = id,
-                            COUNTYCODE = param.countyCode,
-                            UNLOAD_TASK_NUM = param.unloadTaskNum,
-                            START_TIME = DateTime.Now,
-                            END_TIME = DateTime.Now,
-                            STATUS = 9,
-                            TYPE = param.type,
-                            NAME = param.name,
-                            ID_NUM = param.IDum,
-                            QUEUE_NUM = param.queueNum,
-                            UPLOADER = param.userName,
-                            ADDRESS = param.address,
-                            PHONE_NUM = param.phoneNum,
-                            ATTENTION = param.attention,
-                            POSTADDR = param.postAddr,
-                            POSTPHONE = param.postPhone,
-                            CAR_NUM = param.carNum,
-                            TAX_NUM = param.texNum,
-                            TAX_TYPE = param.texType,
-                            ORIGIN_NUM = param.originNum,
-                            ORIGIN_TYPE = param.originType,
-                            TRANSFER_STATUS = 0,
-                        });
-                        cd.SaveChanges();
 
-                        break;
-                   
+                        return new ResultModel { StatusCode = "000016", Result = "没有该县区标识" + param.countyCode };
                 }
                 ;
-                return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+             
             }
             catch (DbEntityValidationException e)
             {
@@ -120,6 +107,366 @@ namespace CDMservers.Controllers
                 Log.Error("TabulationUpload", ex);
                 return new ResultModel { StatusCode = "000003", Result = ex.Message };
             }
+        }
+        private ResultModel ChangdaoTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_CHANGDAO.Add(new BUSINESS_CHANGDAO
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel ZhaoyuanTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_ZHAOYUAN.Add(new BUSINESS_ZHAOYUAN
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel PenglaiTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_PENGLAI.Add(new BUSINESS_PENGLAI
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel LaizhouTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_LAIZHOU.Add(new BUSINESS_LAIZHOU
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel LaiyangTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_LAIYANG.Add(new BUSINESS_LAIYANG
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel LongkouTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_LONGKOU.Add(new BUSINESS_LONGKOU
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel MupingTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_MUPING.Add(new BUSINESS_MUPING
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel LaishanTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_LAISHAN.Add(new BUSINESS_LAISHAN
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel QixiaTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_QIXIA.Add(new BUSINESS_QIXIA
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel FushanTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_FUSHAN.Add(new BUSINESS_FUSHAN
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel HaiyangTabulationUpload(BusinessModel param, int id)
+        {
+            cd.BUSINESS_HAIYANG.Add(new BUSINESS_HAIYANG
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
+        }
+        private ResultModel ZhifuTabulationUpload(BusinessModel param, int id)
+        {
+            cd.ZHIFUBUSINESS.Add(new ZHIFUBUSINESS
+            {
+                ID = id,
+                COUNTYCODE = param.countyCode,
+                UNLOAD_TASK_NUM = param.unloadTaskNum,
+                START_TIME = DateTime.Now,
+                END_TIME = DateTime.Now,
+                STATUS = 9,
+                TYPE = param.type,
+                NAME = param.name,
+                ID_NUM = param.IDum,
+                QUEUE_NUM = param.queueNum,
+                UPLOADER = param.userName,
+                ADDRESS = param.address,
+                PHONE_NUM = param.phoneNum,
+                ATTENTION = param.attention,
+                POSTADDR = param.postAddr,
+                POSTPHONE = param.postPhone,
+                CAR_NUM = param.carNum,
+                TAX_NUM = param.texNum,
+                TAX_TYPE = param.texType,
+                ORIGIN_NUM = param.originNum,
+                ORIGIN_TYPE = param.originType,
+                TRANSFER_STATUS = 0,
+            });
+            cd.SaveChanges();
+            return new ResultModel { StatusCode = "000000", BussinessModel = new BusinessModel { ID = id } };
         }
     }
 }
