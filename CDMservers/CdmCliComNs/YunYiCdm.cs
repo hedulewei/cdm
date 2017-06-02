@@ -2,12 +2,12 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Net.Http;
+//using System.Net.Http;
 using System.Runtime.InteropServices;
 using Common;
 using Ionic.Zip;
 using Newtonsoft.Json;
-
+using System.Net.Http;
 
 namespace YunYiCdm
 {

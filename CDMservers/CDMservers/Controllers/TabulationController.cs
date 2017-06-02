@@ -108,6 +108,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -138,6 +146,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -168,6 +184,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -198,6 +222,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -228,6 +260,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -258,6 +298,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -288,6 +336,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -318,6 +374,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -348,6 +412,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -378,6 +450,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -408,6 +488,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
@@ -438,6 +526,14 @@ namespace CDMservers.Controllers
                     address = busi.ADDRESS,
                     serialNum = busi.SERIAL_NUM,
                     fileRecvUser = busi.FILE_RECV_USER,
+                    texNum = busi.TAX_NUM,
+                    texType = busi.TAX_TYPE,
+                    originNum = busi.ORIGIN_NUM,
+                    originType = busi.ORIGIN_TYPE,
+                    postAddr = busi.POSTADDR,
+                    postPhone = busi.POSTPHONE,
+                    carNum = busi.CAR_NUM,
+                    phoneNum = busi.PHONE_NUM,
                 }
             };
         }
