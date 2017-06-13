@@ -35,6 +35,7 @@ AppPackages/
 *.opensdf
 *.dll
 *.suo
+*.zip
 *.user
 *.userprefs
 _ReSharper.*
