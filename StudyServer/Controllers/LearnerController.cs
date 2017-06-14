@@ -91,6 +91,7 @@ namespace StudyServer.Controllers
                     return new GetLearnerInfoResponse { StatusCode = "100001", Description = "error token" };
                 }
                 var toke1n = GetToken();
+                Log.InfoFormat("input token is {0},random token is {1}.",token,toke1n);
                 return new GetLearnerInfoResponse
                 {
                     StatusCode = "100000",
