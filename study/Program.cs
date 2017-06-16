@@ -16,7 +16,7 @@ namespace study
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-                .UseStartup<Startup>().UseUrls("http://192.168.8.244:5000")
+                .UseStartup<Startup>().UseUrls("http://192.168.8.252:5000/api/values")
                 .Build();
 
             host.Run();
