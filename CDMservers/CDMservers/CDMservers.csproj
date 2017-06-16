@@ -309,12 +309,6 @@
     <Compile Include="PermissionCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="startup.cs" />
-    <Compile Include="study\LearnerController.cs" />
-    <Compile Include="study\Model1Study.cs" />
-    <Compile Include="study\ONLINEILLEGAL.cs" />
-    <Compile Include="study\ONLINERECORD.cs" />
-    <Compile Include="study\ONLINEUSER.cs" />
-    <Compile Include="study\SYNCUSER.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -375,10 +369,6 @@
     <ProjectReference Include="..\..\Common\Common.csproj">
       <Project>{2247DBE5-BFC2-47A6-9D40-1A231A7EBC27}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StudyModel\StudyModel.csproj">
-      <Project>{e85028b0-b272-46c6-8204-fe4fb822aea8}</Project>
-      <Name>StudyModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
