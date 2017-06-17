@@ -12,7 +12,7 @@ namespace syncdata
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseMySql(@"Server=localhost;User Id=root;Password=root;Database=study");
+            optionsBuilder.UseMySql(@"Server=192.168.8.244;User Id=ycl;Password=6688@SDyunyi;Database=study");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
