@@ -10,6 +10,7 @@ namespace syncdata
         public string Fullmark { get; set; }
         public string Identity { get; set; }
         public string Inspect { get; set; }
+        public string Licensetype { get; set; }
         public string Name { get; set; }
         public DateTime? Noticedate { get; set; }
         public string Phone { get; set; }
@@ -19,6 +20,7 @@ namespace syncdata
         public string Studylog { get; set; }
         public DateTime? Studystartdate { get; set; }
         public DateTime Syncdate { get; set; }
+        public DateTime Timestamp { get; set; }
         public string Wechat { get; set; }
     }
 }

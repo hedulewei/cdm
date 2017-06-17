@@ -45,6 +45,10 @@ namespace study
                     .HasColumnName("inspect")
                     .HasColumnType("varchar(1)");
 
+                entity.Property(e => e.Licensetype)
+                    .HasColumnName("licensetype")
+                    .HasColumnType("varchar(1)");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
@@ -80,6 +84,10 @@ namespace study
 
                 entity.Property(e => e.Syncdate)
                     .HasColumnName("syncdate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Timestamp)
+                    .HasColumnName("timestamp")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Wechat)

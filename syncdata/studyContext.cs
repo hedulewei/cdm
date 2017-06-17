@@ -12,7 +12,7 @@ namespace syncdata
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseMySql(@"Server=192.168.8.244;User Id=ycl;Password=6688@SDyunyi;Database=study");
+            optionsBuilder.UseMySql(@"Server=localhost;User Id=root;Password=root;Database=study");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,6 +43,10 @@ namespace syncdata
 
                 entity.Property(e => e.Inspect)
                     .HasColumnName("inspect")
+                    .HasColumnType("varchar(1)");
+
+                entity.Property(e => e.Licensetype)
+                    .HasColumnName("licensetype")
                     .HasColumnType("varchar(1)");
 
                 entity.Property(e => e.Name)
@@ -80,6 +84,10 @@ namespace syncdata
 
                 entity.Property(e => e.Syncdate)
                     .HasColumnName("syncdate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Timestamp)
+                    .HasColumnName("timestamp")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Wechat)

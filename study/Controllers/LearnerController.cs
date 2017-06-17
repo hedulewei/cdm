@@ -226,95 +226,12 @@ namespace study.Controllers
             }
 
         }
-
-        [Route("InspectCompleteCourses")]
-        [HttpPost]
-        public string InspectCompleteCourses([FromBody] CompleteCoursesRequest inputRequest)
-        {
-            try
-            {
-                if (inputRequest == null)
-                {
-                    return JsonConvert.SerializeObject(new CommonResponse { StatusCode = "100002", Description = "请求错误，请检查请求参数！" });
-                }
-
-                return JsonConvert.SerializeObject(new CommonResponse
-                {
-                    StatusCode = "100000",
-                    Description = "ok",
-                });
-
-            }
-            catch (Exception ex)
-            {
-                //  Log.Error("CompleteCourses", ex);
-                return JsonConvert.SerializeObject(new CommonResponse { StatusCode = "100003", Description = ex.Message }); ;
-            }
-
-        }
-        [Route("InspectPostStudyStatus")]
-        [HttpPost]
-        public CommonResponse InspectPostStudyStatus([FromBody] StudyStatusRequest inputRequest)
-        {
-            try
-            {
-                if (inputRequest == null)
-                {
-                    return new CommonResponse { StatusCode = "100002", Description = "请求错误，请检查请求参数！" };
-                }
-                //   Log.Info("PostStudyStatus input:" + JsonConvert.SerializeObject(inputRequest));
-
-                return new CommonResponse
-                {
-                    StatusCode = "100000",
-                    Description = "ok",
-                };
-            }
-            catch (Exception ex)
-            {
-                //  Log.Error("PostStudyStatus", ex);
-                return new CommonResponse { StatusCode = "100003", Description = ex.Message };
-            }
-
-        }
-        [Route("InspectGetLearnerInfo")]
-        [HttpGet]
-        public GetLearnerInfoResponse InspectGetLearnerInfo(string token)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(token))
-                {
-                    return new GetLearnerInfoResponse { StatusCode = "100001", Description = "error token" };
-                }
-                var toke1n = GetToken();
-                return new GetLearnerInfoResponse
-                {
-                    StatusCode = "100000",
-                    Description = "ok",
-                    DrivingLicenseType = DrivingLicenseType.A,
-                    Identity = "id",
-                    Name = "name",
-                    ///  Photo = new byte[1]
-                };
-            }
-            catch (Exception ex)
-            {
-                // Log.Error("GetLearnerInfo", ex);
-                return new GetLearnerInfoResponse { StatusCode = "100003", Description = ex.Message };
-            }
-
-        }
-
+      
         private string GetToken()
         {
             var seed = Guid.NewGuid().ToString("N");
             //var token = Convert.ToBase64String(Guid.ToByteArray()).TrimEnd('=');
             return seed;
         }
-
-
-
-
     }
 }
