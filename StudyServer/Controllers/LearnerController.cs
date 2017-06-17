@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,7 +21,7 @@ namespace StudyServer.Controllers
 
         public LearnerController()
         {
-            
+         
         }
 
         protected override void Dispose(bool disposing)

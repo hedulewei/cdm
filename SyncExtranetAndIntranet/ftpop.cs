@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Web;
 using System.Net;
 using System.IO;
- namespace His.WebService.Utility
+namespace SyncExtranetAndIntranet
 {
-    public class FtpHelper
+    public static class FtpHelper
     { 
         /// <summary>
         /// ftp方式上传 
@@ -111,6 +111,7 @@ using System.IO;
             {
                 // Logging.WriteError(ex.Message + ex.StackTrace);
                 // System.Windows.Forms.MessageBox.Show(ex.Message);
+                Console.WriteLine(ex);
                 return -2;
             }
         }
