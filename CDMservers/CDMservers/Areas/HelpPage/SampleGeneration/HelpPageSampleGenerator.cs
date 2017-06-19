@@ -214,7 +214,7 @@ namespace CDMservers.Areas.HelpPage
         /// <returns>The type.</returns>
         public virtual Type ResolveHttpRequestMessageType(ApiDescription api)
         {
-            string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
+            string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;//api.ActionDescriptor.ControllerDescriptor.
             string actionName = api.ActionDescriptor.ActionName;
             IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
             Collection<MediaTypeFormatter> formatters;
