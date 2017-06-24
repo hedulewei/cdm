@@ -1,11 +1,9 @@
-﻿using System;
-
 namespace study
 {
-    public class CompleteCoursesRequest
+    public class LoginAndQueryResponse : CommonResponse
     {
         public string Token { get; set; }
+        public bool AllowedToStudy { get; set; }
         public string AllStatus { get; set; }
-        public string AllRecords { get; set; }
     }
 }
