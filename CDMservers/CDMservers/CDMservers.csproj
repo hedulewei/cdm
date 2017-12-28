@@ -66,10 +66,6 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -309,12 +305,6 @@
     <Compile Include="PermissionCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="startup.cs" />
-    <Compile Include="study\LearnerController.cs" />
-    <Compile Include="study\Model1Study.cs" />
-    <Compile Include="study\ONLINEILLEGAL.cs" />
-    <Compile Include="study\ONLINERECORD.cs" />
-    <Compile Include="study\ONLINEUSER.cs" />
-    <Compile Include="study\SYNCUSER.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -375,10 +365,6 @@
     <ProjectReference Include="..\..\Common\Common.csproj">
       <Project>{2247DBE5-BFC2-47A6-9D40-1A231A7EBC27}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StudyModel\StudyModel.csproj">
-      <Project>{e85028b0-b272-46c6-8204-fe4fb822aea8}</Project>
-      <Name>StudyModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
